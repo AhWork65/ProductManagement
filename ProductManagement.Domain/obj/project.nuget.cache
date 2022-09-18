@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CO6qSlW95Dg7Z4ZiRIst3zT/Lv1IfmdobQjWQTKIu276mx3soIU57szOYychUfNq9iJrU0sQpUPNXN9UlYmNvQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagementFinal\\ProductManagement.Domain\\ProductManagementDomain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

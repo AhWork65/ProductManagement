@@ -1,0 +1,12 @@
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\bin\Debug\net6.0\ProductManagementDomain.deps.json
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\bin\Debug\net6.0\ProductManagementDomain.dll
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\bin\Debug\net6.0\ref\ProductManagementDomain.dll
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\bin\Debug\net6.0\ProductManagementDomain.pdb
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\obj\Debug\net6.0\ProductManagementDomain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\obj\Debug\net6.0\ProductManagementDomain.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\obj\Debug\net6.0\ProductManagementDomain.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\obj\Debug\net6.0\ProductManagementDomain.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\obj\Debug\net6.0\ProductManagementDomain.dll
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\obj\Debug\net6.0\ref\ProductManagementDomain.dll
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\obj\Debug\net6.0\ProductManagementDomain.pdb
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\ProductManagement.Domain\obj\Debug\net6.0\ProductManagementDomain.csproj.AssemblyReference.cache

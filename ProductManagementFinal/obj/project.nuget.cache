@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NFkWgo16AeB3PLJl2O6gHvcHws1D+c0VfdQEolLx7FfRnpC8Xfhl4Qjh6beYRP634ypDfL06A5NP/Kdnbjk/Wg==",
+  "dgSpecHash": "HPmThVAfgr4HsE6aBKr8zv4DDyv3LZo7E6vCc8pMgUm4N7Ih4q/+1L9krlR7Fb5iQwFqD4R058PufXyCGQJKag==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagementFinal\\ProductManagementFinal\\ProductManagementFinal.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagementFinal\\ProductManagementFinal.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

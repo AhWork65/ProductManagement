@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using ProductManagementDomain.Models.BaseEntities;
 
-namespace ProductManagementDataAccess.Repositories.IRepository.Base
+namespace ProductManagementDomain.IRepository.Base
 {
     public interface IActiveableEntitesRepository<TEntity> : IRepository<TEntity> where TEntity : DomainEntityActive
     {

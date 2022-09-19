@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace ProductManagementDataAccess.Repositories.IRepository.Base
+namespace ProductManagementDomain.IRepository.Base
 {
     public interface IRepository<TEntity> where TEntity : class
     {

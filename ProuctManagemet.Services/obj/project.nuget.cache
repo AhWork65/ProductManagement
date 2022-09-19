@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "DPo0rNorbf3cpB+J90eF8wMZc1s6wntnzZy0ZL1ZjQaoWV5zqvs8u3MI+tuW4rviLD6h+HNUVRzw62xcPil9BQ==",
+  "dgSpecHash": "bGhEyqOIQNPxHejchQfM1UmcJtXp3VZHcKkqJtN5sbPBVtNltB2l8lXcqE0czl1vAz9VGAAJE3NckhIodrLTXA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagementFinal\\ProuctManagemet.Services\\ProuctManagemetServices.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj",
   "expectedPackageFiles": [
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.9\\microsoft.entityframeworkcore.6.0.9.nupkg.sha512",

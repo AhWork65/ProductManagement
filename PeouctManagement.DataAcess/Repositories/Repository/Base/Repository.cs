@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using ProductManagementDataAccess.App_Context;
-using ProductManagementDataAccess.Repositories.IRepository.Base;
+using ProductManagementDomain.IRepository.Base;
 
 namespace ProductManagementDataAccess.Repositories.Repository.Base
 {

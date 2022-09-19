@@ -1,6 +1,8 @@
-﻿namespace ProductManagementDomain.Models.Entites
+﻿using ProductManagementDomain.Models.BaseEntities;
+
+namespace ProductManagementDomain.Models.Entites
 {
-    public partial class Category
+    public partial class Category: DomainEntityActive
     {
         public Category()
         {
@@ -8,11 +10,9 @@
             Products = new HashSet<Product>();
         }
 
-        public int Id { get; set; }
         public string Code { get; set; } = null!;
         public string Name { get; set; } = null!;
         public int ParentId { get; set; }
-        public bool? IsActive { get; set; }
 
         public virtual Category Parent { get; set; } = null!;
         public virtual ICollection<Category> InverseParent { get; set; }

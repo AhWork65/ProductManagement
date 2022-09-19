@@ -1,6 +1,9 @@
-﻿namespace ProductManagementDomain.Models.Entites
+﻿
+using ProductManagementDomain.Models.BaseEntities;
+
+namespace ProductManagementDomain.Models.Entites
 {
-    public partial class Product
+    public partial class Product: DomainEntityActive
     {
         public Product()
         {
@@ -9,13 +12,12 @@
             RelatedProductRelatedProductNavigations = new HashSet<RelatedProduct>();
         }
 
-        public int Id { get; set; }
+        
         public string Code { get; set; } = null!;
         public string Name { get; set; } = null!;
         public int UnitStock { get; set; }
         public int CategoryId { get; set; }
         public int Classification { get; set; }
-        public bool? IsActive { get; set; }
         public int UnitPrice { get; set; }
         public string? Description { get; set; }
         public DateTime CreateDate { get; set; }

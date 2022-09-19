@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProductManagementDomain.Models.Entites;
 
 
-namespace ProductManagementFinal.Models.EntityConfig
+namespace ProductManagementDataAccess.EntityConfig
 {
-    public class RelatedProductConfig :IEntityTypeConfiguration<RelatedProduct>
+    public class RelatedProductConfig : IEntityTypeConfiguration<RelatedProduct>
     {
         public void Configure(EntityTypeBuilder<RelatedProduct> builder)
         {

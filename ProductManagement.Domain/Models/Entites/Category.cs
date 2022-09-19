@@ -12,7 +12,7 @@ namespace ProductManagementDomain.Models.Entites
 
         public string Code { get; set; } = null!;
         public string Name { get; set; } = null!;
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         public virtual Category Parent { get; set; } = null!;
         public virtual ICollection<Category> InverseParent { get; set; }

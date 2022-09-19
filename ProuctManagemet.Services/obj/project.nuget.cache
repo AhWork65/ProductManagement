@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "bGhEyqOIQNPxHejchQfM1UmcJtXp3VZHcKkqJtN5sbPBVtNltB2l8lXcqE0czl1vAz9VGAAJE3NckhIodrLTXA==",
+  "dgSpecHash": "HFME8tO50y0CpzxugNC/UU/yWy6wwzxfAjCv9eeX06lBDkfMzo+oNp6f4qRXq6Hqy7tMBiXaZir0QX+vkUknkQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",

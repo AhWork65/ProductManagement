@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using PProductManagementFinal.Models.EntityConfig;
 using ProductManagementDataAccess.Config;
+using ProductManagementDataAccess.EntityConfig;
 using ProductManagementDomain.Models.BaseEntities;
 using ProductManagementDomain.Models.Entites;
-using ProductManagementFinal.Models.EntityConfig;
 using Attribute = ProductManagementDomain.Models.Entites.Attribute;
 
 

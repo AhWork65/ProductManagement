@@ -3,3 +3,16 @@ C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement
 C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAccess.AssemblyInfoInputs.cache
 C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAccess.AssemblyInfo.cs
 C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\bin\Debug\net6.0\ApplicationConfig.json
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\bin\Debug\net6.0\ProductManagementDataAccess.deps.json
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\bin\Debug\net6.0\ProductManagementDataAccess.runtimeconfig.json
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\bin\Debug\net6.0\ProductManagementDataAccess.dll
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\bin\Debug\net6.0\ref\ProductManagementDataAccess.dll
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\bin\Debug\net6.0\ProductManagementDataAccess.pdb
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\bin\Debug\net6.0\ProductManagementDomain.dll
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\bin\Debug\net6.0\ProductManagementDomain.pdb
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAccess.csproj.CopyComplete
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAccess.dll
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\obj\Debug\net6.0\ref\ProductManagementDataAccess.dll
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAccess.pdb
+C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagement\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAccess.genruntimeconfig.cache

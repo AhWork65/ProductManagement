@@ -1,11 +1,11 @@
-﻿using ManagementProductProject.Repositories.IRepository.Base;
-using ManagementProductProject.Services.IServices.IDataServices.Base;
-using System.Linq.Expressions;
-using ProductManagementDataAccess.Repositories.IRepository.Base;
+﻿using System.Linq.Expressions;
+using ProductManagementDomain.IRepository.Base;
+using ProductManagementDomain.Models.BaseEntities;
+using ProuctManagemetServices.Services.IServices;
 
-namespace ManagementProductProject.Services.Service.DataServices.Base
+namespace ProuctManagemetServices.Services.Service
 {
-    public class DataService<TEntity> : IDataService<TEntity> where TEntity : class
+    public class DataService<TEntity> : IDataService<TEntity> where TEntity : DomainEntity
     {
         private readonly IRepository<TEntity> _Repository;
 
@@ -30,14 +30,19 @@ namespace ManagementProductProject.Services.Service.DataServices.Base
 
         }
 
+        public async Task DeleteById(int id)
+        {
+            await _Repository.DeleteById(id);
+        }
+
         public async Task<TEntity> FindEntity(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _Repository.FindEntity(predicate); 
+            return await _Repository.FindEntity(predicate);
         }
 
         public async Task<IEnumerable<TEntity>> FindList(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _Repository.FindList(predicate); 
+            return await _Repository.FindList(predicate);
         }
 
         public async Task<IEnumerable<TEntity>> GetAll()

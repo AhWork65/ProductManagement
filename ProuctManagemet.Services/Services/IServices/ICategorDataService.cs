@@ -1,12 +1,9 @@
-﻿using ManagementProductProject.Models;
-using ManagementProductProject.Repositories.IRepository;
-using ManagementProductProject.Services.IServices.IDataServices.Base;
+﻿using ProductManagementDomain.Models.Entites;
 
-namespace ManagementProductProject.Services.IServices
+namespace ProuctManagemetServices.Services.IServices
 {
     public interface ICategorDataService : IActiveableEntitesDataService<Category>
     {
-        Task<IEnumerable<Category>> GetActiveCategoiesList();
-        Task<IEnumerable<Category>> GetDeActiveCategoiesList();
+
     }
 }

@@ -5,9 +5,9 @@ using ProductManagementDataAccess.Repositories.Repository.Base;
 using ProductManagementDomain.IRepository.IModelRepository;
 using ProductManagementDomain.Models.Entites;
 
-namespace ProductManagementService.Repositories.Repository
+namespace ProductManagementDataAccess.Repositories.Repository
 {
-    public class ProductRepository : ActiveableEntitesRepository<Product> , IProductRepository 
+    public class ProductRepository : ActiveableEntitesRepository<Product>, IProductRepository
     {
         public ProductRepository(ManagementProductsContext context) : base(context)
         {
@@ -19,26 +19,26 @@ namespace ProductManagementService.Repositories.Repository
             return await db
                 .Include(mdl => mdl.ProductAttributeDetails)
                 .Where(mdl => mdl.Id == id)
-                .FirstAsync(); 
+                .FirstAsync();
 
         }
 
-        public async  Task<IEnumerable<Product>> GetAllWithAttributes()
+        public async Task<IEnumerable<Product>> GetAllWithAttributes()
         {
 
             return await db
                 .Include(mdl => mdl.ProductAttributeDetails)
-                .ToListAsync(); 
+                .ToListAsync();
         }
 
-        public async  Task<Product> GetActiveWithAttributesById(int id)
+        public async Task<Product> GetActiveWithAttributesById(int id)
         {
 
             return await db
                 .Include(mdl => mdl.ProductAttributeDetails)
                 .Where(mdl => mdl.IsActive == true)
                 .Where(mdl => mdl.Id == id)
-                .FirstAsync(); 
+                .FirstAsync();
         }
 
         public async Task<Product> GetDeactiveWithAttributesById(int id)
@@ -62,7 +62,7 @@ namespace ProductManagementService.Repositories.Repository
                 .FirstAsync();
         }
 
-        public  async Task<Product> FindDeactiveWithAttributesEntity(Expression<Func<Product, bool>> predicate)
+        public async Task<Product> FindDeactiveWithAttributesEntity(Expression<Func<Product, bool>> predicate)
         {
 
             return await db
@@ -89,9 +89,9 @@ namespace ProductManagementService.Repositories.Repository
 
             return await db
                 .Include(mdl => mdl.ProductAttributeDetails)
-                .Where(mdl => mdl.IsActive == false )
+                .Where(mdl => mdl.IsActive == false)
                 .Where(predicate)
-                .ToListAsync(); 
+                .ToListAsync();
 
         }
     }

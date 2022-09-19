@@ -1,19 +1,19 @@
-﻿using ManagementProductProject.Models.BaseModel;
-using ManagementProductProject.Repositories.IRepository.Base;
-using ManagementProductProject.Services.IServices.IDataServices.Base;
+﻿using ProuctManagemetServices.Services.IServices;
 using System.Linq.Expressions;
+using ProductManagementDomain.IRepository.Base;
+using ProductManagementDomain.Models.BaseEntities;
 
-namespace ManagementProductProject.Services.Service.DataServices.Base
+namespace ProuctManagemetServices.Services.Service
 {
     public class AvtiveableEntitiesDataService<TEntity>
-        : DataService<TEntity> , IActiveableEntitesDataService<TEntity> where TEntity : IActiveableEntitesModel
+        : DataService<TEntity>, IActiveableEntitesDataService<TEntity> where TEntity : DomainEntityActive
     {
 
         protected readonly IActiveableEntitesRepository<TEntity> _Repository;
 
         public AvtiveableEntitiesDataService(IActiveableEntitesRepository<TEntity> repository) : base(repository)
         {
-            _Repository = repository; 
+            _Repository = repository;
         }
 
 
@@ -24,36 +24,48 @@ namespace ManagementProductProject.Services.Service.DataServices.Base
 
         public async Task<IEnumerable<TEntity>> FindActiveList(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _Repository.FindActiveList(predicate); 
+            return await _Repository.FindActiveList(predicate);
         }
 
         public async Task<TEntity> FindDeactiveEntity(Expression<Func<TEntity, bool>> predicate)
         {
-            
-            return await (_Repository.FindDeactiveEntity(predicate));
+
+            return await _Repository.FindDeactiveEntity(predicate);
 
         }
 
         public async Task<IEnumerable<TEntity>> FindDeactiveList(Expression<Func<TEntity, bool>> predicate)
         {
 
-            return await _Repository.FindDeactiveList(predicate); 
+            return await _Repository.FindDeactiveList(predicate);
 
+        }
+
+        public async Task<IEnumerable<TEntity>> GetActiveList()
+        {
+            return await _Repository.GetActiveList();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetDeActivList()
+        {
+            return await _Repository.GetDeActiveList();
         }
 
         public async Task<TEntity> GetActiveById(int id)
         {
-            
+
             return await _Repository.GetActiveById(id);
         }
 
-      
- 
+
+
         public async Task<TEntity> GetDeactiveById(int id)
         {
-            return await _Repository.GetDeactiveById(id); 
+            return await _Repository.GetDeactiveById(id);
         }
 
-       
+
+
+
     }
 }

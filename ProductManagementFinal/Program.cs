@@ -1,6 +1,6 @@
-using Microsoft.Extensions.Configuration;
-using ProductManagementFinal.Common.AppConfig;
-using ProductManagementFinal.DataLayer.App_Context;
+using ProductManagementDataAccess.App_Context;
+using ProuctManagemetServices.Services.IServices;
+using ProuctManagemetServices.Services.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +11,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.Configure<Config>(builder.Configuration.GetSection("ProductManagement"));
-builder.Services.AddDbContext<ManagementProductsContext>(); 
+builder.Services.AddScoped<IManagementProductsContext, ManagementProductsContext>();
+builder.Services.AddScoped(typeof(IActiveableEntitesDataService<>), typeof(AvtiveableEntitiesDataService<>));
 
     
     

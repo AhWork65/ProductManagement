@@ -2,17 +2,17 @@
 using System.Linq.Expressions;
 using ProductManagementDataAccess.App_Context;
 using ProductManagementDomain.IRepository.Base;
+using ProductManagementDomain.Models.BaseEntities;
 
 namespace ProductManagementDataAccess.Repositories.Repository.Base
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class?
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : DomainEntity
     {
         protected readonly IManagementProductsContext _Context;
         protected readonly DbSet<TEntity> db;
 
         public Repository(IManagementProductsContext context)
         {
-
             _Context = context;
             db = _Context.Set<TEntity>();
 
@@ -28,6 +28,13 @@ namespace ProductManagementDataAccess.Repositories.Repository.Base
         public async Task Delete(TEntity entity)
         {
 
+            db.Remove(entity);
+
+        }
+
+        public async Task DeleteById(int id)
+        {
+            var entity = await db.SingleAsync(e => e.Id == id);
             db.Remove(entity);
 
         }

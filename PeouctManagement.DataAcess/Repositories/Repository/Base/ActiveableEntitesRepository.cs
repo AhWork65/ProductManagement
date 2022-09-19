@@ -21,6 +21,7 @@ namespace ProductManagementDataAccess.Repositories.Repository.Base
 
         }
 
+
         public async Task<TEntity> GetDeactiveById(int id)
         {
 

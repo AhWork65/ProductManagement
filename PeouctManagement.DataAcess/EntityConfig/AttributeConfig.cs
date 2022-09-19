@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 using Attribute = ProductManagementDomain.Models.Entites.Attribute;
 
-namespace ProductManagementFinal.Models.EntityConfig
+namespace ProductManagementDataAccess.EntityConfig
 {
-    public class AttributeConfig:IEntityTypeConfiguration<Attribute>
+    public class AttributeConfig : IEntityTypeConfiguration<Attribute>
     {
         public void Configure(EntityTypeBuilder<Attribute> builder)
         {

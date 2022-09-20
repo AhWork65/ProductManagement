@@ -14,7 +14,7 @@ namespace ProductManagement.Domain.Repositories.Base
         Task Add(TEntity entity);
         void Delete(TEntity entity);
         Task DeleteById(int id);
-        Task<IEnumerable<TEntity>> FindList(Expression<Func<TEntity, bool>> predicate); 
+        Task<IList<TEntity>> FindList(Expression<Func<TEntity, bool>> predicate); 
         Task<TEntity> FindEntity(Expression<Func<TEntity, bool>> predicate);
 
     }

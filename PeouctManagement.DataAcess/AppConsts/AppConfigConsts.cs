@@ -3,7 +3,7 @@
     public class AppConfigConsts
     {
 
-        public const string AppSettingFileName = "ApplicationConfig.json";
+        public const string AppSettingFileName = "appsettings.json";
 
         public const string ProductManagement = "ProductManagement";
 

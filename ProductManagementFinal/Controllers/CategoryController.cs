@@ -11,16 +11,16 @@ namespace ManagementProductProject.Controllers.Api
     public class CategoryController : ControllerBase
     {
         
-        private readonly IActiveableEntitesDataService<Category> _CategorDataService;
+        private readonly ICategorDataService _CategorDataService;
 
         public CategoryController
             (
-            IActiveableEntitesDataService<Category> categorDataService ,
-            IMapper mapper
+                ICategorDataService categoryDataService 
+            
             )
         {
             
-            _CategorDataService = categorDataService;
+            _CategorDataService = categoryDataService;
            
         }
 

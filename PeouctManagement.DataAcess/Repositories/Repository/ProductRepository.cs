@@ -4,6 +4,7 @@ using ProductManagementDataAccess.App_Context;
 using ProductManagementDataAccess.Repositories.Repository.Base;
 using ProductManagementDomain.IRepository.IModelRepository;
 using ProductManagementDomain.Models.Entites;
+using ProductManagementService.Models;
 
 namespace ProductManagementDataAccess.Repositories.Repository
 {

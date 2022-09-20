@@ -1,6 +1,6 @@
 {
 
   "ProductManagement": {
-    "ConnectionStrings": "Server=AMIR\\AMIR2107;Initial Catalog=Management_Products;Integrated Security=True"
+    "ConnectionStrings": "Data Source=.;Initial Catalog=Management_Products;Integrated Security=True"
   }
 }

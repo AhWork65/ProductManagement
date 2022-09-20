@@ -128,7 +128,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async  Task<IEnumerable<Product>> GetDeActiveList()
+        public async  Task<IEnumerable<Product>> GetInactiveList()
         {
 
             return await _Context.Products

@@ -4,6 +4,7 @@ using ProductManagement.DataAccess.Repositories;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Services.Service.Services;
+using ProductManagement.Services.Services.IServices;
 using ProductManagement.Services.Services.Services;
 using ProductManagementWebApi.Models ;
 
@@ -23,7 +24,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-// builder.Services.AddScoped<IProductServices, ProductService>();
+builder.Services.AddScoped<IProductServices, ProductService>();
 
 var app = builder.Build();
 

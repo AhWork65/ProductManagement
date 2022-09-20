@@ -25,7 +25,7 @@ namespace ProductManagement.Domain.Repositories.EntitiesRepositories
         Task<Product> GetByIdWithAttributes(int productId); 
 
         Task<IEnumerable<Product>> GetActiveList();
-        Task<IEnumerable<Product>> GetDeActiveList();
+        Task<IEnumerable<Product>> GetInactiveList();
        
 
 

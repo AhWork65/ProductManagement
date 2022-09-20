@@ -1,6 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
+using ProductManagement.DataAccess.Repositories;
+using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
+using ProductManagement.Domain.Repositories.EntitiesRepositories;
+using ProductManagement.Services.Service.Services;
+using ProductManagement.Services.Services.Services;
 using ProductManagementWebApi.Models ;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +19,11 @@ builder.Services.AddDbContext<Management_ProductsContext>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+// builder.Services.AddScoped<IProductServices, ProductService>();
 
 var app = builder.Build();
 

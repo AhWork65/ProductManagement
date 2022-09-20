@@ -54,7 +54,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async Task<IEnumerable<Category>> FindList(Expression<Func<Category, bool>> predicate)
+        public async Task<IList<Category>> FindList(Expression<Func<Category, bool>> predicate)
         {
             
             return  await _Context.Categories.Where(predicate).ToListAsync();
@@ -93,7 +93,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async  Task<IEnumerable<Category>> GetDeActiveList()
+        public async  Task<IEnumerable<Category>> GetInactiveList()
         {
             return await _Context.Categories.Where(mdl => mdl.IsActive == false).ToListAsync();
         }

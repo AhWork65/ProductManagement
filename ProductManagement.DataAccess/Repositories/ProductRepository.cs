@@ -58,7 +58,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public  async Task<IEnumerable<Product>> FindList(Expression<Func<Product, bool>> predicate)
+        public  async Task<IList<Product>> FindList(Expression<Func<Product, bool>> predicate)
         {
 
             return await _Context.Products.Where(predicate).ToListAsync(); 

@@ -112,7 +112,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async  Task<IEnumerable<ProductAttributeDetail>> FindList(Expression<Func<ProductAttributeDetail, bool>> predicate)
+        public async  Task<IList<ProductAttributeDetail>> FindList(Expression<Func<ProductAttributeDetail, bool>> predicate)
         {
 
             return await _Context.ProductAttributeDetails

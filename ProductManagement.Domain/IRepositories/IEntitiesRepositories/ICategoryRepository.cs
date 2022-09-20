@@ -17,6 +17,6 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
         Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId );
         Task<IEnumerable<Category>> GetInactiveChildCategory(int parrentId );
         Task<IEnumerable<Category>> GetActiveList();
-        Task<IEnumerable<Category>> GetDeActiveList();
+        Task<IEnumerable<Category>> GetInactiveList();
     }
 }

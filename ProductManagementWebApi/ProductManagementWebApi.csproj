@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ProductManagement.DataAccess\ProductManagement.DataAccess.csproj" />
     <ProjectReference Include="..\ProductManagement.Domain\ProductManagement.Domain.csproj" />
+    <ProjectReference Include="..\ProductManagement.Services\ProductManagement.Services.csproj" />
   </ItemGroup>
 
 </Project>

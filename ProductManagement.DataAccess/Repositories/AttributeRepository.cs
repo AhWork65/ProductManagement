@@ -11,71 +11,75 @@ using Attribute = ProductManagementWebApi.Models.Attribute;
 
 namespace ProductManagement.DataAccess.Repositories
 {
-    public  class  AttributeRepository : IAttributesRepository
+    public class AttributeRepository : IAttributesRepository
     {
         private readonly Management_ProductsContext _Context;
 
         public AttributeRepository(Management_ProductsContext context)
         {
 
-            _Context = context; 
+            _Context = context;
 
         }
-        public async  Task<Attribute> GetById(int id)
+        public async Task<Attribute> GetById(int id)
         {
 
-            return await _Context.Attributes.FindAsync(id); 
-
-        }
-
-        public async  Task<IEnumerable<Attribute>> GetAll()
-        {
-
-            return await _Context.Attributes.ToListAsync(); 
+            return await _Context.Attributes.FindAsync(id);
 
         }
 
-        public async  Task Add(Attribute entity)
+        public async Task<IEnumerable<Attribute>> GetAll()
         {
 
-            await _Context.Attributes.AddAsync(entity); 
+            return await _Context.Attributes.ToListAsync();
+
+        }
+
+        public async Task Add(Attribute entity)
+        {
+
+            await _Context.Attributes.AddAsync(entity);
 
         }
 
         public void Delete(Attribute entity)
         {
-           
-            _Context.Attributes.Remove(entity); 
+
+            _Context.Attributes.Remove(entity);
 
         }
 
-        public async  Task DeleteById(int id)
+        public async Task DeleteById(int id)
         {
 
             var obj = await _Context.Attributes.FindAsync(id);
-            _Context.Attributes.Remove(obj); 
+            _Context.Attributes.Remove(obj);
 
         }
 
         public async Task<IEnumerable<Attribute>> FindList(Expression<Func<Attribute, bool>> predicate)
         {
 
-            return await _Context.Attributes.Where(predicate).ToListAsync(); 
+            return await _Context.Attributes.Where(predicate).ToListAsync();
 
         }
 
         public async Task<Attribute> FindEntity(Expression<Func<Attribute, bool>> predicate)
         {
 
-            return await _Context.Attributes.Where(predicate).FirstAsync(); 
+            return await _Context.Attributes.Where(predicate).FirstAsync();
 
         }
 
-        public async Task<IEnumerable<Attribute>> GetAttributesByParentId(int parentId)
+        public async Task<IEnumerable<Attribute>> GetAttributeDetailByParentId(int parentId)
         {
-
-            return await _Context.Attributes.Where(mdl => mdl.ParentId == parentId).ToListAsync(); 
-
+            return await _Context.Attributes.Where(mdl => mdl.ParentId == parentId).ToListAsync();
         }
+
+        public async Task<IEnumerable<Attribute>> GetAttributeList()
+        {
+            return await _Context.Attributes.Where(mdl => mdl.ParentId == 0 || (mdl.ParentId   == null )).ToListAsync();
+        }
+        
     }
 }

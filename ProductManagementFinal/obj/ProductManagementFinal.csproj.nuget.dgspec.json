@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagementFinal\\ProductManagementFinal.csproj": {}
+    "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagementFinal\\ProductManagementFinal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj": {
+    "D:\\Work\\ProductManagerFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj",
+        "projectUniqueName": "D:\\Work\\ProductManagerFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj",
         "projectName": "ProductManagementDataAccess",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\PeouctManagement.DataAcess\\obj\\",
+        "projectPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj",
+        "packagesPath": "C:\\Users\\izadp\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\PeouctManagement.DataAcess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\izadp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -33,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj"
+              "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj": {
+                "projectPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj"
               }
             }
           }
@@ -86,7 +85,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -95,25 +95,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj": {
+    "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj",
+        "projectUniqueName": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj",
         "projectName": "ProductManagementDomain",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\obj\\",
+        "projectPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj",
+        "packagesPath": "C:\\Users\\izadp\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\izadp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -155,7 +154,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -164,25 +164,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagementFinal\\ProductManagementFinal.csproj": {
+    "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagementFinal\\ProductManagementFinal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagementFinal\\ProductManagementFinal.csproj",
+        "projectUniqueName": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagementFinal\\ProductManagementFinal.csproj",
         "projectName": "ProductManagementFinal",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagementFinal\\ProductManagementFinal.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagementFinal\\obj\\",
+        "projectPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagementFinal\\ProductManagementFinal.csproj",
+        "packagesPath": "C:\\Users\\izadp\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagementFinal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\izadp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -197,11 +196,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj"
+              "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj": {
+                "projectPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj"
               },
-              "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj"
+              "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj": {
+                "projectPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj"
               }
             }
           }
@@ -249,7 +248,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -261,25 +261,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj": {
+    "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj",
+        "projectUniqueName": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj",
         "projectName": "ProuctManagemetServices",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProuctManagemet.Services\\obj\\",
+        "projectPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProuctManagemet.Services\\ProuctManagemetServices.csproj",
+        "packagesPath": "C:\\Users\\izadp\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProuctManagemet.Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\izadp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -294,11 +293,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj"
+              "D:\\Work\\ProductManagerFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj": {
+                "projectPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\PeouctManagement.DataAcess\\ProductManagementDataAccess.csproj"
               },
-              "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj"
+              "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj": {
+                "projectPath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj"
               }
             }
           }
@@ -318,7 +317,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -327,7 +327,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

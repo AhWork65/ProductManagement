@@ -32,11 +32,19 @@ namespace ManagementProductProject.Controllers.Api
            return  Ok();
         }
 
+
         [HttpDelete]
-        [Route("category/{id}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
+        [Route("category/DeleteCategoryById/{id}")]
+        public async Task<IActionResult> DeleteCategoryById([FromRoute] int id)
         {
             await _CategorDataService.DeleteById(id);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("category/DeleteCategory")]
+        public async Task<IActionResult> DeleteCategory([FromBody] Category category)
+        {
+            await _CategorDataService.Delete(category);
             return Ok();
         }
 

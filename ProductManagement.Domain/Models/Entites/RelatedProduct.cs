@@ -11,5 +11,6 @@ namespace ProductManagementDomain.Models.Entites
 
         public virtual Product BaseProduct { get; set; } = null!;
         public virtual Product RelatedProductNavigation { get; set; } = null!;
+
     }
 }

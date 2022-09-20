@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "nBYiXOa0Z1toO3PjwH73xFQOJmGYDCfdcPKZ1FpUhYmWcfb/Dm+j2q3f2xwExmu02CqaJqsRJzJQUZsACiDKNQ==",
+  "dgSpecHash": "sb/TIU7f9LvCsRn1nMD/T0vEwo8C5RFcWl8XisgAyPN4HOwtrpAOuBxh46Utca9oZJJzi4U4GFpUukS6qoqSyQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Asa Code\\ProductManagementFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj",
+  "projectFilePath": "D:\\Work\\ProductManagerFinal\\ProductManagement\\ProductManagement.Domain\\ProductManagementDomain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "C:\\Users\\izadp\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
+    "C:\\Users\\izadp\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\izadp\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

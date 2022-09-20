@@ -1,5 +1,0 @@
-C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAcess.csproj.AssemblyReference.cache
-C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAcess.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAcess.AssemblyInfoInputs.cache
-C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAcess.AssemblyInfo.cs
-C:\Users\Administrator\Desktop\Asa Code\ProductManagementFinal\ProductManagementFinal\PeouctManagement.DataAcess\obj\Debug\net6.0\ProductManagementDataAcess.csproj.CoreCompileInputs.cache

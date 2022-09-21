@@ -1,6 +1,5 @@
 ﻿using ProductManagementDomain.Models.BaseEntities;
-using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProductManagementWebApi.Models
 {
@@ -12,6 +11,7 @@ namespace ProductManagementWebApi.Models
         public int AddedUnitPrice { get; set; }
 
         public virtual Attribute Attribute { get; set; } = null!;
+        [NotMapped]
         public virtual Product Product { get; set; } = null!;
     }
 }

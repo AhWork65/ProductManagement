@@ -129,5 +129,10 @@ namespace ProductManagement.DataAccess.Repositories
                 .FirstAsync();
 
         }
+
+        public Task Update(ProductAttributeDetail entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

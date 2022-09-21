@@ -28,7 +28,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async Task<IEnumerable<Attribute>> GetAll()
+        public async Task<IList<Attribute>> GetAll()
         {
 
             return await _Context.Attributes.ToListAsync();
@@ -81,12 +81,12 @@ namespace ProductManagement.DataAccess.Repositories
             return await _Context.Attributes.AnyAsync(predicate);
         }
 
-        public async Task<IEnumerable<Attribute>> GetAttributeDetailByParentId(int parentId)
+        public async Task<IList<Attribute>> GetAttributeDetailByParentId(int parentId)
         {
             return await _Context.Attributes.Where(mdl => mdl.ParentId == parentId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Attribute>> GetAttributeList()
+        public async Task<IList<Attribute>> GetAttributeList()
         {
             return await _Context.Attributes.Where(mdl => mdl.ParentId == 0 || (mdl.ParentId   == null )).ToListAsync();
         }

@@ -98,6 +98,16 @@ namespace ProductManagementWebApi.Controllers.Api
         
         }
         
+        [HttpGet]
+        [Route("[controller]/GetBaseOnClassification/{classification}")]
+        public async Task<IActionResult> GetBaseOnClassification([FromRoute] int classification)
+        {
+        
+            var objs = await _ProductServices.GetProductBaseOnClassification(classification);
+            return Ok(objs);
+        
+        }
+        
         
         [HttpGet]
         [Route("[controller]/GetById/withAttributes/{id}")]

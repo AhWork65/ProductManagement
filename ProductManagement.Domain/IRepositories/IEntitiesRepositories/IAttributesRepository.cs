@@ -12,7 +12,7 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
     public  interface IAttributesRepository : IBaseRepository<Attribute>
     {
 
-        Task<IEnumerable<Attribute>> GetAttributeDetailByParentId(int parentId);
-        Task<IEnumerable<Attribute>> GetAttributeList();
+        Task<IList<Attribute>> GetAttributeDetailByParentId(int parentId);
+        Task<IList<Attribute>> GetAttributeList();
     }
 }

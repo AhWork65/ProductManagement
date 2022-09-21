@@ -23,7 +23,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async Task<IEnumerable<Category>> GetAll()
+        public async Task<IList<Category>> GetAll()
         {
 
             return await _Context.Categories.ToListAsync(); 
@@ -80,7 +80,7 @@ namespace ProductManagement.DataAccess.Repositories
            return await _Context.Categories.AnyAsync(predicate);
         }
 
-        public async Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId)
+        public async Task<IList<Category>> GetActiveChildCategory(int parrentId)
         {
 
             return await _Context.Categories
@@ -90,7 +90,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async  Task<IEnumerable<Category>> GetInactiveChildCategory(int parrentId)
+        public async  Task<IList<Category>> GetInactiveChildCategory(int parrentId)
         {
             return await _Context.Categories
                 .Where(mdl => mdl.ParentId == parrentId)
@@ -98,14 +98,14 @@ namespace ProductManagement.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public  async Task<IEnumerable<Category>> GetActiveList()
+        public  async Task<IList<Category>> GetActiveList()
         {
 
             return await _Context.Categories.Where(mdl => mdl.IsActive == true).ToListAsync(); 
 
         }
 
-        public async  Task<IEnumerable<Category>> GetInactiveList()
+        public async  Task<IList<Category>> GetInactiveList()
         {
             return await _Context.Categories.Where(mdl => mdl.IsActive == false).ToListAsync();
         }

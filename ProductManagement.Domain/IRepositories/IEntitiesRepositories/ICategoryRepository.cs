@@ -12,11 +12,10 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
     public  interface ICategoryRepository : IBaseRepository<Category>
     {
 
-       // Task<bool> HasAChild(int id ); // Logic  
-       // Task<bool> HasAProduct(int id ); // Logic 
-        Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId );
-        Task<IEnumerable<Category>> GetInactiveChildCategory(int parrentId );
-        Task<IEnumerable<Category>> GetActiveList();
-        Task<IEnumerable<Category>> GetInactiveList();
+
+        Task<IList<Category>> GetActiveChildCategory(int parrentId );
+        Task<IList<Category>> GetInactiveChildCategory(int parrentId );
+        Task<IList<Category>> GetActiveList();
+        Task<IList<Category>> GetInactiveList();
     }
 }

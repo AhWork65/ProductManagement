@@ -29,7 +29,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async Task<IEnumerable<Product>> GetAll()
+        public async Task<IList<Product>> GetAll()
         {
 
             return await _Context.Products.ToListAsync(); 
@@ -82,7 +82,9 @@ namespace ProductManagement.DataAccess.Repositories
             return await _Context.Products.AnyAsync(predicate);
         }
 
-        public async  Task<IEnumerable<Product>> GetProductByClassification(int classificationId)
+      
+
+        public async  Task<IList<Product>> GetProductByClassification(int classificationId)
         {
 
             return await _Context.Products.Where(mdl => mdl.Classification == classificationId).ToListAsync(); 
@@ -96,21 +98,21 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async  Task<IEnumerable<Product>> GetProductByCategory(int categoryId)
+        public async  Task<IList<Product>> GetProductByCategory(int categoryId)
         {
 
             return await _Context.Products.Where(mdl => mdl.CategoryId == categoryId).ToListAsync(); 
 
         }
 
-        public async  Task<IEnumerable<Product>> GetProductByCategory(Category category)
+        public async  Task<IList<Product>> GetProductByCategory(Category category)
         {
 
             return await _Context.Products.Where(mdl => mdl.Category == category).ToListAsync(); 
 
         }
 
-        public async  Task<IEnumerable<Product>> GetProductByAttribute(ProductAttributeDetail attribute)
+        public async  Task<IList<Product>> GetProductByAttribute(ProductAttributeDetail attribute)
         {
 
             return await  _Context.Products.Where(mdl => mdl.ProductAttributeDetails.Contains(attribute)).ToListAsync();
@@ -129,7 +131,7 @@ namespace ProductManagement.DataAccess.Repositories
         }
 
 
-        public async  Task<IEnumerable<Product>> GetActiveList()
+        public async  Task<IList<Product>> GetActiveList()
         {
 
             return await _Context.Products
@@ -138,7 +140,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async  Task<IEnumerable<Product>> GetInactiveList()
+        public async  Task<IList<Product>> GetInactiveList()
         {
 
             return await _Context.Products

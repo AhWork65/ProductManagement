@@ -12,20 +12,19 @@ namespace ProductManagement.Domain.Repositories.EntitiesRepositories
 {
     public  interface IProductRepository : IBaseRepository<Product>
     {
-        // Task ChangeUnitStock(int id , int enteredUnitStock ); // Logic 
-        // Task ChangeBaseUnitPrice(int id, int enteredPrice);  // Logic 
-        Task<IEnumerable<Product>> GetProductByClassification(int classificationId);
+
+        Task<IList<Product>> GetProductByClassification(int classificationId);
         Task<Product> GetProductByCode(string code);
         
-        Task<IEnumerable<Product>> GetProductByCategory(int categoryId);
-        Task<IEnumerable<Product>> GetProductByCategory(Category category);
+        Task<IList<Product>> GetProductByCategory(int categoryId);
+        Task<IList<Product>> GetProductByCategory(Category category);
 
-        Task<IEnumerable<Product>> GetProductByAttribute(ProductAttributeDetail attribute);
+        Task<IList<Product>> GetProductByAttribute(ProductAttributeDetail attribute);
 
         Task<Product> GetByIdWithAttributes(int productId); 
 
-        Task<IEnumerable<Product>> GetActiveList();
-        Task<IEnumerable<Product>> GetInactiveList();
+        Task<IList<Product>> GetActiveList();
+        Task<IList<Product>> GetInactiveList();
        
 
 

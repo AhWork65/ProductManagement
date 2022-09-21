@@ -85,7 +85,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async  Task<IEnumerable<ProductAttributeDetail>> GetAll()
+        public async  Task<IList<ProductAttributeDetail>> GetAll()
         {
 
             return await _Context.ProductAttributeDetails.ToListAsync(); 

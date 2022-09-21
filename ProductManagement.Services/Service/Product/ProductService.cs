@@ -13,6 +13,7 @@ namespace ProductManagement.Services.Services.Services
         {
             _ProductRepository = productRepository; 
         }
+
         public async Task Create(Product entity)
         {
 
@@ -96,6 +97,18 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
+        public async Task<IList<Product>> GetProductBaseOnClassification(int ClassificationId)
+        {
+
+            IList<Product> products = new List<Product>();
+            for (int i = 0; i <= ClassificationId; i++)
+            {
+                var product = await _ProductRepository.GetProductByClassification(i);
+                foreach (var item in product) products.Append<Product>(item);
+            }
+
+            return products; 
+        }
         public async Task<Product> GetProductByCode(string code)
         {
 

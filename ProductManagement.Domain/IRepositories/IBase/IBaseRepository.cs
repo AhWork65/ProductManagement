@@ -12,7 +12,7 @@ namespace ProductManagement.Domain.Repositories.Base
 
     {
         Task<TEntity> GetById(int id);
-        Task<IEnumerable<TEntity>> GetAll();
+        Task<IList<TEntity>> GetAll();
         Task Add(TEntity entity);
         void Delete(TEntity entity);
         Task DeleteById(int id);

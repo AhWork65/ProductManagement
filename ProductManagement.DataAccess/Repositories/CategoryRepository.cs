@@ -75,11 +75,16 @@ namespace ProductManagement.DataAccess.Repositories
             
         }
 
+        public async Task<bool> Any(Expression<Func<Category, bool>> predicate)
+        {
+           return await _Context.Categories.AnyAsync(predicate);
+        }
+
         public async Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId)
         {
 
             return await _Context.Categories
-                .Where(mdl => mdl.ParentId == parrentId)
+                .Where(mdl => mdl.ParentId == parrentId )
                 .Where(mdl => mdl.IsActive == true)
                 .ToListAsync(); 
 

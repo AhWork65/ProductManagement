@@ -139,5 +139,10 @@ namespace ProductManagement.DataAccess.Repositories
         {
             return await _Context.ProductAttributeDetails.AnyAsync(predicate);
         }
+
+        public async Task<ProductAttributeDetail> FindById(int Id)
+        {
+            return await _Context.ProductAttributeDetails.FindAsync(Id); 
+        }
     }
 }

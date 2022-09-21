@@ -81,6 +81,11 @@ namespace ProductManagement.DataAccess.Repositories
             return await _Context.Attributes.AnyAsync(predicate);
         }
 
+        public async Task<Attribute> FindById(int Id)
+        {
+            return await _Context.Attributes.FindAsync(Id); 
+        }
+
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int parentId)
         {
             return await _Context.Attributes.Where(mdl => mdl.ParentId == parentId).ToListAsync();

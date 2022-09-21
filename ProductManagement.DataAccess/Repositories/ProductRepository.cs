@@ -82,7 +82,11 @@ namespace ProductManagement.DataAccess.Repositories
             return await _Context.Products.AnyAsync(predicate);
         }
 
-      
+        public async Task<Product> FindById(int Id)
+        {
+            return await _Context.Products.FindAsync(Id); 
+        }
+
 
         public async  Task<IList<Product>> GetProductByClassification(int classificationId)
         {

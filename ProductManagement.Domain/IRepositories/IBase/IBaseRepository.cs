@@ -20,6 +20,7 @@ namespace ProductManagement.Domain.Repositories.Base
         Task<TEntity> FindEntity(Expression<Func<TEntity, bool>> predicate);
         Task Update(TEntity entity);
         Task<bool> Any(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> FindById(int Id);
 
     }
 }

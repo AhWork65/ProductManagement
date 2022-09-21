@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProductManagement.DataAccess.AppContext;
+using ProductManagement.Services.Dto.Product;
 using ProductManagement.Services.Services.IServices;
 
 namespace ProductManagementWebApi.Controllers.Api
@@ -8,11 +10,16 @@ namespace ProductManagementWebApi.Controllers.Api
     public class ProductController : ControllerBase
     {
         private readonly IProductServices _ProductServices;
+        private readonly Management_ProductsContext _Context; 
 
-        public ProductController(IProductServices productServices)
+        public ProductController
+            (IProductServices productServices , 
+            Management_ProductsContext context
+                )
         {
 
             _ProductServices = productServices;
+            _Context = context; 
 
         }
         
@@ -113,11 +120,20 @@ namespace ProductManagementWebApi.Controllers.Api
         
         [HttpPost]
         [Route("[controller]/Update/UnitsOfStock/")]
-        public IActionResult UpdateUnitsOfStock()
+        public async Task<IActionResult> UpdateUnitsOfStock(ProductUpdateUnitsInStockDTO dto)
         {
-        
-            return Ok("");
-        
+
+            var product = await _ProductServices.GetById(dto.Id);
+            var IsIncreasingStock = _ProductServices.IsIncreasingProductUpdateUnitStock(dto);
+
+            if (IsIncreasingStock)
+                _ProductServices.IncreaseUnitsInStock( product, dto.Quantity); 
+            else
+                _ProductServices.DeacreaseUnitsInStock(product , dto.Quantity);
+
+            await _Context.SaveChangesAsync();
+            return Ok();
+
         }
         
 

@@ -1,4 +1,5 @@
 ﻿using ProductManagement.Domain.Repositories.EntitiesRepositories;
+using ProductManagement.Services.Dto.Product;
 using ProductManagement.Services.Services.IServices;
 using ProductManagementWebApi.Models;
 
@@ -48,11 +49,35 @@ namespace ProductManagement.Services.Services.Services
             return await _ProductRepository.GetInactiveList();
         }
 
-        public async Task ChangeUnitStock(int id, int enteredUnitStock)
+        public Task ChangeUnitStock(int id, int enteredUnitStock)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task ChangeUnitStock(Product entity , int enteredUnitInStock)
         {
 
-            var obj = await _ProductRepository.GetById(id);
-            obj.UnitStock = enteredUnitStock; 
+            entity.UnitStock = enteredUnitInStock; 
+
+        }
+
+        public  bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto)
+        {
+
+            return  dto.State == 1 ;
+
+        }
+        public  void IncreaseUnitsInStock(Product product, int enteredUnitInStock)
+        {
+            
+            product.UnitStock += enteredUnitInStock; 
+
+        }
+
+        public  void DeacreaseUnitsInStock(Product product, int enteredUnitInStock)
+        {
+
+            product.UnitStock -= enteredUnitInStock;
 
         }
 

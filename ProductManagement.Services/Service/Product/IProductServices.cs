@@ -1,4 +1,5 @@
-﻿using ProductManagementWebApi.Models;
+﻿using ProductManagement.Services.Dto.Product;
+using ProductManagementWebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace ProductManagement.Services.Services.IServices
 {
-    public interface IProductServices 
+    public interface IProductServices
     {
+
         public Task Create(Product entity);
         public Task Update(Product entity);
         public void Delete(Product entity);
@@ -25,5 +27,8 @@ namespace ProductManagement.Services.Services.IServices
         Task<IEnumerable<Product>> GetProductByCategory(Category category);
         Task<IEnumerable<Product>> GetProductByAttribute(ProductAttributeDetail attribute);
         Task<Product> GetByIdWithAttributes(int productId);
+        public bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto);
+        public void  IncreaseUnitsInStock(Product product, int enteredUnitInStock);
+        public void  DeacreaseUnitsInStock(Product product, int enteredUnitInStock);
     }
 }

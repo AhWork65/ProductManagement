@@ -68,6 +68,13 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
+        public async Task Update(Category entity)
+        {
+            _Context.Update(entity);
+            await _Context.SaveChangesAsync();
+            
+        }
+
         public async Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId)
         {
 

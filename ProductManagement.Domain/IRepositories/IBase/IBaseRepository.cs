@@ -4,10 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using ProductManagementDomain.Models.BaseEntities;
 
 namespace ProductManagement.Domain.Repositories.Base
 {
-    public  interface IBaseRepository<TEntity>
+    public  interface IBaseRepository<TEntity> where TEntity : DomainEntity
+
     {
         Task<TEntity> GetById(int id);
         Task<IEnumerable<TEntity>> GetAll();

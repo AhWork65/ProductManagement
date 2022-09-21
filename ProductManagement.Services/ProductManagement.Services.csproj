@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\" />
+    <Folder Include="Dto\Attribute\" />
+    <Folder Include="Dto\Category\" />
+    <Folder Include="Dto\Product\" />
     <Folder Include="Service\Attribute\" />
   </ItemGroup>
 

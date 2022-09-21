@@ -134,5 +134,10 @@ namespace ProductManagement.DataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public async Task<bool> Any(Expression<Func<ProductAttributeDetail, bool>> predicate)
+        {
+            return await _Context.ProductAttributeDetails.AnyAsync(predicate);
+        }
     }
 }

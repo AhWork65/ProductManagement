@@ -76,6 +76,11 @@ namespace ProductManagement.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<bool> Any(Expression<Func<Attribute, bool>> predicate)
+        {
+            return await _Context.Attributes.AnyAsync(predicate);
+        }
+
         public async Task<IEnumerable<Attribute>> GetAttributeDetailByParentId(int parentId)
         {
             return await _Context.Attributes.Where(mdl => mdl.ParentId == parentId).ToListAsync();

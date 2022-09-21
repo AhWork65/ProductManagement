@@ -58,7 +58,8 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async Task<IEnumerable<RelatedProduct>> FindList(Expression<Func<RelatedProduct, bool>> predicate)
+        
+        public async Task<IList<RelatedProduct>> FindList(Expression<Func<RelatedProduct, bool>> predicate)
         {
 
             return await _Context.RelatedProducts.Where(predicate).ToListAsync(); 
@@ -70,6 +71,16 @@ namespace ProductManagement.DataAccess.Repositories
 
             return await _Context.RelatedProducts.Where(predicate).FirstAsync();
 
+        }
+
+        public Task Update(RelatedProduct entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> Any(Expression<Func<RelatedProduct, bool>> predicate)
+        {
+            return await _Context.RelatedProducts.AnyAsync(predicate);
         }
 
         public async Task<IEnumerable<RelatedProduct>> GetByBaseProductIdIwthRelatedProducts(int baseProductId)

@@ -77,6 +77,11 @@ namespace ProductManagement.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<bool> Any(Expression<Func<Product, bool>> predicate)
+        {
+            return await _Context.Products.AnyAsync(predicate);
+        }
+
         public async  Task<IEnumerable<Product>> GetProductByClassification(int classificationId)
         {
 

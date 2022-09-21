@@ -1,15 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Services.Service.Services;
+using ProductManagementWebApi.Models;
 
 namespace ProductManagementWebApi.Controllers.Api
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
         public readonly Management_ProductsContext _Context;
         public readonly ICategoryService _CategoryService;
+
+
+        [HttpPost]
+        [Route("[controller]/PostCategory")]
+        public async Task<IActionResult> PostCategory([FromBody] Category category)
+        {
+            await _CategoryService.Create(category);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("[controller]/GetUpdateCategory")]
+        public async Task<IActionResult> GetUpdateCategory([FromBody] Category category)
+        {
+            await _CategoryService.Update(category);
+            return Ok();
+        }
+
 
         public CategoryController
         (Management_ProductsContext context,
@@ -32,7 +50,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
-        [Route("[controller]/GetAll/Active")]
+        [Route("[controller]/GetAllActive")]
         public async Task<IActionResult> GetAllActive()
         {
 
@@ -42,7 +60,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
-        [Route("[controller]/GetAll/Inactive")]
+        [Route("[controller]/GetAllInactive")]
         public async Task<IActionResult> GetAllInactive()
         {
 
@@ -52,7 +70,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
-        [Route("[controller]/Get/byId/{id}")]
+        [Route("[controller]/GetById/{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
 
@@ -66,8 +84,27 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> DeleteCategory([FromBody] int id)
         {
 
-             await _CategoryService.Delete(id);
-             return Ok(); 
+            await _CategoryService.Delete(id);
+            return Ok();
+
+        }
+        [HttpGet]
+        [Route("[controller]/GetActiveChildCategory/{id:int}")]
+        public async Task<IActionResult> GetActiveChildCategory([FromRoute] int id)
+        {
+
+            var objs = await _CategoryService.GetActiveChildCategory(id);
+            return Ok(objs);
+
+        }
+
+        [HttpGet]
+        [Route("[controller]/GetInactiveChildCategory/{id:int}")]
+        public async Task<IActionResult> GetInactiveChildCategory([FromRoute] int id)
+        {
+
+            var objs = await _CategoryService.GetInactiveChildCategory(id);
+            return Ok(objs);
 
         }
     }

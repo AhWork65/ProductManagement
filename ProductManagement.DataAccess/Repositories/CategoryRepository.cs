@@ -6,27 +6,27 @@ using ProductManagementWebApi.Models;
 
 namespace ProductManagement.DataAccess.Repositories
 {
-    public  class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly Management_ProductsContext _Context;
 
         public CategoryRepository(Management_ProductsContext context)
         {
 
-            _Context = context; 
+            _Context = context;
 
         }
-        public async  Task<Category> GetById(int id)
+        public async Task<Category> GetById(int id)
         {
 
-            return await _Context.Categories.FindAsync(id); 
+            return await _Context.Categories.FindAsync(id);
 
         }
 
         public async Task<IEnumerable<Category>> GetAll()
         {
 
-            return await _Context.Categories.ToListAsync(); 
+            return await _Context.Categories.ToListAsync();
 
 
         }
@@ -34,14 +34,17 @@ namespace ProductManagement.DataAccess.Repositories
         public async Task Add(Category entity)
         {
 
-              await  _Context.Categories.AddAsync(entity); 
+            await _Context.Categories.AddAsync(entity);
+            await _Context.SaveChangesAsync();
 
         }
 
         public void Delete(Category entity)
         {
-            
+
             _Context.Categories.Remove(entity);
+            _Context.SaveChanges();
+
 
         }
 
@@ -50,18 +53,19 @@ namespace ProductManagement.DataAccess.Repositories
 
             var obj = await _Context.Categories.FindAsync(id);
             _Context.Categories.Remove(obj);
+            await _Context.SaveChangesAsync();
 
 
         }
 
         public async Task<IList<Category>> FindList(Expression<Func<Category, bool>> predicate)
         {
-            
-            return  await _Context.Categories.Where(predicate).ToListAsync();
+
+            return await _Context.Categories.Where(predicate).ToListAsync();
 
         }
 
-        public async  Task<Category> FindEntity(Expression<Func<Category, bool>> predicate)
+        public async Task<Category> FindEntity(Expression<Func<Category, bool>> predicate)
         {
 
             return await _Context.Categories.Where(predicate).FirstAsync();
@@ -72,25 +76,25 @@ namespace ProductManagement.DataAccess.Repositories
         {
             _Context.Update(entity);
             await _Context.SaveChangesAsync();
-            
+
         }
 
         public async Task<bool> Any(Expression<Func<Category, bool>> predicate)
         {
-           return await _Context.Categories.AnyAsync(predicate);
+            return await _Context.Categories.AnyAsync(predicate);
         }
 
         public async Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId)
         {
 
             return await _Context.Categories
-                .Where(mdl => mdl.ParentId == parrentId )
+                .Where(mdl => mdl.ParentId == parrentId)
                 .Where(mdl => mdl.IsActive == true)
-                .ToListAsync(); 
+                .ToListAsync();
 
         }
 
-        public async  Task<IEnumerable<Category>> GetInactiveChildCategory(int parrentId)
+        public async Task<IEnumerable<Category>> GetInactiveChildCategory(int parrentId)
         {
             return await _Context.Categories
                 .Where(mdl => mdl.ParentId == parrentId)
@@ -98,16 +102,21 @@ namespace ProductManagement.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public  async Task<IEnumerable<Category>> GetActiveList()
+        public async Task<IEnumerable<Category>> GetActiveList()
         {
 
-            return await _Context.Categories.Where(mdl => mdl.IsActive == true).ToListAsync(); 
+            return await _Context.Categories.Where(mdl => mdl.IsActive == true).ToListAsync();
 
         }
 
-        public async  Task<IEnumerable<Category>> GetInactiveList()
+        public async Task<IEnumerable<Category>> GetInactiveList()
         {
             return await _Context.Categories.Where(mdl => mdl.IsActive == false).ToListAsync();
+        }
+
+        public async Task<Category> FindById(int Id)
+        {
+            return await _Context.Categories.FirstAsync(mdl => mdl.Id == Id);
         }
     }
 }

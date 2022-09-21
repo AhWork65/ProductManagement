@@ -72,6 +72,11 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
+        public Task Update(Product entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async  Task<IEnumerable<Product>> GetProductByClassification(int classificationId)
         {
 

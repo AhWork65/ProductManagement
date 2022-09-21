@@ -71,6 +71,11 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
+        public Task Update(Attribute entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Attribute>> GetAttributeDetailByParentId(int parentId)
         {
             return await _Context.Attributes.Where(mdl => mdl.ParentId == parentId).ToListAsync();

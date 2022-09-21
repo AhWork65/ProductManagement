@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ProductManagementDomain.Models.BaseEntities;
+using System;
 using System.Collections.Generic;
 
 namespace ProductManagementWebApi.Models
 {
-    public partial class ProductAttributeDetail
+    public partial class ProductAttributeDetail : DomainEntity
     {
         public int Id { get; set; }
         public int AttributeId { get; set; }

@@ -1,10 +1,11 @@
 ﻿using ProductManagement.Domain.Enums;
+using ProductManagementDomain.Models.BaseEntities;
 using System;
 using System.Collections.Generic;
 
 namespace ProductManagementWebApi.Models
 {
-    public partial class Product
+    public partial class Product : DomainEntity
     {
         public Product()
         {

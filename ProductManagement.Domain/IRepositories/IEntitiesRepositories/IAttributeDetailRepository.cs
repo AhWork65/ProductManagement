@@ -9,7 +9,7 @@ using Attribute = System.Attribute;
 
 namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
 {
-    public interface IAttributeDetailRepository : IBaseRepository<ProductAttributeDetail>
+    public interface IAttributeDetailRepository : IBaseRepository<ProductAttributeDetail> 
     {
 
         public Task<ProductAttributeDetail> GetByAttributesId(int attributeId);

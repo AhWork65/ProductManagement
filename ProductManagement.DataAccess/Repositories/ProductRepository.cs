@@ -132,7 +132,7 @@ namespace ProductManagement.DataAccess.Repositories
         {
 
             return await _Context.Products
-                .Where(mdl => mdl.IsActive == false && mdl.Category.IsActive == false)
+                .Where(mdl => mdl.IsActive == false )
                 .ToListAsync();
 
         }

@@ -34,7 +34,7 @@ namespace ProductManagementWebApi.Controllers.Api
         }
         
         [HttpGet]
-        [Route("[controller]/GetAll/Active/")]
+        [Route("[controller]/GetAllActive/")]
         public async Task<IActionResult> GetAllActive()
         {
         
@@ -45,7 +45,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
         
         [HttpGet]
-        [Route("[controller]/GetAll/Inactive/")]
+        [Route("[controller]/GetAllInactive/")]
         public async Task<IActionResult> GetAllInactive()
         {
         
@@ -56,7 +56,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
         
         [HttpGet]
-        [Route("[controller]/Get/ById/{id}")]
+        [Route("[controller]/GetById/{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
         
@@ -67,7 +67,7 @@ namespace ProductManagementWebApi.Controllers.Api
         
 
         [HttpGet]
-        [Route("[controller]/Get/ByCode/{code}")]
+        [Route("[controller]/GetByCode/{code}")]
         public async Task<IActionResult> GetByCode([FromRoute] string code)
         {
         
@@ -78,7 +78,7 @@ namespace ProductManagementWebApi.Controllers.Api
         
         
         [HttpGet]
-        [Route("[controller]/Get/CategoryId/{categoryId}/")]
+        [Route("[controller]/GetByCategoryId/{categoryId}/")]
         public async Task<IActionResult> GetByCategory([FromRoute] int categoryId)
         {
         
@@ -89,7 +89,7 @@ namespace ProductManagementWebApi.Controllers.Api
         
         
         [HttpGet]
-        [Route("[controller]/Get/Classification/{classification}")]
+        [Route("[controller]/GetByClassification/{classification}")]
         public async Task<IActionResult> GetByClassification([FromRoute] int classification)
         {
         
@@ -100,7 +100,7 @@ namespace ProductManagementWebApi.Controllers.Api
         
         
         [HttpGet]
-        [Route("[controller]/Get/byId/with/Attributes/{id}")]
+        [Route("[controller]/GetById/withAttributes/{id}")]
         public async Task<IActionResult> GetByIdWithAttributes([FromRoute] int id)
         {
         

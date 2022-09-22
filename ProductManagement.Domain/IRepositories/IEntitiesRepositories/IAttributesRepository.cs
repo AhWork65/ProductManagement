@@ -9,7 +9,11 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
     {
         Task<Attribute> updateAttrbiute(Attribute attribute);
         Task<bool> IsExsistAttrbiute(int id);
-        IQueryable<Attribute> GetAll();
+      
+
+
+        Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
+        Task<IList<Attribute>> GetAttributeList();
 
     }
 }

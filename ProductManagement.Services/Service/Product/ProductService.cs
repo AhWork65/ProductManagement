@@ -1,4 +1,6 @@
-﻿using ProductManagement.Domain.Repositories.EntitiesRepositories;
+﻿using System.Collections;
+using System.Linq;
+using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Services.Dto.Product;
 using ProductManagement.Services.Services.IServices;
 using ProductManagementWebApi.Models;
@@ -13,6 +15,7 @@ namespace ProductManagement.Services.Services.Services
         {
             _ProductRepository = productRepository; 
         }
+
         public async Task Create(Product entity)
         {
 
@@ -95,6 +98,20 @@ namespace ProductManagement.Services.Services.Services
             return await _ProductRepository.GetProductByClassification(classificationId); 
 
         }
+
+        public async Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId)
+        {
+            if (ClassificationId > 3)
+                return new List<Product>();
+
+            if (ClassificationId < 0)
+                return new List<Product>();
+
+            var ClassificationList = await GetProductByClassification(ClassificationId);
+            var ProductLists = ClassificationList.Union(await GetProductBaseOnClassification(ClassificationId + 1));
+            return ProductLists;
+        }
+
 
         public async Task<Product> GetProductByCode(string code)
         {

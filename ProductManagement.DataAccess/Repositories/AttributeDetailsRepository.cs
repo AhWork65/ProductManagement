@@ -85,7 +85,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async  Task<IEnumerable<ProductAttributeDetail>> GetAll()
+        public async  Task<IList<ProductAttributeDetail>> GetAll()
         {
 
             return await _Context.ProductAttributeDetails.ToListAsync(); 
@@ -138,6 +138,11 @@ namespace ProductManagement.DataAccess.Repositories
         public async Task<bool> Any(Expression<Func<ProductAttributeDetail, bool>> predicate)
         {
             return await _Context.ProductAttributeDetails.AnyAsync(predicate);
+        }
+
+        public async Task<ProductAttributeDetail> FindById(int Id)
+        {
+            return await _Context.ProductAttributeDetails.FindAsync(Id); 
         }
     }
 }

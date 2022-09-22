@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using Attribute = ProductManagementWebApi.Models.Attribute;
@@ -36,7 +37,7 @@ namespace ProductManagement.DataAccess.Repositories
         public async Task<IList<Attribute>> GetAll()
         {
 
-            return await _Context.Attributes.ToListAsync();
+            return await _Context.Attributes.OrderBy(a=>a.Value).ToListAsync();
 
         }
 
@@ -85,7 +86,7 @@ namespace ProductManagement.DataAccess.Repositories
 
         public async Task Update(Attribute entityToUpdate)
         {
-
+            throw new NotImplementedException();
 
         }
 
@@ -99,14 +100,18 @@ namespace ProductManagement.DataAccess.Repositories
             return await _Context.Attributes.FindAsync(Id); 
         }
 
-        public async Task<IList<Attribute>> GetAttributeDetailByParentId(int parentId)
+        public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {
-            return await _Context.Attributes.Where(mdl => mdl.ParentId == parentId).ToListAsync();
+            return await _Context.Attributes.Include(y => y.ValuesAttributes).Where(x=>x.ParentId==id).ToListAsync();
+
+          
+
         }
 
         public async Task<IList<Attribute>> GetAttributeList()
         {
-            return await _Context.Attributes.Where(mdl => mdl.ParentId == 0 || (mdl.ParentId == null)).ToListAsync();
+            return await _Context.Attributes.ToListAsync();
+
         }
 
         public async Task<bool> IsExsistAttrbiute(int id)
@@ -121,10 +126,7 @@ namespace ProductManagement.DataAccess.Repositories
             return attribute;
         }
 
-        IQueryable<Attribute> IAttributesRepository.GetAll()
-        {
-            return _Context.Attributes.AsQueryable();
-        }
+  
     }
 }
 

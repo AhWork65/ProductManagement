@@ -8,6 +8,8 @@ namespace ProductManagement.Services.Service.Attributes
       {
           Task<Attribute> updateAttrbiute(Attribute attribute);
            int AddDto(AttributeDto entitiydto);
-          IQueryable<Attribute> GetAll();
-    }
+           Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
+        Task<IList<Attribute>> GetAttributeList();
+        Task<IList<Attribute>> GetAll();
+      }
 }

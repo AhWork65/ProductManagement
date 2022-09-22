@@ -35,9 +35,9 @@ namespace ProductManagement.Services.Service.Attributes
             return Add(entity);
         }
 
-        public IQueryable<Attribute> GetAll()
+        public async Task<IList<Attribute>> GetAttributeList()
         {
-           return _attributesRepository.GetAll();
+            return await _attributesRepository.GetAttributeList();
         }
 
 
@@ -45,6 +45,16 @@ namespace ProductManagement.Services.Service.Attributes
         {
              _attributesRepository.Add(entity);
              return entity.Id;
+        }
+
+        public async Task<IList<Attribute>> GetAll()
+        {
+            return await _attributesRepository.GetAll();
+        }
+
+        public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
+        {
+            return await _attributesRepository.GetAttributeDetailByParentId(id);
         }
     }
 }

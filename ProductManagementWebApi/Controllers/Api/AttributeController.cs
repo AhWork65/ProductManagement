@@ -21,22 +21,21 @@ namespace ProductManagementWebApi.Controllers.Api
         
       
 
-        [HttpPost]
-     
-        public async Task Add(Models.Attribute entity)
-        {
+        //[HttpPost]
+        //public async Task Add(Models.Attribute entity)
+        //{
 
-            await _Context.Attributes.AddAsync(entity);
+        //    await _Context.Attributes.AddAsync(entity);
 
-        }
+        //}
 
 
         [HttpPost]
         public BaseModelResult<int> Add(AttributeDto attributes)
         {
 
-            if (string.IsNullOrWhiteSpace(attributes.Value))
-                return InvalidResult<int>(1, "مقدار نمی تواند خالی باشد");
+            //if (string.IsNullOrWhiteSpace(attributes.Value))
+            //    return InvalidResult<int>(1, "مقدار نمی تواند خالی باشد");
 
             if (string.IsNullOrWhiteSpace(attributes.Name))
                 return InvalidResult<int>(1, "نام نمی تواند خالی باشد");
@@ -49,9 +48,19 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
-        public async Task<BaseModelResult<List<Models.Attribute>>> GetAllAsync()
+        public async Task<BaseModelResult<IList<Models.Attribute>>> GetAllAsync()
         {
-            var result = await _attributesService.GetAll().ToListAsync();
+            var result = await _attributesService.GetAttributeList();
+
+            return careateModelResult(result);
+        }
+
+
+        [HttpGet]
+        [Route("[controller]/GetAllAsync/{id:int}")]
+        public async Task<BaseModelResult<IList<Models.Attribute>>> GetAllAsync(int id)
+        {
+            var result = await _attributesService.GetAttributeDetailByParentId(id);
 
             return careateModelResult(result);
         }

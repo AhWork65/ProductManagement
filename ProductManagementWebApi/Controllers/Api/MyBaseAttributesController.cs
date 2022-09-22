@@ -5,6 +5,7 @@ using ProductManagement.Domain.Models.Base;
 namespace ProductManagementWebApi.Controllers
 {
     [Route("api/[controller]/[Action]")]
+    
     [ApiController]
     public class MyBaseAttributesController : ControllerBase
     {

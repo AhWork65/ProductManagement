@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
@@ -15,12 +16,16 @@ namespace ProductManagement.DataAccess.Repositories
     {
         private readonly Management_ProductsContext _Context;
 
+
+
+
         public AttributeRepository(Management_ProductsContext context)
         {
 
             _Context = context;
 
         }
+
         public async Task<Attribute> GetById(int id)
         {
 
@@ -39,7 +44,14 @@ namespace ProductManagement.DataAccess.Repositories
         {
 
             await _Context.Attributes.AddAsync(entity);
+            await _Context.SaveChangesAsync();
+        }
 
+        public int AddDto(Attribute entitiy)
+        {
+            _Context.Add(entitiy);
+            _Context.SaveChanges();
+            return entitiy.Id;
         }
 
         public void Delete(Attribute entity)
@@ -71,9 +83,10 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public Task Update(Attribute entity)
+        public async Task Update(Attribute entityToUpdate)
         {
-            throw new NotImplementedException();
+
+
         }
 
         public async Task<bool> Any(Expression<Func<Attribute, bool>> predicate)
@@ -88,8 +101,25 @@ namespace ProductManagement.DataAccess.Repositories
 
         public async Task<IEnumerable<Attribute>> GetAttributeList()
         {
-            return await _Context.Attributes.Where(mdl => mdl.ParentId == 0 || (mdl.ParentId   == null )).ToListAsync();
+            return await _Context.Attributes.Where(mdl => mdl.ParentId == 0 || (mdl.ParentId == null)).ToListAsync();
         }
-        
+
+        public async Task<bool> IsExsistAttrbiute(int id)
+        {
+            return await _Context.Attributes.AnyAsync(a => a.Id == id);
+        }
+
+        public async Task<Attribute> updateAttrbiute(Attribute attribute)
+        {
+            _Context.Update(attribute);
+            await _Context.SaveChangesAsync();
+            return attribute;
+        }
+
+        IQueryable<Attribute> IAttributesRepository.GetAll()
+        {
+            return _Context.Attributes.AsQueryable();
+        }
     }
 }
+

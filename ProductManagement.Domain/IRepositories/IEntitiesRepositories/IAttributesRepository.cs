@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProductManagementWebApi.Models;
+﻿
+using System.ComponentModel;
 using ProductManagement.Domain.Repositories.Base;
-using Attribute = ProductManagementWebApi.Models.Attribute;
+using Attribute= ProductManagementWebApi.Models.Attribute;
 
 namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
 {
     public  interface IAttributesRepository : IBaseRepository<Attribute>
     {
+        Task<Attribute> updateAttrbiute(Attribute attribute);
+        Task<bool> IsExsistAttrbiute(int id);
+        IQueryable<Attribute> GetAll();
 
-        Task<IEnumerable<Attribute>> GetAttributeDetailByParentId(int parentId);
-        Task<IEnumerable<Attribute>> GetAttributeList();
     }
 }

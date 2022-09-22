@@ -3,6 +3,7 @@ using ProductManagement.DataAccess.AppContext;
 using ProductManagement.DataAccess.Repositories;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
+using ProductManagement.Services.Service.Attributes;
 using ProductManagement.Services.Service.Services;
 using ProductManagement.Services.Services.IServices;
 using ProductManagement.Services.Services.Services;
@@ -27,8 +28,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IAttributesRepository, AttributeRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductServices, ProductService>();
+builder.Services.AddScoped<IAttributesService, AttributesService>();
 
 var app = builder.Build();
 

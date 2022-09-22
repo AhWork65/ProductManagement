@@ -1,4 +1,6 @@
-﻿using ProductManagement.Domain.Repositories.EntitiesRepositories;
+﻿using System.Collections;
+using System.Linq;
+using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Services.Dto.Product;
 using ProductManagement.Services.Services.IServices;
 using ProductManagementWebApi.Models;
@@ -97,18 +99,20 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public async Task<IList<Product>> GetProductBaseOnClassification(int ClassificationId)
+        public async Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId)
         {
+            if (ClassificationId > 3)
+                return new List<Product>();
 
-            IList<Product> products = new List<Product>();
-            for (int i = 0; i <= ClassificationId; i++)
-            {
-                var product = await _ProductRepository.GetProductByClassification(i);
-                foreach (var item in product) products.Append<Product>(item);
-            }
+            if (ClassificationId < 0)
+                return new List<Product>();
 
-            return products; 
+            var ClassificationList = await GetProductByClassification(ClassificationId);
+            var ProductLists = ClassificationList.Union(await GetProductBaseOnClassification(ClassificationId + 1));
+            return ProductLists;
         }
+
+
         public async Task<Product> GetProductByCode(string code)
         {
 

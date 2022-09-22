@@ -22,7 +22,7 @@ namespace ProductManagement.Services.Services.IServices
         Task ChangeUnitStock(int id , int enteredUnitStock ); 
         Task ChangeBaseUnitPrice(int id, int enteredPrice);
         Task<IEnumerable<Product>> GetProductByClassification(int classificationId);
-        Task<IList<Product>> GetProductBaseOnClassification(int ClassificationId);
+        Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId);
 
         Task<Product> GetProductByCode(string code);
         Task<IEnumerable<Product>> GetProductByCategory(int categoryId);

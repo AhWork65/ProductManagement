@@ -15,23 +15,30 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<Management_ProductsContext>
-    (option => 
-        option.UseSqlServer("Data Source=.;Initial Catalog=Management_Products;Integrated Security=True"));
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<IUnitOfWork, Management_ProductsContext>();
+// builder.Services.AddDbContext<Management_ProductsContext>
+//     (option => 
+//         option.UseSqlServer("Data Source=.;Initial Catalog=Management_Products;Integrated Security=True"));
+
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
     );
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IRelatedProductRepository, RelatedProductsRepository>();
 builder.Services.AddScoped<IAttributesRepository, AttributeRepository>();
+builder.Services.AddScoped<IAttributeDetailRepository, AttributeDetailsRepository>();
+
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductServices, ProductService>();
 builder.Services.AddScoped<IAttributesService, AttributesService>();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 

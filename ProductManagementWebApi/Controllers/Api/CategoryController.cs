@@ -8,9 +8,13 @@ namespace ProductManagementWebApi.Controllers.Api
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        public readonly Management_ProductsContext _Context;
         public readonly ICategoryService _CategoryService;
 
+        public CategoryController
+        (ICategoryService categoryService)
+        {
+            _CategoryService = categoryService;
+        }
 
         [HttpPost]
         [Route("[controller]/PostCategory")]
@@ -29,14 +33,7 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
 
-        public CategoryController
-        (Management_ProductsContext context,
-            ICategoryService categoryService
-        )
-        {
-            _Context = context;
-            _CategoryService = categoryService;
-        }
+
 
 
         [HttpGet]

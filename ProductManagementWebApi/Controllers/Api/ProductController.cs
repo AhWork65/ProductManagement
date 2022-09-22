@@ -10,19 +10,15 @@ namespace ProductManagementWebApi.Controllers.Api
     public class ProductController : ControllerBase
     {
         private readonly IProductServices _ProductServices;
-        private readonly Management_ProductsContext _Context; 
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductController
-            (IProductServices productServices , 
-            Management_ProductsContext context
-                )
+        public ProductController(IProductServices productServices, IUnitOfWork unitOfWork)
         {
-
             _ProductServices = productServices;
-            _Context = context; 
-
+            _unitOfWork = unitOfWork;
         }
-        
+
+
         [HttpGet]
         [Route("[controller]/getall/")]
         public async Task<IActionResult> GetAll()
@@ -135,14 +131,14 @@ namespace ProductManagementWebApi.Controllers.Api
 
             var product = await _ProductServices.GetById(dto.Id);
             var IsIncreasingStock = _ProductServices.IsIncreasingProductUpdateUnitStock(dto);
-
+            
             if (IsIncreasingStock)
                 _ProductServices.IncreaseUnitsInStock( product, dto.Quantity); 
             else
                 _ProductServices.DeacreaseUnitsInStock(product , dto.Quantity);
-
-            await _Context.SaveChangesAsync();
-            return Ok();
+            
+            await _unitOfWork.SaveChangesAsync();
+             return Ok();
 
         }
         

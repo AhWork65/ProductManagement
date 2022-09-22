@@ -1,132 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http.ModelBinding;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+﻿using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using Attribute = ProductManagementWebApi.Models.Attribute;
 
 namespace ProductManagement.DataAccess.Repositories
 {
-    public class AttributeRepository : IAttributesRepository
+    public class AttributeRepository : BaseRepository<Attribute>, IAttributesRepository
     {
-        private readonly Management_ProductsContext _Context;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly DbSet<Attribute> _dbSet;
 
 
-
-
-        public AttributeRepository(Management_ProductsContext context)
+        public AttributeRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
-            _Context = context;
-
+            _unitOfWork = unitOfWork;
+            _dbSet = _unitOfWork.Set<Attribute>();
         }
 
-        public async Task<Attribute> GetById(int id)
-        {
-
-            return await _Context.Attributes.FindAsync(id);
-
-        }
-
-        public async Task<IList<Attribute>> GetAll()
-        {
-
-            return await _Context.Attributes.OrderBy(a=>a.Value).ToListAsync();
-
-        }
-
-        public async Task Add(Attribute entity)
-        {
-
-            await _Context.Attributes.AddAsync(entity);
-            await _Context.SaveChangesAsync();
-        }
-
-        public int AddDto(Attribute entitiy)
-        {
-            _Context.Add(entitiy);
-            _Context.SaveChanges();
-            return entitiy.Id;
-        }
-
-        public void Delete(Attribute entity)
-        {
-
-            _Context.Attributes.Remove(entity);
-
-        }
-
-        public async Task DeleteById(int id)
-        {
-
-            var obj = await _Context.Attributes.FindAsync(id);
-            _Context.Attributes.Remove(obj);
-
-        }
-
-        public async Task<IList<Attribute>> FindList(Expression<Func<Attribute, bool>> predicate)
-        {
-
-            return await _Context.Attributes.Where(predicate).ToListAsync();
-
-        }
-
-        public async Task<Attribute> FindEntity(Expression<Func<Attribute, bool>> predicate)
-        {
-
-            return await _Context.Attributes.Where(predicate).FirstAsync();
-
-        }
-
-        public async Task Update(Attribute entityToUpdate)
-        {
-            throw new NotImplementedException();
-
-        }
-
-        public async Task<bool> Any(Expression<Func<Attribute, bool>> predicate)
-        {
-            return await _Context.Attributes.AnyAsync(predicate);
-        }
-
-        public async Task<Attribute> FindById(int Id)
-        {
-            return await _Context.Attributes.FindAsync(Id); 
-        }
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {
-            return await _Context.Attributes.Include(y => y.ValuesAttributes).Where(x=>x.ParentId==id).ToListAsync();
-
-          
+            return await _dbSet.Include(y => y.ValuesAttributes).Where(x=>x.ParentId==id).ToListAsync();
 
         }
 
         public async Task<IList<Attribute>> GetAttributeList()
         {
-            return await _Context.Attributes.ToListAsync();
+            return await _dbSet.ToListAsync();
 
         }
 
-        public async Task<bool> IsExsistAttrbiute(int id)
-        {
-            return await _Context.Attributes.AnyAsync(a => a.Id == id);
-        }
-
-        public async Task<Attribute> updateAttrbiute(Attribute attribute)
-        {
-            _Context.Update(attribute);
-            await _Context.SaveChangesAsync();
-            return attribute;
-        }
-
-  
     }
 }
 

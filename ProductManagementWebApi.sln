@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagement.Domain", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagement.DataAccess", "ProductManagement.DataAccess\ProductManagement.DataAccess.csproj", "{CA51FDA7-DC40-4148-8D3A-1C13E8B0B303}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductManagement.Services", "ProductManagement.Services\ProductManagement.Services.csproj", "{BEA78511-43BE-4704-A49F-5DC1049C76CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagement.Services", "ProductManagement.Services\ProductManagement.Services.csproj", "{BEA78511-43BE-4704-A49F-5DC1049C76CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

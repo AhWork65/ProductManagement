@@ -14,34 +14,28 @@ namespace ProductManagement.DataAccess.Repositories
 {
     public class RelatedProductsRepository : IRelatedProductRepository
     {
-        private readonly Management_ProductsContext _Context;
 
-        public RelatedProductsRepository(Management_ProductsContext  context)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly DbSet<RelatedProduct> _dbSet;
+
+        public RelatedProductsRepository(IUnitOfWork unitOfWork)
         {
-                
-            _Context = context;
-
-        }
-       
-        public async  Task Add(RelatedProduct entity)
-        {
-
-            await  _Context.RelatedProducts.AddAsync(entity); 
-
+            _unitOfWork = unitOfWork;
+            _dbSet = _unitOfWork.Set<RelatedProduct>(); 
         }
 
         public void Delete(RelatedProduct entity)
         {
 
-            _Context.RelatedProducts.Remove(entity); 
+            _dbSet.Remove(entity); 
 
         }
 
         public async  Task DeleteById(int id)
         {
             
-            var obj = await _Context.RelatedProducts.FindAsync(id);
-            _Context.RelatedProducts.Remove(obj); 
+            var obj = await _dbSet.FindAsync(id);
+            _dbSet.Remove(obj); 
 
         }
 
@@ -49,7 +43,7 @@ namespace ProductManagement.DataAccess.Repositories
         public async Task<IList<RelatedProduct>> GetByBaseProductIdIwthRelatedProducts(int baseProductId)
         {
 
-            return await _Context.RelatedProducts
+            return await _dbSet
                 .Where(mdl => mdl.BaseProductId == baseProductId)
                 .Include(mdl => mdl.RelatedProductNavigation)
                 .ToListAsync(); 

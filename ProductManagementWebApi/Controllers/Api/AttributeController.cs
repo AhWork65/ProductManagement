@@ -11,12 +11,10 @@ namespace ProductManagementWebApi.Controllers.Api
  
     public class AttributeController : MyBaseAttributesController
     {
-        public readonly Management_ProductsContext _Context;
         private  readonly  IAttributesService _attributesService;
-        public AttributeController(Management_ProductsContext context, IAttributesService attributesService)
+        public AttributeController( IAttributesService attributesService)
         {
             _attributesService=attributesService;
-            _Context = context;
         }
         
       

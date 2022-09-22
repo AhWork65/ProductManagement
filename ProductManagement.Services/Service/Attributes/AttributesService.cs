@@ -21,9 +21,6 @@ namespace ProductManagement.Services.Service.Attributes
             return attribute;
         }
 
-
-
-
         public int AddDto(AttributeDto entitiydto)
         {
             var entity = new Attribute()

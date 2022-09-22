@@ -94,9 +94,7 @@ namespace ProductManagement.Services.Services.Services
 
         public async Task<IEnumerable<Product>> GetProductByClassification(int classificationId)
         {
-
             return await _ProductRepository.GetProductByClassification(classificationId); 
-
         }
 
         public async Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId)
@@ -115,9 +113,7 @@ namespace ProductManagement.Services.Services.Services
 
         public async Task<Product> GetProductByCode(string code)
         {
-
             return await _ProductRepository.GetProductByCode(code); 
-
         }
 
         public async Task<IEnumerable<Product>> GetProductByCategory(int categoryId)

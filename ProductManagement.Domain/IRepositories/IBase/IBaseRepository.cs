@@ -10,7 +10,7 @@ namespace ProductManagement.Domain.Repositories.Base
     {
         Task<TEntity> GetById(int id);
         Task<IList<TEntity>> GetAll();
-        Task Add(TEntity entity);
+        Task<TEntity> Add(TEntity entity);
         void Delete(TEntity entity);
         Task DeleteById(int id);
         Task<IList<TEntity>> FindList(Expression<Func<TEntity, bool>> predicate); 

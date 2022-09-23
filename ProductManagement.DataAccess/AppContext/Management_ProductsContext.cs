@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProductManagementDataAccess.Config;
 using ProductManagementWebApi.Models;
 using ProductManagement.Domain.ModelsConfug;
+using ProductManagementDomain.Models.BaseEntities;
 
 namespace ProductManagement.DataAccess.AppContext
 {
@@ -51,6 +53,21 @@ namespace ProductManagement.DataAccess.AppContext
         public Task<int> SaveChangesAsync()
         {
             return base.SaveChangesAsync();
+        }
+
+        public  int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
+
+        public DbSet<TEntity> Set<TEntity>() where TEntity : DomainEntity
+        {
+            return base.Set<TEntity>();
+        }
+
+        public EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : DomainEntity
+        {
+            return base.Entry(entity);
         }
     }
 }

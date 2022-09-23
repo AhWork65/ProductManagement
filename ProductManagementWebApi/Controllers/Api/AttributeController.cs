@@ -3,45 +3,51 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.Models.Base;
-using ProductManagement.Services.Dto.Attribute;
+
+
 using ProductManagement.Services.Service.Attributes;
+using ProductManagementWebApi.Models;
 
 namespace ProductManagementWebApi.Controllers.Api
 {
- 
+
     public class AttributeController : MyBaseAttributesController
     {
-        private  readonly  IAttributesService _attributesService;
+     
+        private readonly IAttributesService _attributesService;
         public AttributeController( IAttributesService attributesService)
         {
-            _attributesService=attributesService;
+            _attributesService = attributesService;
+           
         }
-        
-      
-
-        //[HttpPost]
-        //public async Task Add(Models.Attribute entity)
-        //{
-
-        //    await _Context.Attributes.AddAsync(entity);
-
-        //}
 
 
         [HttpPost]
-        public BaseModelResult<int> Add(AttributeDto attributes)
+        public BaseModelResult<int> Add(AttributeDto attributeDto)
         {
 
-            //if (string.IsNullOrWhiteSpace(attributes.Value))
-            //    return InvalidResult<int>(1, "مقدار نمی تواند خالی باشد");
+            var nodeAttribute = new Models.Attribute();
 
-            if (string.IsNullOrWhiteSpace(attributes.Name))
+            if (string.IsNullOrWhiteSpace(attributeDto.Name))
                 return InvalidResult<int>(1, "نام نمی تواند خالی باشد");
+            if (nodeAttribute.ParentId == null)
+            {
+                nodeAttribute.Name = attributeDto.Name;
+                var id = _attributesService.AddDto(attributeDto);
+                return careateModelResult(id);
 
-            var id = _attributesService.AddDto(attributes);
+            }
+            else
+            {
+                Models.Attribute parentAttribute = _attributesService.GetNodeAttribute(attributeDto);
+                nodeAttribute.Name = attributeDto.Name;
+                parentAttribute.subNodes.Add(nodeAttribute);
+            }
+
+            return careateModelResult(1);
 
 
-            return careateModelResult(id);
+
         }
 
 
@@ -54,8 +60,8 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
 
-        [HttpGet]
-        [Route("[controller]/GetAllAsync/{id:int}")]
+        [HttpGet("id")]
+      
         public async Task<BaseModelResult<IList<Models.Attribute>>> GetAllAsync(int id)
         {
             var result = await _attributesService.GetAttributeDetailByParentId(id);
@@ -63,11 +69,22 @@ namespace ProductManagementWebApi.Controllers.Api
             return careateModelResult(result);
         }
 
-        [HttpPut]
-        public async Task Update(Models.Attribute attribute)
+      
+
+        [HttpGet("title")]
+        public async Task<BaseModelResult<IList<Models.Attribute>>> GetNodes(string Title)
         {
-             await _attributesService.updateAttrbiute(attribute);
-          
+            var result = await _attributesService.GetAll(Title);
+            return careateModelResult(result);
+        }
+
+        [HttpPut("id")]
+     
+        public async Task<BaseModelResult<AttributeDto>> Update(AttributeDto attributeDto,int id)
+        {
+        var result= await _attributesService.updateAttrbiute(attributeDto,id);
+
+            return careateModelResult(result);
         }
 
     }

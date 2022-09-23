@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Domain.Models.Base;
+using ProductManagement.Services.Service.Attributes;
 
 namespace ProductManagementWebApi.Controllers
 {
@@ -9,6 +10,8 @@ namespace ProductManagementWebApi.Controllers
     [ApiController]
     public class MyBaseAttributesController : ControllerBase
     {
+       
+
         protected BaseModelResult<TResult> careateModelResult<TResult>(TResult tResult)
         {
             return new BaseModelResult<TResult>()

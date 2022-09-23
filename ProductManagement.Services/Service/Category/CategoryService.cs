@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,30 +29,52 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public async Task Create(Category entity)
+        public async Task<Category> Create(Category entity)
         {
+            if (await _CategoryRepository.Any(c => c.Code == entity.Code))
+                throw new Exception("Code is not Valid");
 
-            await _CategoryRepository.Add(entity);
+
+          return  await _CategoryRepository.Add(entity);
 
         }
 
 
         public async Task Update(Category entity)
         {
+
+            if (! await IsExistsCategory(entity.Id))
+                throw new Exception("category Not Found");
+
             await _CategoryRepository.Update(entity);
-            // await new NotImplementedException();
 
         }
 
         public void Delete(Category entity)
         {
+            if (! IsExistsCategory(entity.Id).Result)
+                throw new Exception("category Not Found");
 
             _CategoryRepository.Delete(entity);
 
         }
 
+        private async Task<bool> IsExistsCategory(int id)
+        {
+            return await _CategoryRepository.Any(e => e.Id ==id);
+        }
+
         public async Task Delete(int categoryId)
         {
+
+            if (!await IsExistsCategory(categoryId))
+                throw new EntryPointNotFoundException("category Not Found");
+
+            if (await HasAChild(categoryId))
+                throw new Exception("category Has Child");
+
+            if (await HasAProduct(categoryId))
+                throw new Exception("product is connected to the category");
 
             await _CategoryRepository.DeleteById(categoryId);
 
@@ -85,14 +108,12 @@ namespace ProductManagement.Services.Services.Services
 
         public async Task<bool> HasAChild(int categoryId)
         {
-            return await _CategoryRepository
-                .Any(mdl => mdl.ParentId == categoryId);
+            return await _CategoryRepository.Any(e => e.ParentId == categoryId);
         }
 
         public async Task<bool> HasAProduct(int categoryId)
         {
-            return await _ProductRepository
-                .Any(mdl => mdl.CategoryId == categoryId);
+            return await _ProductRepository.Any(e => e.CategoryId == categoryId);
 
         }
 

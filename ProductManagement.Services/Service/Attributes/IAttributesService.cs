@@ -1,5 +1,6 @@
-﻿using Attribute = ProductManagementWebApi.Models.Attribute;
-using ProductManagement.Services.Dto.Attribute;
+using Attribute = ProductManagementWebApi.Models.Attribute;
+using ProductManagement.Services.Dto;
+using ProductManagementWebApi.Models;
 
 
 namespace ProductManagement.Services.Service.Attributes
@@ -12,5 +13,6 @@ namespace ProductManagement.Services.Service.Attributes
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
         Task<IList<Attribute>> GetAttributeList();
         Task<IList<Attribute>> GetAll();
+         Attribute GetNodeAttribute(AttributeDto valueDto); 
     }
 }

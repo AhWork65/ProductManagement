@@ -1,8 +1,10 @@
 ﻿
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
-using ProductManagement.Services.Dto.Attribute;
+using ProductManagementWebApi.Models;
 using Attribute = ProductManagementWebApi.Models.Attribute;
+
 namespace ProductManagement.Services.Service.Attributes
 {
     public class AttributesService : IAttributesService
@@ -14,28 +16,39 @@ namespace ProductManagement.Services.Service.Attributes
             _attributesRepository = attributesRepository;
         }
 
+
         public Task<Attribute> GetById(int id)
         {
             return _attributesRepository.GetById(id); 
         }
 
-        public async Task<Attribute> updateAttrbiute(Attribute attribute)
+        public Task<Attribute> updateAttrbiute(Attribute attribute)
         {
-            await _attributesRepository.Update(attribute);
-          
-            return attribute;
+            throw new NotImplementedException();
         }
+
+
+        public async Task<AttributeDto> updateAttrbiute(AttributeDto valueDto, int id)
+
+        {
+            await _attributesRepository.updateAttrbiute(valueDto, id);
+
+            return valueDto;
+        }
+
 
         public int AddDto(AttributeDto entitiydto)
         {
             var entity = new Attribute()
             {
                 Name = entitiydto.Name,
-                Value = entitiydto.Value,
+                //Value = entitiydto.Value,
                 ParentId = entitiydto.ParentId
             };
+
             return Add(entity);
         }
+
 
         public async Task<IList<Attribute>> GetAttributeList()
         {
@@ -45,8 +58,8 @@ namespace ProductManagement.Services.Service.Attributes
 
         private int Add(Attribute entity)
         {
-             _attributesRepository.Add(entity);
-             return entity.Id;
+            _attributesRepository.Add(entity);
+            return entity.Id;
         }
 
         public async Task<IList<Attribute>> GetAll()
@@ -58,5 +71,23 @@ namespace ProductManagement.Services.Service.Attributes
         {
             return await _attributesRepository.GetAttributeDetailByParentId(id);
         }
+
+        public Attribute GetNodeAttribute(AttributeDto valueDto)
+        {
+            return _attributesRepository.GetNodeAttribute(valueDto);
+        }
+
+        public async Task<IList<Attribute>> GetAll(string title)
+        {
+
+
+            return await _attributesRepository.GetAll(title);
+
+
+        }
+        //public Task<IEnumerable<AttributeDto>> GetCollectionNodes(string Title)
+        //{
+        //    return _attributesRepository.GetCollectionNodes(Title);
+        //}
     }
 }

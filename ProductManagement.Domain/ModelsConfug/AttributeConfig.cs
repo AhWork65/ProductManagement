@@ -23,9 +23,17 @@ namespace ProductManagement.Domain.ModelsConfug
 
             builder.Property(e => e.ParentId).HasDefaultValueSql("((0))");
 
-            builder.Property(e => e.Value)
-                .HasMaxLength(1000)
-                .HasDefaultValueSql("('')");
+            //entity.Property(e => e.Value)
+            //    .HasMaxLength(1000)
+            //    .HasDefaultValueSql("('')");
+
+
+            builder
+                .HasMany(d => d.subNodes)
+                .WithOne(p => p.ParentNode)
+                .HasForeignKey(d => d.ParentId)
+
+                .HasConstraintName("FK_Parent");
         }
     }
 }

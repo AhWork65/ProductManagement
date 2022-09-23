@@ -5,20 +5,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProductManagementWebApi.Models
 {
-    public  class Attribute : DomainEntity
+    public class Attribute : DomainEntity
     {
-      
+
+        public Attribute()
+        {
+            subNodes = new HashSet<Attribute>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-      
+
         public int? ParentId { get; set; }
-        [InverseProperty("ValuesAttributes")]
-        public Attribute Parent { get; set; }
-        public string Value { get; set; } = null!;
 
+        public virtual Attribute ParentNode { get; set; }
+        //public string Value { get; set; } = null!;
 
-        [InverseProperty("Parent")]
-        public virtual ICollection<Attribute> ValuesAttributes { get; set; }
+        public virtual ICollection<Attribute> subNodes { get; set; }
         public virtual ICollection<ProductAttributeDetail> ProductAttributeDetails { get; set; }
     }
 }

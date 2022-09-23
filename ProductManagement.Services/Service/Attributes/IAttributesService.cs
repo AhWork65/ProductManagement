@@ -1,6 +1,5 @@
 ﻿
-using System.Linq.Expressions;
-using ProductManagementWebApi.Models;
+using ProductManagement.Services.Dto.Attribute;
 using Attribute=ProductManagementWebApi.Models.Attribute;
 
 
@@ -9,16 +8,18 @@ namespace ProductManagement.Services.Service.Attributes
 {
     public interface IAttributesService
     {
-        Attribute GetNodeAttribute(AttributeDto valueDto);
 
+        Task<Attribute> updateAttrbiute(Attribute value);
+        AttributeDto GetNodeAttributeDto(Attribute value);
+        Attribute GetNodeAttribute(Attribute value);
         Task<IList<Attribute>> GetAll(string title);
-
-
-        Task<AttributeDto> updateAttrbiute(AttributeDto valueDto, int id);
+        Task<Attribute> AddAttribute(Attribute entity);
+        Task DeleteByIdAsync(int id);
         int AddDto(AttributeDto entitiydto);
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
-        Task<IList<Attribute>> GetAttributeList();
+        Task<IQueryable<Attribute>> GetAttributeList();
         Task<IList<Attribute>> GetAll();
+
 
 
 

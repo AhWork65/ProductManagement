@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
-using ProductManagementWebApi.Models;
+
 using Attribute = ProductManagementWebApi.Models.Attribute;
 
 namespace ProductManagement.DataAccess.Repositories
@@ -11,7 +11,7 @@ namespace ProductManagement.DataAccess.Repositories
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<Attribute> _dbSet;
-
+        
 
         public AttributeRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -19,27 +19,23 @@ namespace ProductManagement.DataAccess.Repositories
             _dbSet = _unitOfWork.Set<Attribute>();
         }
 
-
-      
-
         public async Task<Attribute> GetById(int id)
         {
 
             return await _dbSet.FindAsync(id);
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IList<Attribute>> GetAll()
         {
 
             return await _dbSet.ToListAsync();
 
         }
-        /// <summary>
-        /// over load get all
-        /// </summary>
-        /// <param name="title"></param>
-        /// <returns></returns>
+       
         public async Task<IList<Attribute>> GetAll(string title)
         {
 
@@ -68,11 +64,21 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async Task DeleteById(int id)
+    
+        public async Task DeleteByIdAsync(int id)
         {
 
-            var obj = await _dbSet.FindAsync(id);
-            _dbSet.Remove(obj);
+            var subnodes = await _dbSet.Where(x=>x.ParentId==id).ToListAsync();
+            if (subnodes == null)
+                return;
+            foreach (var node in subnodes)
+            {
+                await DeleteByIdAsync(node.Id);
+                _dbSet.Remove(node);
+
+            }
+           
+           await _unitOfWork.SaveChangesAsync();
 
         }
 
@@ -109,45 +115,59 @@ namespace ProductManagement.DataAccess.Repositories
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {
-            return await _dbSet.Include(y => y.subNodes).Where(p => p.ParentId == id).ToListAsync();
-
+          
+            return await _dbSet.Include(y => y.subNodes).Where(p => p.ParentId == id)
+                .Select(y => new Attribute { Id=y.Id,Name=y.Name,ParentNode = y.ParentNode, ParentId = y.ParentId ,subNodes = y.subNodes})
+                .ToListAsync();
         }
 
-        public async Task<IList<Attribute>> GetAttributeList()
+        public async Task<IQueryable<Attribute>> GetAttributeList()
         {
-            return await _dbSet.ToListAsync();
-
+            return _dbSet.SelectMany(c => c.subNodes).Include(c => c.ParentNode).AsQueryable();
         }
 
-
-        //public async Task<IEnumerable<AttributeDto>> GetCollectionNodes(string Title)
-        //{
-        //    var items = await  GetAll(e => e.Name.ToLower() == Title.ToLower());
-
-
-        //    return (IEnumerable<AttributeDto>)items;
-        //}
 
         public async Task<bool> IsExsistAttrbiute(int id)
         {
             return await _dbSet.AnyAsync(a => a.Id == id);
         }
 
-        public async Task<AttributeDto> updateAttrbiute(AttributeDto valueDto, int id)
+        public async Task<Attribute> updateAttrbiute(Attribute entityToUpadet)
         {
-            //_dbSet.Update();
-            //await _unitOfWork.SaveChangesAsync();
-            return valueDto;
+            try
+            {
+                var entry = _unitOfWork.Entry(entityToUpadet);
+                var attachedEntity = _dbSet.Find(entityToUpadet.Id);
+                if (attachedEntity != null)
+                {
+                    var attachedEntry = _unitOfWork.Entry(attachedEntity);
+                    attachedEntry.CurrentValues.SetValues(entityToUpadet);
+                    attachedEntry.State = EntityState.Modified;
+
+                }
+                else
+                {
+                    entry.State = EntityState.Modified;
+                }
+
+            }
+            catch (Exception e)
+            {
+                _dbSet.Attach(entityToUpadet);
+                _unitOfWork.Entry(entityToUpadet).State = EntityState.Modified;
+            }
+
+            await  _unitOfWork.SaveChangesAsync();
+            return entityToUpadet;
         }
 
-        public Attribute GetNodeAttribute(AttributeDto valueDto)
+        public Attribute GetNodeAttribute(Attribute value)
         {
-            return _dbSet
-                    .Include(a => a.subNodes).Where(p => p.Id == valueDto.ParentId).FirstOrDefault();
+            return _dbSet.Include(a => a.subNodes).Where(p => p.Id == value.ParentId).FirstOrDefault();
 
         }
 
-
+      
     }
 }
 

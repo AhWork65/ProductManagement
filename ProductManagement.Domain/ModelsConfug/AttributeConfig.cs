@@ -31,9 +31,8 @@ namespace ProductManagement.Domain.ModelsConfug
             builder
                 .HasMany(d => d.subNodes)
                 .WithOne(p => p.ParentNode)
-                .HasForeignKey(d => d.ParentId)
+                .HasForeignKey(d => d.ParentId);
 
-                .HasConstraintName("FK_Parent");
         }
     }
 }

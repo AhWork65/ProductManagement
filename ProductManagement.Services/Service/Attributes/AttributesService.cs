@@ -1,8 +1,10 @@
-﻿
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using ProductManagement.DataAccess.AppContext;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
+using ProductManagement.Services.Dto.Attribute;
 using ProductManagementWebApi.Models;
+using ProuctManagemetServices.Services.Mapper;
 using Attribute = ProductManagementWebApi.Models.Attribute;
 
 namespace ProductManagement.Services.Service.Attributes
@@ -10,43 +12,46 @@ namespace ProductManagement.Services.Service.Attributes
     public class AttributesService : IAttributesService
     {
         public readonly IAttributesRepository _attributesRepository;
+        private readonly IMapper _mapper;
 
         public AttributesService(IAttributesRepository attributesRepository)
         {
             _attributesRepository = attributesRepository;
+           
         }
 
-        public async Task<AttributeDto> updateAttrbiute(AttributeDto valueDto, int id)
+        
+
+
+        public int AddDto(AttributeDto value)
         {
-            await _attributesRepository.updateAttrbiute(valueDto, id);
-
-            return valueDto;
-        }
-
-
-        public int AddDto(AttributeDto entitiydto)
-        {
-            var entity = new Attribute()
+            var entity = new Attribute
             {
-                Name = entitiydto.Name,
-                //Value = entitiydto.Value,
-                ParentId = entitiydto.ParentId
+                ParentId = value.ParentId,
+                Name = value.Name,
+             
             };
 
-            return Add(entity);
+            return Add1(entity);
+        }
+        private int Add1(Attribute entity)
+        {
+            _attributesRepository.Add(entity);
+            return entity.Id;
         }
 
 
-        public async Task<IList<Attribute>> GetAttributeList()
+        public async Task<IQueryable<Attribute>> GetAttributeList()
         {
             return await _attributesRepository.GetAttributeList();
         }
 
 
-        private int Add(Attribute entity)
+    
+        public async Task<Attribute> AddAttribute(Attribute entity)
         {
-            _attributesRepository.Add(entity);
-            return entity.Id;
+          return  await _attributesRepository.Add(entity);
+          
         }
 
         public async Task<IList<Attribute>> GetAll()
@@ -59,9 +64,15 @@ namespace ProductManagement.Services.Service.Attributes
             return await _attributesRepository.GetAttributeDetailByParentId(id);
         }
 
-        public Attribute GetNodeAttribute(AttributeDto valueDto)
+        public AttributeDto GetNodeAttributeDto(Attribute value)
         {
-            return _attributesRepository.GetNodeAttribute(valueDto);
+            var valuedto = _attributesRepository.GetNodeAttribute(value);
+            return  _mapper.Map<Attribute, AttributeDto>(valuedto);
+        }
+
+        public Attribute GetNodeAttribute(Attribute value)
+        {
+            return _attributesRepository.GetNodeAttribute(value);
         }
 
         public async Task<IList<Attribute>> GetAll(string title)
@@ -72,9 +83,15 @@ namespace ProductManagement.Services.Service.Attributes
 
 
         }
-        //public Task<IEnumerable<AttributeDto>> GetCollectionNodes(string Title)
-        //{
-        //    return _attributesRepository.GetCollectionNodes(Title);
-        //}
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            await _attributesRepository.DeleteByIdAsync(id);
+        }
+        public async Task<Attribute> updateAttrbiute(Attribute value)
+        {
+            var entity =await _attributesRepository.updateAttrbiute(value);
+            return entity;
+        }
     }
 }

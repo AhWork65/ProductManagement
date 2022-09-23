@@ -4,7 +4,7 @@ namespace ProuctManagemetServices.Services.Mapper
 {
     public static class DtoMapper
     {
-        private static TDto MapTo<TEntity, TDto>(TEntity entity)
+        public static TDto MapTo<TEntity, TDto>(TEntity entity)
         {
             var mappingConfig = new MapperConfiguration(config=>
             {

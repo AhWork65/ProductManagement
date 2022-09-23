@@ -8,6 +8,7 @@ namespace ProductManagement.Domain.Repositories.Base
     public  interface IBaseRepository<TEntity> where TEntity : DomainEntity
 
     {
+       
         Task<TEntity> GetById(int id);
         Task<IList<TEntity>> GetAll();
         Task<TEntity> Add(TEntity entity);

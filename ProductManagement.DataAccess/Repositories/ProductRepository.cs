@@ -35,7 +35,7 @@ namespace ProductManagement.DataAccess.Repositories
         public async Task<Product> GetProductByCode(string code)
         {
 
-            return await _dbSet.Where(mdl => mdl.Code == code).FirstAsync(); 
+            return await _dbSet.Where(mdl => mdl.Code == code).FirstOrDefaultAsync(); 
 
         }
 
@@ -67,7 +67,7 @@ namespace ProductManagement.DataAccess.Repositories
                 .Include(mdl => mdl.ProductAttributeDetails)
                 .ThenInclude(mdl => mdl.Attribute)
                 .Where(mdl => mdl.Id == productId)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
 
         }
 

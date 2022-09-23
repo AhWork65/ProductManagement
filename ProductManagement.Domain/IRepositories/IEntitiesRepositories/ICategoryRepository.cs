@@ -10,6 +10,6 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
         Task<IList<Category>> GetInactiveChildCategory(int parrentId );
         Task<IList<Category>> GetActiveList();
         Task<IList<Category>> GetInactiveList();
-
+        
     }
 }

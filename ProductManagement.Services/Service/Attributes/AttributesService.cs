@@ -14,6 +14,11 @@ namespace ProductManagement.Services.Service.Attributes
             _attributesRepository = attributesRepository;
         }
 
+        public Task<Attribute> GetById(int id)
+        {
+            return _attributesRepository.GetById(id); 
+        }
+
         public async Task<Attribute> updateAttrbiute(Attribute attribute)
         {
             await _attributesRepository.Update(attribute);

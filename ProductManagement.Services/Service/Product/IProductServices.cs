@@ -16,18 +16,18 @@ namespace ProductManagement.Services.Services.IServices
         public void Delete(Product entity);
         public Task Delete(int categoryId);
         public Task<Product> GetById(int id);
-        public Task<IEnumerable<Product>> GetAll();
-        public Task<IEnumerable<Product>> GetAllActive();
-        public Task<IEnumerable<Product>> GetAllInactive();
+        public Task<IList<Product>> GetAll();
+        public Task<IList<Product>> GetAllActive();
+        public Task<IList<Product>> GetAllInactive();
         Task ChangeUnitStock(int id , int enteredUnitStock ); 
         Task ChangeBaseUnitPrice(int id, int enteredPrice);
-        Task<IEnumerable<Product>> GetProductByClassification(int classificationId);
-        Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId);
+        Task<IList<Product>> GetProductByClassification(int classificationId);
+        Task<IList<Product>> GetProductBaseOnClassification(int ClassificationId);
 
         Task<Product> GetProductByCode(string code);
-        Task<IEnumerable<Product>> GetProductByCategory(int categoryId);
-        Task<IEnumerable<Product>> GetProductByCategory(Category category);
-        Task<IEnumerable<Product>> GetProductByAttribute(ProductAttributeDetail attribute);
+        Task<IList<Product>> GetProductByCategory(int categoryId);
+        Task<IList<Product>> GetProductByCategory(Category category);
+        Task<IList<Product>> GetProductByAttribute(ProductAttributeDetail attribute);
         Task<Product> GetByIdWithAttributes(int productId);
         public bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto);
         public void  IncreaseUnitsInStock(Product product, int enteredUnitInStock);

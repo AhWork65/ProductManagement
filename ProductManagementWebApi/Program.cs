@@ -4,6 +4,7 @@ using ProductManagement.DataAccess.Repositories;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Services.Service.Attributes;
+using ProductManagement.Services.Service.Product.Validation;
 using ProductManagement.Services.Service.Services;
 using ProductManagement.Services.Services.IServices;
 using ProductManagement.Services.Services.Services;
@@ -34,7 +35,9 @@ builder.Services.AddScoped<IAttributeDetailRepository, AttributeDetailsRepositor
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductServices, ProductService>();
+builder.Services.AddScoped<IProductValidationService, ProductValidationService>();
 builder.Services.AddScoped<IAttributesService, AttributesService>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

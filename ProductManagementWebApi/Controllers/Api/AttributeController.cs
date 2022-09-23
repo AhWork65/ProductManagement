@@ -78,14 +78,14 @@ namespace ProductManagementWebApi.Controllers.Api
             return careateModelResult(result);
         }
 
-        [HttpPut("id")]
-     
-        public async Task<BaseModelResult<AttributeDto>> Update(AttributeDto attributeDto,int id)
-        {
-        var result= await _attributesService.updateAttrbiute(attributeDto,id);
-
-            return careateModelResult(result);
-        }
+        // [HttpPut("id")]
+        //
+        // public async Task<BaseModelResult<AttributeDto>> Update(AttributeDto attributeDto,int id)
+        // {
+        // var result= await _attributesService.updateAttrbiute(attributeDto,id);
+        //
+        //     return careateModelResult(result);
+        // }
 
     }
 }

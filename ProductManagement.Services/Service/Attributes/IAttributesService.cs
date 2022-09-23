@@ -13,6 +13,7 @@ namespace ProductManagement.Services.Service.Attributes
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
         Task<IList<Attribute>> GetAttributeList();
         Task<IList<Attribute>> GetAll();
+        Task<IList<Attribute>> GetAll(string title); 
          Attribute GetNodeAttribute(AttributeDto valueDto); 
     }
 }

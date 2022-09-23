@@ -128,6 +128,11 @@ namespace ProductManagement.DataAccess.Repositories
         //    return (IEnumerable<AttributeDto>)items;
         //}
 
+        public Task<Attribute> updateAttrbiute(Attribute attribute)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> IsExsistAttrbiute(int id)
         {
             return await _dbSet.AnyAsync(a => a.Id == id);

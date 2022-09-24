@@ -1,9 +1,8 @@
 ﻿using ProductManagementDomain.Models.BaseEntities;
 using System;
 using System.Collections.Generic;
-using ProductManagementWebApi.Models;
 
-namespace ProductManagement.Domain.Models
+namespace ProductManagementWebApi.Models
 {
     public partial class Category : DomainEntity
     {

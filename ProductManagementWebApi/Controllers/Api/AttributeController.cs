@@ -5,7 +5,6 @@ using ProductManagement.Domain.Models.Base;
 using ProductManagement.Services.Dto.Attribute;
 using ProductManagement.Services.Service.Attributes;
 using ProductManagementWebApi.Models;
-using ProuctManagemetServices.Services.Mapper;
 using Attribute = System.Attribute;
 
 
@@ -25,28 +24,33 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpPost]
-        public BaseModelResult<int> AddAttribute(AttributeDto value)
+        public BaseModelResult<string> AddAttribute(AttributeDto valuedto)
         {
             var nodeAttribute = new Models.Attribute();
 
-            if (string.IsNullOrWhiteSpace(value.Name))
-                return InvalidResult<int>(1, "نام نمی تواند خالی باشد");
+            if (string.IsNullOrWhiteSpace(valuedto.Name))
+                return InvalidResult<string>(1, "نام نمی تواند خالی باشد");
+
+            
+
             if (nodeAttribute.ParentId == null)
             {
-                nodeAttribute.Name = value.Name;
-                var id = _attributesService.AddDto(value);
-                return careateModelResult(id);
+                nodeAttribute.Name = valuedto.Name;
+                nodeAttribute.Value = valuedto.Value;
+                _attributesService.AddDto(valuedto);
+                return careateModelResult("درج انجام شد");
 
             }
             else
             {
                 Models.Attribute parentAttribute = _attributesService.GetNodeAttribute(nodeAttribute);
-                nodeAttribute.Name = value.Name;
+                nodeAttribute.Name = valuedto.Name;
+                nodeAttribute.Value = valuedto.Value;
                 parentAttribute.subNodes.Add(nodeAttribute);
-
             }
 
-            return careateModelResult(1);
+        
+            return careateModelResult("درج انجام شد");
 
 
 
@@ -55,7 +59,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
-        public async Task<BaseModelResult<IQueryable<Models.Attribute>>> GetAllAsync()
+        public async Task<BaseModelResult<List<Models.Attribute>>> GetAllAsync()
         {
             var result = await _attributesService.GetAttributeList();
 
@@ -82,18 +86,41 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
         [HttpPut]
-        public async Task<BaseModelResult<Models.Attribute>> UpdateAttribute(Models.Attribute attribute)
+        public async Task<BaseModelResult<Models.Attribute>> UpdateAttribute(AttributeDto attributedto)
         {
-            var result = await _attributesService.updateAttrbiute(attribute);
+            var result = await _attributesService.UpdateDto(attributedto);
             return careateModelResult(result);
         }
 
-        
+
         [HttpDelete("id")]
-        public async Task DeleteAttribute(int id)
+        public async Task<BaseModelResult<string>> DeleteAttribute(int id)
         {
-             await _attributesService.DeleteByIdAsync(id);
-         
+            if (!await _attributesService.IsExsistAttrbiute(id))
+
+                return careateModelResult("Not found");
+
+
+
+            await _attributesService.DeleteByIdAsync(id);
+
+            return careateModelResult("Delete is ok");
+        }
+
+
+
+        [HttpDelete("id")]
+        public async Task<BaseModelResult<string>> DeleteNodeAttribute(int id)
+        {
+            if (!await _attributesService.IsExsistAttrbiuteNode(id))
+
+                return careateModelResult("Not found");
+
+
+
+            await _attributesService.DeleteByIdNodeAsync(id);
+
+            return careateModelResult("Delete is ok");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Text.Json.Nodes;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
@@ -11,7 +12,6 @@ namespace ProductManagement.DataAccess.Repositories
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly DbSet<Attribute> _dbSet;
-        
 
         public AttributeRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -25,25 +25,23 @@ namespace ProductManagement.DataAccess.Repositories
             return await _dbSet.FindAsync(id);
 
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+
         public async Task<IList<Attribute>> GetAll()
         {
 
             return await _dbSet.ToListAsync();
 
         }
-       
+
         public async Task<IList<Attribute>> GetAll(string title)
         {
 
-            return await _dbSet.Include(y => y.subNodes).Where(e => e.Name.ToLower() == title.ToLower()).ToListAsync();
+            return await _dbSet.Include(y => y.subNodes)
+                .Where(e => e.Name.ToLower() == title.ToLower()).ToListAsync();
 
         }
 
-        public async Task Add(Attribute entity)
+        public async Task AddAsync(Attribute entity)
         {
 
             await _dbSet.AddAsync(entity);
@@ -59,41 +57,32 @@ namespace ProductManagement.DataAccess.Repositories
 
         public void Delete(Attribute entity)
         {
-
             _dbSet.Remove(entity);
-
         }
 
-    
+
         public async Task DeleteByIdAsync(int id)
         {
-
-            var subnodes = await _dbSet.Where(x=>x.ParentId==id).ToListAsync();
+            var subnodes = await _dbSet.Where(x => x.ParentId == id).ToListAsync();
             if (subnodes == null)
                 return;
             foreach (var node in subnodes)
             {
-                await DeleteByIdAsync(node.Id);
+                Delete(node);
                 _dbSet.Remove(node);
 
             }
-           
-           await _unitOfWork.SaveChangesAsync();
-
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IList<Attribute>> FindList(Expression<Func<Attribute, bool>> predicate)
         {
-
             return await _dbSet.Where(predicate).ToListAsync();
-
         }
 
         public async Task<Attribute> FindEntity(Expression<Func<Attribute, bool>> predicate)
         {
-
             return await _dbSet.Where(predicate).FirstAsync();
-
         }
 
         public async Task Update(Attribute entityToUpdate)
@@ -115,22 +104,47 @@ namespace ProductManagement.DataAccess.Repositories
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {
-          
+
             return await _dbSet.Include(y => y.subNodes).Where(p => p.ParentId == id)
-                .Select(y => new Attribute { Id=y.Id,Name=y.Name,ParentNode = y.ParentNode, ParentId = y.ParentId ,subNodes = y.subNodes})
+                .Select(y => new Attribute { Id = y.Id, Name = y.Name, ParentId = y.ParentId, subNodes = y.subNodes })
                 .ToListAsync();
         }
 
-        public async Task<IQueryable<Attribute>> GetAttributeList()
+        public async Task<List<Attribute>> GetAttributeList()
         {
-            return _dbSet.SelectMany(c => c.subNodes).Include(c => c.ParentNode).AsQueryable();
-        }
 
+            List<Attribute> parents = await _dbSet
+                                          .Where(x => x.ParentNode==null)
+                                         
+                                          .Select(y=>new Attribute
+                                          {
+                                              ParentId = y.ParentId,
+                                              Name = y.Name,
+                                              Value = y.Value,
+                                              subNodes = y.subNodes
+
+                                          })
+                                         
+                                         .ToListAsync();
+       
+            return parents;
+        }
+        /// <summary>
+        /// test
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         public async Task<bool> IsExsistAttrbiute(int id)
         {
+            return await _dbSet.AnyAsync(a => a.ParentId == id);
+        }
+
+        public async Task<bool> IsExsistAttrbiuteNode(int id)
+        {
             return await _dbSet.AnyAsync(a => a.Id == id);
         }
+
 
         public async Task<Attribute> updateAttrbiute(Attribute entityToUpadet)
         {
@@ -157,7 +171,7 @@ namespace ProductManagement.DataAccess.Repositories
                 _unitOfWork.Entry(entityToUpadet).State = EntityState.Modified;
             }
 
-            await  _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
             return entityToUpadet;
         }
 
@@ -167,7 +181,18 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-      
+        public async Task DeleteByIdNodeAsync(int id)
+        {
+           List<Attribute> parents=await _dbSet.Include(y=>y.subNodes).Where(p => p.Id == id).ToListAsync();
+           foreach (var subnode in parents)
+           {
+               if (subnode.Id == id)
+               {
+                   DeleteById(id);
+
+               }
+           }
+        }
     }
 }
 

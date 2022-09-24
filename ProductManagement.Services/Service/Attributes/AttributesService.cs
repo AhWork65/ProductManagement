@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Services.Dto.Attribute;
 using ProductManagementWebApi.Models;
+
 using Attribute = ProductManagementWebApi.Models.Attribute;
 
 namespace ProductManagement.Services.Service.Attributes
@@ -19,30 +20,42 @@ namespace ProductManagement.Services.Service.Attributes
            
         }
 
-        
-
-
-        public int AddDto(AttributeDto value)
+        public Task<Attribute> UpdateDto(AttributeDto valuedto)
         {
             var entity = new Attribute
             {
-                ParentId = value.ParentId,
-                Name = value.Name,
-             
+                ParentId = valuedto.ParentId,
+                Name = valuedto.Name,
+                Value = valuedto.Value
             };
 
-            return Add1(entity);
+            return updateAttrbiute(entity);
         }
-        private int Add1(Attribute entity)
+
+
+        public int AddDto(AttributeDto valuedto)
         {
-            _attributesRepository.Add(entity);
+            var entity = new Attribute
+            {
+                ParentId = valuedto.ParentId,
+                Name = valuedto.Name,
+                Value = valuedto.Value
+            };
+
+            _attributesRepository.AddDto(entity);
             return entity.Id;
         }
 
 
-        public async Task<IQueryable<Attribute>> GetAttributeList()
+
+
+
+
+        public async Task<List<Attribute>> GetAttributeList()
         {
-            return await _attributesRepository.GetAttributeList();
+           return await _attributesRepository.GetAttributeList();
+         
+         
         }
 
 
@@ -85,12 +98,31 @@ namespace ProductManagement.Services.Service.Attributes
 
         public async Task DeleteByIdAsync(int id)
         {
+           
             await _attributesRepository.DeleteByIdAsync(id);
         }
         public async Task<Attribute> updateAttrbiute(Attribute value)
         {
+           
+
             var entity =await _attributesRepository.updateAttrbiute(value);
             return entity;
+        }
+
+        public async Task<bool> IsExsistAttrbiute(int id)
+        {
+            return await _attributesRepository.IsExsistAttrbiute(id);
+        }
+        public async Task<bool> IsExsistAttrbiuteNode(int id)
+        {
+            return await _attributesRepository.IsExsistAttrbiuteNode(id);
+        }
+
+
+
+        public async Task DeleteByIdNodeAsync(int id)
+        {
+          await  _attributesRepository.DeleteByIdNodeAsync(id);
         }
     }
 }

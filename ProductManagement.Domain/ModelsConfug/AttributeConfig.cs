@@ -14,24 +14,29 @@ namespace ProductManagement.Domain.ModelsConfug
     {
         public void Configure(EntityTypeBuilder<Attribute> builder)
         {
-            builder.Property(e => e.Id).HasColumnName("id");
-
+         
+            
             builder.Property(e => e.Name)
-                .HasMaxLength(100)
-                .IsUnicode(false)
+                 .HasMaxLength(100)
+                 .IsUnicode(false)
+                 .IsRequired()
+                 .HasDefaultValueSql("('')");
+
+           
+
+           builder.Property(e => e.Value)
+                .HasMaxLength(1000)
                 .HasDefaultValueSql("('')");
 
-            builder.Property(e => e.ParentId).HasDefaultValueSql("((0))");
-
-            //entity.Property(e => e.Value)
-            //    .HasMaxLength(1000)
-            //    .HasDefaultValueSql("('')");
 
 
-            builder
-                .HasMany(d => d.subNodes)
-                .WithOne(p => p.ParentNode)
-                .HasForeignKey(d => d.ParentId);
+           builder
+               .HasMany(d => d.subNodes)
+               .WithOne(p => p.ParentNode)
+               .HasForeignKey(w=>w.ParentId)
+               .IsRequired(false);
+
+
 
         }
     }

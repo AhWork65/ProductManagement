@@ -21,6 +21,7 @@ namespace ProductManagement.Domain.ModelsConfug
                 .HasForeignKey(d => d.AttributeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Product_AttributeDetail_Attributes");
+             
 
             builder.HasOne(d => d.Product)
                 .WithMany(p => p.ProductAttributeDetails)

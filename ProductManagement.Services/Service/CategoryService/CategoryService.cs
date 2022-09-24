@@ -7,32 +7,34 @@ using System.Threading.Tasks;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
-using ProductManagement.Services.Service.Services;
+using ProductManagement.Services.Service.CategoryService;
+using ProductManagement.Services.Service.CategoryService.Validation;
 using ProductManagementWebApi.Models;
 
-namespace ProductManagement.Services.Services.Services
+namespace ProductManagement.Services.Services.CategoryService
 {
     public class CategoryService : ICategoryService
     {
-        public readonly ICategoryRepository _CategoryRepository;
-        public readonly IProductRepository _ProductRepository;
+        private readonly ICategoryRepository _CategoryRepository;
+        private readonly ICategoryServiceValidation _CategoryServiceValidation;
 
         public CategoryService
         (
             ICategoryRepository categoryRepository,
-            IProductRepository productRepository
+            ICategoryServiceValidation categoryServiceValidation
 
         )
         {
 
             _CategoryRepository = categoryRepository;
-            _ProductRepository = productRepository;
+            _CategoryServiceValidation = categoryServiceValidation
+                ;
 
         }
 
         public async Task<Category> Create(Category entity)
         {
-            if (await _CategoryRepository.Any(c => c.Code == entity.Code))
+            if (await _CategoryServiceValidation.IsExistCategoryByCode(entity.Code))
                 throw new Exception("Code is not Valid");
 
 
@@ -44,7 +46,7 @@ namespace ProductManagement.Services.Services.Services
         public async Task Update(Category entity)
         {
 
-            if (! await IsExistsCategory(entity.Id))
+            if (! await _CategoryServiceValidation.IsExistCategoryById(entity.Id))
                 throw new Exception("category Not Found");
 
             await _CategoryRepository.Update(entity);
@@ -53,28 +55,25 @@ namespace ProductManagement.Services.Services.Services
 
         public void Delete(Category entity)
         {
-            if (! IsExistsCategory(entity.Id).Result)
+            if (!_CategoryServiceValidation.IsExistCategoryById(entity.Id).Result)
                 throw new Exception("category Not Found");
 
             _CategoryRepository.Delete(entity);
 
         }
 
-        private async Task<bool> IsExistsCategory(int id)
-        {
-            return await _CategoryRepository.Any(e => e.Id ==id);
-        }
+
 
         public async Task Delete(int categoryId)
         {
 
-            if (!await IsExistsCategory(categoryId))
+            if (!await _CategoryServiceValidation.IsExistCategoryById(categoryId))
                 throw new EntryPointNotFoundException("category Not Found");
 
-            if (await HasAChild(categoryId))
+            if (await _CategoryServiceValidation.HasAChild(categoryId))
                 throw new Exception("category Has Child");
 
-            if (await HasAProduct(categoryId))
+            if (await _CategoryServiceValidation.HasAProduct(categoryId))
                 throw new Exception("product is connected to the category");
 
             await _CategoryRepository.DeleteById(categoryId);
@@ -107,22 +106,6 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public async Task<bool> HasAChild(int categoryId)
-        {
-            return await _CategoryRepository.Any(e => e.ParentId == categoryId);
-        }
-
-        public async Task<bool> HasAProduct(int categoryId)
-        {
-            return await _ProductRepository.Any(e => e.CategoryId == categoryId);
-
-        }
-
-        public async Task<bool> HasAParent(int id)
-        {
-            var entity = await _CategoryRepository.FindById(id);
-            return (entity.ParentId != null);
-        }
 
         public async Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId)
         {

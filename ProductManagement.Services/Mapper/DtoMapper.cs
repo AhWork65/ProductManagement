@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
+using ProductManagementDomain.Models.BaseEntities;
 
-namespace ProuctManagemetServices.Services.Mapper
+namespace ProductManagement.Services.Mapper
 {
     public static class DtoMapper
     {
-        public static TDto MapTo<TEntity, TDto>(TEntity entity)
+        public static TDto MapTo<TEntity, TDto>(TEntity entity) where TEntity : DomainEntity
         {
-            var mappingConfig = new MapperConfiguration(config=>
+            var mappingConfig = new MapperConfiguration(config =>
             {
                 config.CreateMap<TEntity, TDto>();
             });
@@ -16,7 +17,7 @@ namespace ProuctManagemetServices.Services.Mapper
             return mapper.Map<TDto>(entity);
         }
 
-        private static IEnumerable<TDto>  ListMapTo <TEntity, TDto>(IEnumerable<TEntity>  entity)
+        public static IEnumerable<TDto> ListMapTo<TEntity, TDto>(IEnumerable<TEntity> entity)
         {
 
             var mappingConfig = new MapperConfiguration(config =>

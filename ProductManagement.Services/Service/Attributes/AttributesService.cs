@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Services.Dto.Attribute;
 using ProductManagementWebApi.Models;
-using ProuctManagemetServices.Services.Mapper;
 using Attribute = ProductManagementWebApi.Models.Attribute;
 
 namespace ProductManagement.Services.Service.Attributes

@@ -3,7 +3,7 @@ using ProductManagement.Domain.Models;
 using ProductManagementWebApi.Models;
 
 
-namespace ProductManagement.Services.Service.Services
+namespace ProductManagement.Services.Service.CategoryService
 {
     public interface ICategoryService
     {
@@ -15,9 +15,6 @@ namespace ProductManagement.Services.Service.Services
         Task<IEnumerable<Category>> GetAll();
         Task<IEnumerable<Category>> GetAllActive();
         Task<IEnumerable<Category>> GetAllInactive();
-        Task<bool> HasAChild(int categoryId);
-        Task<bool> HasAProduct(int categoryId);
-        Task<bool> HasAParent(int id);
         Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId);
         Task<IEnumerable<Category>> GetInactiveChildCategory(int parrentId);
 

@@ -13,11 +13,12 @@ namespace ProductManagement.Domain.ModelsConfug
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            
             builder.ToTable("Category");
 
             builder.Property(e => e.Code)
                 .HasMaxLength(10)
-                .IsFixedLength();
+                .IsFixedLength().IsRequired();
 
             builder.Property(e => e.IsActive)
                 .IsRequired()
@@ -25,7 +26,7 @@ namespace ProductManagement.Domain.ModelsConfug
 
             builder.Property(e => e.Name)
                 .HasMaxLength(100)
-                .IsUnicode(false);
+                .IsUnicode(false).IsRequired();
         }
     }
 }

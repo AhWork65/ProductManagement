@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Services.Service.Services;
 using ProductManagementWebApi.Models;
@@ -17,32 +18,49 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
         [HttpPost]
-        [Route("[controller]/PostCategory")]
-        public async Task<IActionResult> PostCategory([FromBody] Category category)
+        [Route("[controller]/Add")]
+        public async Task<IActionResult> Add([FromBody] Category category)
         {
-            await _CategoryService.Create(category);
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            Category modalResult;
+
+
+            try
+            {
+                modalResult  = await _CategoryService.Create(category);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+
+           return Ok(modalResult);
         }
 
-        [HttpGet]
-        [Route("[controller]/GetUpdateCategory")]
-        public async Task<IActionResult> GetUpdateCategory([FromBody] Category category)
+
+        [HttpPut]
+        [Route("[controller]/UpdateCategory")]
+        public async Task<IActionResult> UpdateCategory([FromBody] Category category)
         {
-            await _CategoryService.Update(category);
+            try
+            {
+                await _CategoryService.Update(category);
+            }
+            catch (Exception e)
+            {
+                return NotFound(new { message = e.Message });
+            }
             return Ok();
         }
-
-
-
 
 
         [HttpGet]
         [Route("[controller]/GetAll")]
         public async Task<IActionResult> GetAll()
         {
-
             return Ok(await _CategoryService.GetAll());
-
         }
 
 
@@ -50,7 +68,6 @@ namespace ProductManagementWebApi.Controllers.Api
         [Route("[controller]/GetAllActive")]
         public async Task<IActionResult> GetAllActive()
         {
-
             var objs = await _CategoryService.GetAllActive();
             return Ok(objs);
         }
@@ -77,16 +94,27 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
         [HttpDelete]
-        [Route("[controller]/Delete")]
-        public async Task<IActionResult> DeleteCategory([FromBody] int id)
+        [Route("[controller]/Delete/{id}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {
-
-            await _CategoryService.Delete(id);
+            try
+            {
+                await _CategoryService.Delete(id);
+            }
+            catch (EntryPointNotFoundException e)
+            {
+                return NotFound(new { message = e.Message });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+            
             return Ok();
 
         }
         [HttpGet]
-        [Route("[controller]/GetActiveChildCategory/{id:int}")]
+        [Route("[controller]/GetActiveChildCategory/{id}")]
         public async Task<IActionResult> GetActiveChildCategory([FromRoute] int id)
         {
 
@@ -96,7 +124,7 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
         [HttpGet]
-        [Route("[controller]/GetInactiveChildCategory/{id:int}")]
+        [Route("[controller]/GetInactiveChildCategory/{id}")]
         public async Task<IActionResult> GetInactiveChildCategory([FromRoute] int id)
         {
 

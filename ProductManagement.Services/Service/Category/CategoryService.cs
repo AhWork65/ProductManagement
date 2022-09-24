@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
+using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Services.Service.Services;
 using ProductManagementWebApi.Models;

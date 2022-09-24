@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.DataAccess.AppContext;
+using ProductManagement.Domain.Models;
 using ProductManagement.Services.Service.Services;
 using ProductManagementWebApi.Models;
 

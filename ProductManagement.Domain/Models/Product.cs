@@ -2,6 +2,7 @@
 using ProductManagementDomain.Models.BaseEntities;
 using System;
 using System.Collections.Generic;
+using ProductManagement.Domain.Models;
 
 namespace ProductManagementWebApi.Models
 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.Base;
 using ProductManagementWebApi.Models;
 using Attribute = ProductManagementWebApi.Models.Attribute;

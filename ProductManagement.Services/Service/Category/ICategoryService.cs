@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using ProductManagement.Domain.Models;
 using ProductManagementWebApi.Models;
 
 

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
+using ProductManagement.Domain.Models;
 using ProductManagementWebApi.Models;
 
 namespace ProductManagement.DataAccess.Repositories

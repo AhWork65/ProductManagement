@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProductManagement.Domain.Models;
 using ProductManagementWebApi.Models;
 
 namespace ProductManagement.Domain.ModelsConfug

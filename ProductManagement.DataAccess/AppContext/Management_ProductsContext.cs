@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using ProductManagement.Domain.Models;
 using ProductManagementDataAccess.Config;
 using ProductManagementWebApi.Models;
 using ProductManagement.Domain.ModelsConfug;

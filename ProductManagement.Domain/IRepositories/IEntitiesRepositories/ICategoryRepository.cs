@@ -1,4 +1,5 @@
-﻿using ProductManagement.Domain.Repositories.Base;
+﻿using ProductManagement.Domain.Models;
+using ProductManagement.Domain.Repositories.Base;
 using ProductManagementWebApi.Models;
 
 namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories

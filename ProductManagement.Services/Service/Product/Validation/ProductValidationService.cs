@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProductManagement.DataAccess.Repositories;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
+using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Services.Dto.Product;
 using ProductManagementWebApi.Models;

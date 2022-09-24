@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
+using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagementWebApi.Models;
 

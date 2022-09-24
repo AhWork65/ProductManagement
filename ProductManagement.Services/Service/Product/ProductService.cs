@@ -37,17 +37,17 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public async Task<IEnumerable<Product>> GetAll()
+        public async Task<IList<Product>> GetAll()
         {
             return await _ProductRepository.GetAll(); 
         }
 
-        public async Task<IEnumerable<Product>> GetAllActive()
+        public async Task<IList<Product>> GetAllActive()
         {
             return await _ProductRepository.GetActiveList(); 
         }
 
-        public async Task<IEnumerable<Product>> GetAllInactive()
+        public async Task<IList<Product>> GetAllInactive()
         {
             return await _ProductRepository.GetInactiveList();
         }
@@ -92,7 +92,7 @@ namespace ProductManagement.Services.Services.Services
             
         }
 
-        public async Task<IEnumerable<Product>> GetProductByClassification(int classificationId)
+        public async Task<IList<Product>> GetProductByClassification(int classificationId)
         {
             return await _ProductRepository.GetProductByClassification(classificationId); 
         }
@@ -116,20 +116,20 @@ namespace ProductManagement.Services.Services.Services
             return await _ProductRepository.GetProductByCode(code); 
         }
 
-        public async Task<IEnumerable<Product>> GetProductByCategory(int categoryId)
+        public async Task<IList<Product>> GetProductByCategory(int categoryId)
         {
 
             return await _ProductRepository.GetProductByCategory(categoryId); 
 
         }
 
-        public  async Task<IEnumerable<Product>> GetProductByCategory(Category category)
+        public  async Task<IList<Product>> GetProductByCategory(Category category)
         {
             return await _ProductRepository.GetProductByCategory(category); 
         }
 
 
-        public async Task<IEnumerable<Product>> GetProductByAttribute(ProductAttributeDetail attribute)
+        public async Task<IList<Product>> GetProductByAttribute(ProductAttributeDetail attribute)
         {
 
             return await _ProductRepository.GetProductByAttribute(attribute); 

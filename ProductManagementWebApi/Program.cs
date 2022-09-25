@@ -43,6 +43,7 @@ builder.Services.AddScoped<IProductValidationService, ProductValidationService>(
 builder.Services.AddScoped<IAttributesService, AttributesService>();
 
 
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

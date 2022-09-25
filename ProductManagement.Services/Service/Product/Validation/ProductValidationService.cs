@@ -16,21 +16,18 @@ namespace ProductManagement.Services.Service.Product.Validation
     {
 
         private readonly IProductRepository _ProductRepository;
-        private readonly ICategoryRepository _CategoryRepository;
-        private readonly IAttributesRepository _AttributeRepository; 
+
 
 
         public ProductValidationService
             (
-            IProductRepository productRepository ,
-            ICategoryRepository categoryRepository  , 
-            IAttributesRepository attributeRepository
+            IProductRepository productRepository 
             )
         {
 
+
             _ProductRepository = productRepository;
-            _CategoryRepository = categoryRepository;
-            _AttributeRepository = attributeRepository;
+ 
 
         }
         public  bool IsIdExists(int ProductId)
@@ -57,29 +54,6 @@ namespace ProductManagement.Services.Service.Product.Validation
             
         }
 
-        public async Task<bool> IsCategoryExists(int categoryId)
-        {
-
-            return await  _CategoryRepository.Any(mdl => mdl.Id == categoryId); 
-
-        }
-
-        public Task<bool> IsCategoryExists(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> IsAttributeExists(int attributeId)
-        {
-
-            return await _AttributeRepository.Any(mdl => mdl.Id == attributeId); 
-
-        }
-
-        public Task<bool> IsAttributeExists(ProductAttributeDetail attributeId)
-        {
-            throw new NotImplementedException();
-        }
 
         public bool IsRecordExists(ProductManagementWebApi.Models.Product product)
         {

@@ -15,11 +15,6 @@ namespace ProductManagement.Services.Service.Product.Validation
         bool IsIdExists(int ProductId);
         bool IsCodeExists(string ProductCode);
         bool IsClassificationExists(int classificationId);
-        Task<bool> IsCategoryExists(int categoryId); // To be deleted 
-        Task<bool> IsCategoryExists(Category category); // To be deleted  
-        Task<bool> IsAttributeExists(int attributeId); // To be deleted 
-        Task<bool> IsAttributeExists(ProductAttributeDetail attributeId); // To be deleted 
-
 
         bool IsRecordExists(ProductManagementWebApi.Models.Product product);
         bool IsRecordExists(IList<ProductManagementWebApi.Models.Product> products);

@@ -5,7 +5,8 @@ using ProductManagement.Domain.Models.Base;
 using ProductManagement.Services.Dto.Attribute;
 using ProductManagement.Services.Service.Attributes;
 using ProductManagementWebApi.Models;
-using ProuctManagemetServices.Services.Mapper;
+//using ProuctManagemetServices.Services.Mapper; to be checked 
+using ProductManagement.Services.Mapper ; 
 using Attribute = System.Attribute;
 
 

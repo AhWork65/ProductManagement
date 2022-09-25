@@ -5,7 +5,7 @@ namespace ProductManagement.Services.Mapper
 {
     public static class DtoMapper
     {
-        public static TDto MapTo<TEntity, TDto>(TEntity entity) where TEntity : DomainEntity
+        public static TDto MapTo<TEntity, TDto>(TEntity entity) 
         {
             var mappingConfig = new MapperConfiguration(config =>
             {

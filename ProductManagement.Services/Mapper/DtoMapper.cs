@@ -17,6 +17,8 @@ namespace ProductManagement.Services.Mapper
             return mapper.Map<TDto>(entity);
         }
 
+       
+
         public static IEnumerable<TDto> ListMapTo<TEntity, TDto>(IEnumerable<TEntity> entity)
         {
 

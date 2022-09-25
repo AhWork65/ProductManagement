@@ -24,10 +24,43 @@ namespace ProductManagement.DataAccess.Repositories
             _dbSet = _unitOfWork.Set<RelatedProduct>(); 
         }
 
+        public async Task Add(RelatedProduct entity)
+        {
+
+            await _dbSet.AddAsync(entity); 
+
+        }
+
+        public async Task Delete(int id)
+        {
+
+            var obj = await _dbSet.FindAsync(id);
+            _dbSet.Remove(obj);
+            await _unitOfWork.SaveChangesAsync();
+
+        }
+
+        public async Task<RelatedProduct> GetById(int id)
+        {
+
+            return await _dbSet.FindAsync(id); 
+
+        }
+
+        public async Task<IList<RelatedProduct>> GetByBaseProductId(int id)
+        {
+
+            return await _dbSet.Where(mdl => mdl.BaseProductId == id).ToListAsync();
+
+        }
+
+
         public void Delete(RelatedProduct entity)
         {
 
-            _dbSet.Remove(entity); 
+            _dbSet.Remove(entity);
+            _unitOfWork.SaveChanges(); 
+
 
         }
 
@@ -40,14 +73,6 @@ namespace ProductManagement.DataAccess.Repositories
         }
 
         
-        public async Task<IList<RelatedProduct>> GetByBaseProductIdIwthRelatedProducts(int baseProductId)
-        {
-
-            return await _dbSet
-                .Where(mdl => mdl.BaseProductId == baseProductId)
-                .Include(mdl => mdl.RelatedProductNavigation)
-                .ToListAsync(); 
-
-        }
+        
     }
 }

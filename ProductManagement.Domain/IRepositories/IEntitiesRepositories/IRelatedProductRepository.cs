@@ -8,10 +8,16 @@ using ProductManagement.Domain.Repositories.Base;
 
 namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
 {
-    public  interface IRelatedProductRepository 
+    public interface IRelatedProductRepository
     {
 
-       public Task<IList<RelatedProduct>> GetByBaseProductIdIwthRelatedProducts(int baseProductId);
+        // Task<IList<RelatedProduct>> GetByBaseProductIdIwthRelatedProducts(int baseProductId);
+        Task Add(RelatedProduct entityProduct);
+
+        Task Delete(int id);
+        Task<RelatedProduct> GetById(int id); 
+        Task<IList<RelatedProduct>> GetByBaseProductId(int id );
+
 
 
     }

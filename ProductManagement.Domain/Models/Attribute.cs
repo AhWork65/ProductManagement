@@ -19,6 +19,7 @@ namespace ProductManagementWebApi.Models
         public int? ParentId { get; set; }
 
         public virtual Attribute ParentNode { get; set; }
+        public string Value { get; set; }
 
 
         public virtual ICollection<Attribute> subNodes { get; set; }

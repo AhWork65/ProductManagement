@@ -7,7 +7,9 @@ using ProductManagement.Services.Service.CategoryService.Validation;
 using ProductManagement.Services.Service.Product.Validation;
 using ProductManagement.Services.Services.IServices;
 using ProductManagement.Services.Mapper;
+using ProductManagement.Services.Service.AttributeDetail;
 using ProductManagementWebApi.Models;
+using Attribute = ProductManagementWebApi.Models.Attribute;
 
 namespace ProductManagementWebApi.Controllers.Api
 {
@@ -17,21 +19,28 @@ namespace ProductManagementWebApi.Controllers.Api
     {
         private readonly IProductServices _ProductServices;
         private readonly IUnitOfWork _unitOfWork;
-       
+
         private readonly IProductValidationService _ProductValidationService;
         private readonly ICategoryServiceValidation _CategoryValidationService;
-        
+        private readonly IAttributesService _AttributeService;
+        private readonly IAttributeDetailService _AttributeDetailService;
+
         public ProductController
             (
                 IProductServices productServices,
                 IUnitOfWork unitOfWork,
                 IProductValidationService productValidationService,
-                ICategoryServiceValidation categoryServiceValidation
+                ICategoryServiceValidation categoryServiceValidation,
+                IAttributesService attributeService,
+                IAttributeDetailService AttributeDetailService
+
             )
         {
             _ProductServices = productServices;
             _ProductValidationService = productValidationService;
             _CategoryValidationService = categoryServiceValidation;
+            _AttributeService = attributeService;
+            _AttributeDetailService = AttributeDetailService;
             _unitOfWork = unitOfWork;
         }
 
@@ -251,17 +260,41 @@ namespace ProductManagementWebApi.Controllers.Api
 
         [HttpPost]
         [Route("[controller]/Add/")]
-        public async   Task<IActionResult> AddProduct([FromBody] Product entity)
+        public async Task<IActionResult> AddProduct([FromBody] ProductCreaionDTO entity)
         {
 
-            // var isRecordExists = await _ProductValidationService.IsRecordWithEnteredCodeExists(entity.Code);
-            // if (isRecordExists) return BadRequest("Product exists "); 
-            //
-            // var newProduct = DtoMapper.MapTo<ProductCreateDTO, Product>(entity);
-            // if (!ModelState.IsValid) return BadRequest("Validation Error ");
-            //
-            // await _ProductServices.Create(newProduct);
-            // _unitOfWork.SaveChanges();
+            var isRecordExists = await _ProductValidationService.IsRecordWithEnteredCodeExists(entity.Code);
+            if (isRecordExists) return BadRequest("Product exists ");
+
+            var newProduct = DtoMapper.MapTo<ProductCreaionDTO, Product>(entity);
+            if (!ModelState.IsValid) return BadRequest("Validation Error ");
+
+
+            await _ProductServices.Create(newProduct);
+
+            var attributesList = entity.Attributes;
+
+            foreach (var item in attributesList)
+            {
+                var newAttribute = new Attribute()
+                {
+                    Name = item.Name,
+                    Value = item.Value
+                };
+
+                var newAttributeDetail = new ProductAttributeDetail()
+                {
+                    Product = newProduct,
+                    Attribute = newAttribute
+
+                };
+
+                await _AttributeService.AddAttribute(newAttribute);
+                await _AttributeDetailService.Add(newAttributeDetail);
+
+            }
+
+            _unitOfWork.SaveChanges();
 
             return Ok("Created");
 

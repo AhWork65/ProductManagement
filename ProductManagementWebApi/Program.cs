@@ -4,6 +4,7 @@ using ProductManagement.DataAccess.AppContext;
 using ProductManagement.DataAccess.Repositories;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
+using ProductManagement.Services.Service.AttributeDetail;
 using ProductManagement.Services.Service.Attributes;
 using ProductManagement.Services.Service.CategoryService;
 using ProductManagement.Services.Service.CategoryService.Validation;
@@ -41,6 +42,7 @@ builder.Services.AddScoped<ICategoryServiceValidation, CategoryServiceValidation
 builder.Services.AddScoped<IProductServices, ProductService>();
 builder.Services.AddScoped<IProductValidationService, ProductValidationService>();
 builder.Services.AddScoped<IAttributesService, AttributesService>();
+builder.Services.AddScoped<IAttributeDetailService , AttributeDetailService>(); 
 
 
 

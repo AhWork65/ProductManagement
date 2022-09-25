@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProductManagement.Services.Dto.Product
 {
-    public class ProductCreateDTO 
+    public class ProductCreaionDTO 
     {
         public string Code { get; set; } = null!;
         public string Name { get; set; } = null!;
@@ -16,5 +16,6 @@ namespace ProductManagement.Services.Dto.Product
         public bool? IsActive { get; set; }
         public string? Description { get; set; }
         public int BaseUnitPrice { get; set; }
+        public IList<ProductAttributesDTO> Attributes { get; set; }
     }
 }

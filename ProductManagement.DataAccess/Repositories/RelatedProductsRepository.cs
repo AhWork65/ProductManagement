@@ -27,7 +27,8 @@ namespace ProductManagement.DataAccess.Repositories
         public async Task Add(RelatedProduct entity)
         {
 
-            await _dbSet.AddAsync(entity); 
+            await _dbSet.AddAsync(entity);
+            await _unitOfWork.SaveChangesAsync(); 
 
         }
 
@@ -38,6 +39,13 @@ namespace ProductManagement.DataAccess.Repositories
             _dbSet.Remove(obj);
             await _unitOfWork.SaveChangesAsync();
 
+        }
+
+        public async Task Delete(RelatedProduct entity)
+        {
+
+            _dbSet.Remove(entity);
+            await _unitOfWork.SaveChangesAsync(); 
         }
 
         public async Task<RelatedProduct> GetById(int id)
@@ -54,21 +62,10 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-
-        public void Delete(RelatedProduct entity)
+        public async Task<bool> Any(Expression<Func<RelatedProduct, bool>> predicate)
         {
 
-            _dbSet.Remove(entity);
-            _unitOfWork.SaveChanges(); 
-
-
-        }
-
-        public async  Task DeleteById(int id)
-        {
-            
-            var obj = await _dbSet.FindAsync(id);
-            _dbSet.Remove(obj); 
+            return await _dbSet.AnyAsync(predicate); 
 
         }
 

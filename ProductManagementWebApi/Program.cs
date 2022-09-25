@@ -9,6 +9,8 @@ using ProductManagement.Services.Service.Attributes;
 using ProductManagement.Services.Service.CategoryService;
 using ProductManagement.Services.Service.CategoryService.Validation;
 using ProductManagement.Services.Service.Product.Validation;
+using ProductManagement.Services.Service.RelatedProductsServices;
+using ProductManagement.Services.Service.RelatedProductsServices.RelatedProductsValidationService;
 using ProductManagement.Services.Services.CategoryService;
 using ProductManagement.Services.Services.IServices;
 using ProductManagement.Services.Services.Services;
@@ -41,6 +43,8 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryServiceValidation, CategoryServiceValidation>();
 builder.Services.AddScoped<IProductServices, ProductService>();
 builder.Services.AddScoped<IProductValidationService, ProductValidationService>();
+builder.Services.AddScoped<IRelatedProductsService, RelatedProductService>();
+builder.Services.AddScoped<IRelatedProductValidationService , RelatedProductsValidationService>();  
 builder.Services.AddScoped<IAttributesService, AttributesService>();
 builder.Services.AddScoped<IAttributeDetailService , AttributeDetailService>(); 
 

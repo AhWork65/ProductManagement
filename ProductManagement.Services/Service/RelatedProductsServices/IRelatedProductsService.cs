@@ -11,7 +11,8 @@ namespace ProductManagement.Services.Service.RelatedProductsServices
     {
         Task Add(RelatedProduct entity);
         Task AddToRelatedProduct(int relatedProductId, int relatedEntityId); 
-        Task Remove(int relatedProductsID); 
+        Task Remove(int relatedProductsID);
+        Task Remove(RelatedProduct entity); 
         Task<RelatedProduct> GetById(int relatedProductId);
         Task<IList<RelatedProduct>> GetByBaseProductId(int BaseProductId);
 

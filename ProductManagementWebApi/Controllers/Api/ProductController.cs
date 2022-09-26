@@ -272,29 +272,21 @@ namespace ProductManagementWebApi.Controllers.Api
 
             await _ProductServices.Create(newProduct);
 
+
             var attributesList = entity.Attributes;
-
-            foreach (var item in attributesList)
+            if (attributesList != null)
             {
-                var newAttribute = new Attribute()
+                foreach (var item in attributesList)
                 {
-                    Name = item.Name,
-                    Value = item.Value
-                };
+                    var newAttributeDetail = DtoMapper.MapTo<ProductAttributesDTO, ProductAttributeDetail>(item);
+                    //await _AttributeService.AddDto(newAttribute);\
+                    newAttributeDetail.ProductId = newProduct.Id;
+                    await _AttributeDetailService.Add(newAttributeDetail);
 
-                var newAttributeDetail = new ProductAttributeDetail()
-                {
-                    Product = newProduct,
-                    Attribute = newAttribute
+                }
 
-                };
-
-                //await _AttributeService.AddDto(newAttribute);
-                await _AttributeDetailService.Add(newAttributeDetail);
-
+                _unitOfWork.SaveChanges();
             }
-
-            _unitOfWork.SaveChanges();
 
             return Ok("Created");
 

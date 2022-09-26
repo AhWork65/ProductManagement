@@ -5,7 +5,6 @@ namespace ProductManagementWebApi.Models
 {
     public partial class ProductAttributeDetail : DomainEntity
     {
-        public int Id { get; set; }
         public int AttributeId { get; set; }
         public int ProductId { get; set; }
         public int AddedUnitPrice { get; set; }

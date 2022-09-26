@@ -1,9 +1,6 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Mvc;
-using ProductManagement.DataAccess.AppContext;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Domain.Models;
 using ProductManagement.Services.Service.CategoryService;
-using ProductManagementWebApi.Models;
 
 namespace ProductManagementWebApi.Controllers.Api
 {

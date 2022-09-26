@@ -8,8 +8,9 @@ namespace ProductManagement.Services.Dto.Product
 {
     public  class ProductAttributesDTO
     {
-        public string Name { get; set; }
-        public string Value { get; set; }
+        public int AttributeId { get; set; }
+        public int ProductId { get; set; }
+        public int AddedUnitPrice { get; set; }
 
     }
 }

@@ -21,12 +21,12 @@ namespace ProductManagement.DataAccess.Repositories
 
 
 
-        public int AddDto(Attribute entitiy)
-        {
-            _dbSet.Add(entitiy);
-            _unitOfWork.SaveChanges();
-            return entitiy.Id;
-        }
+        //public async Task<int> AddDto(Attribute entitiy)
+        //{
+        //    await _dbSet.Add(entitiy);
+
+        //    return entitiy.Id;
+        //}
 
         public async Task DeleteByIdAsync(int id)
         {

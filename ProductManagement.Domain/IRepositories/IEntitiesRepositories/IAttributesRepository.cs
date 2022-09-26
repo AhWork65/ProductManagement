@@ -8,7 +8,7 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
 {
     public  interface IAttributesRepository : IBaseRepository<Attribute>
     {
-        int AddDto(Attribute entitiy);
+       
         Attribute GetNodeAttribute(Attribute value);
         Task DeleteByIdAsync(int id);
         Task DeleteById(int id);

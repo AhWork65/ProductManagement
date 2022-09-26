@@ -1,4 +1,5 @@
 ﻿
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
@@ -61,7 +62,7 @@ namespace ProductManagement.UnitTest.Attribute
             dto.ParentId = null;
             dto.Value = "yll-1";
             dto.ParentId = 26;
-            var c = _attributeController.UpdateAttribute(dto);
+            var c = _attributesService.UpdateDto(dto);
             Assert.AreEqual(1, 1);
         }
 
@@ -73,11 +74,10 @@ namespace ProductManagement.UnitTest.Attribute
         {
             AttributeDto dto = new AttributeDto();
             dto.Name = "yellow";
-            dto.ParentId = null;
+            dto.ParentId = 1;
             dto.Value = "w";
-            dto.Id = 34;
-            var action = _attributesService.AddDto(dto);
-            Assert.AreEqual(dto.Id,action);
+            var action =_attributesService.AddDto(dto);
+            Assert.IsNotNull(dto.Id);
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace ProductManagement.UnitTest.Attribute
 
         public void DeleteReturnsOk()
         {
-            var controller = _attributeController.DeleteAttribute(38);
+            var controller = _attributesService.DeleteById(1);
             Assert.AreEqual(1, 1);
         }
     }

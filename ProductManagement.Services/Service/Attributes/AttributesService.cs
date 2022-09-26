@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Services.Dto.Attribute;
+using ProductManagement.Services.Mapper;
 using ProductManagement.Services.Service.Attributes.Validation;
 using ProductManagementWebApi.Models;
 
@@ -44,16 +45,10 @@ namespace ProductManagement.Services.Service.Attributes
             await _attributesRepository.Update(entity);
         }
 
-        public int AddDto(AttributeDto valuedto)
+        public async Task<int> AddDto(AttributeDto valuedto)
         {
-            var entity = new Attribute
-            {
-                ParentId = valuedto.ParentId,
-                Name = valuedto.Name,
-                Value = valuedto.Value
-            };
-
-            _attributesRepository.AddDto(entity);
+            var entity = DtoMapper.MapTo<AttributeDto, Attribute>(valuedto);
+            await _attributesRepository.Add(entity);
             return entity.Id;
         }
 

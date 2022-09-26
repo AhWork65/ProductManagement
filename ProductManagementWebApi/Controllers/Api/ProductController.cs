@@ -289,7 +289,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
                 };
 
-                await _AttributeService.AddAttribute(newAttribute);
+                await _AttributeService.AddDto(newAttribute);
                 await _AttributeDetailService.Add(newAttributeDetail);
 
             }

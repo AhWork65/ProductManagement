@@ -4,14 +4,14 @@ using ProductManagementDomain.Models.BaseEntities;
 
 namespace ProductManagement.Services.Dto.Attribute
 {
-    public class AttributeDto
+    public class AttributeDto:DomainEntity
     {
         public AttributeDto()
         {
 
-          
-           ParentId = 0;
-      }
+            Id = -1;
+            ParentId = -1;
+        }
 
     public string Name { get; set; }
     public string Value { get; set; }

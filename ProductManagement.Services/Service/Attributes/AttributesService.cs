@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Services.Dto.Attribute;
+using ProductManagement.Services.Service.Attributes.Validation;
 using ProductManagementWebApi.Models;
 
 using Attribute = ProductManagementWebApi.Models.Attribute;
@@ -12,26 +13,36 @@ namespace ProductManagement.Services.Service.Attributes
     public class AttributesService : IAttributesService
     {
         public readonly IAttributesRepository _attributesRepository;
+        public readonly IAttributeValidationService _attributeValidationService;
         private readonly IMapper _mapper;
 
-        public AttributesService(IAttributesRepository attributesRepository)
+        public AttributesService
+        (
+
+            IAttributesRepository attributesRepository,
+            IAttributeValidationService attributeValidationService
+        )
         {
             _attributesRepository = attributesRepository;
-           
+            _attributeValidationService = attributeValidationService;
+
         }
 
-        public Task<Attribute> UpdateDto(AttributeDto valuedto)
+        public async Task UpdateDto(AttributeDto valuedto)
         {
             var entity = new Attribute
             {
+                Id = valuedto.Id,
                 ParentId = valuedto.ParentId,
                 Name = valuedto.Name,
                 Value = valuedto.Value
             };
+            if (!_attributeValidationService.IsExistAttributeNodeById(entity.Id).Result)
+                throw new Exception("The value entered is not Valid");
 
-            return updateAttrbiute(entity);
+
+            await _attributesRepository.Update(entity);
         }
-
 
         public int AddDto(AttributeDto valuedto)
         {
@@ -46,30 +57,16 @@ namespace ProductManagement.Services.Service.Attributes
             return entity.Id;
         }
 
-
-
-
-
-
-        public async Task<List<Attribute>> GetAttributeList()
+        public List<Attribute> GetAttributeList(List<Attribute> attributes)
         {
-           return await _attributesRepository.GetAttributeList();
-         
-         
+            return _attributesRepository.GetAttributeList(attributes);
         }
 
-
-    
-        public async Task<Attribute> AddAttribute(Attribute entity)
+        public Task<List<Attribute>> GetAttributeListAsync()
         {
-          return  await _attributesRepository.Add(entity);
-          
+            return _attributesRepository.GetAttributeListAsync();
         }
 
-        public async Task<IList<Attribute>> GetAll()
-        {
-            return await _attributesRepository.GetAll();
-        }
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {
@@ -79,7 +76,7 @@ namespace ProductManagement.Services.Service.Attributes
         public AttributeDto GetNodeAttributeDto(Attribute value)
         {
             var valuedto = _attributesRepository.GetNodeAttribute(value);
-            return  _mapper.Map<Attribute, AttributeDto>(valuedto);
+            return _mapper.Map<Attribute, AttributeDto>(valuedto);
         }
 
         public Attribute GetNodeAttribute(Attribute value)
@@ -87,42 +84,18 @@ namespace ProductManagement.Services.Service.Attributes
             return _attributesRepository.GetNodeAttribute(value);
         }
 
-        public async Task<IList<Attribute>> GetAll(string title)
-        {
-
-
-            return await _attributesRepository.GetAll(title);
-
-
-        }
 
         public async Task DeleteByIdAsync(int id)
         {
-           
             await _attributesRepository.DeleteByIdAsync(id);
         }
-        public async Task<Attribute> updateAttrbiute(Attribute value)
+
+        public async Task DeleteById(int id)
         {
-           
+            if (!await _attributeValidationService.IsExistAttributeById(id))
+                throw new Exception("This Attribute is not Valid");
 
-            var entity =await _attributesRepository.updateAttrbiute(value);
-            return entity;
-        }
-
-        public async Task<bool> IsExsistAttrbiute(int id)
-        {
-            return await _attributesRepository.IsExsistAttrbiute(id);
-        }
-        public async Task<bool> IsExsistAttrbiuteNode(int id)
-        {
-            return await _attributesRepository.IsExsistAttrbiuteNode(id);
-        }
-
-
-
-        public async Task DeleteByIdNodeAsync(int id)
-        {
-          await  _attributesRepository.DeleteByIdNodeAsync(id);
+            await _attributesRepository.DeleteById(id);
         }
     }
 }

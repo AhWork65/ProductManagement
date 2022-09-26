@@ -8,20 +8,16 @@ namespace ProductManagement.Services.Service.Attributes
 {
     public interface IAttributesService
     {
-        Task DeleteByIdNodeAsync(int id);
-        Task<Attribute> UpdateDto(AttributeDto valuedto);
-        Task<Attribute> updateAttrbiute(Attribute value);
+        Task UpdateDto(AttributeDto valuedto);
+        int AddDto(AttributeDto entitiydto);
         AttributeDto GetNodeAttributeDto(Attribute value);
         Attribute GetNodeAttribute(Attribute value);
-        Task<IList<Attribute>> GetAll(string title);
-        Task<Attribute> AddAttribute(Attribute entity);
         Task DeleteByIdAsync(int id);
-        int AddDto(AttributeDto entitiydto);
+
+        Task DeleteById(int id);
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
-        Task<List<Attribute>> GetAttributeList();
-        Task<IList<Attribute>> GetAll();
-        Task<bool> IsExsistAttrbiute(int id);
-        Task<bool> IsExsistAttrbiuteNode(int id);
+        List<Attribute> GetAttributeList(List<Attribute> attributes);
+        Task<List<Attribute>> GetAttributeListAsync();
 
 
     }

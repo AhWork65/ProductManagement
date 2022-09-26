@@ -9,21 +9,13 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
     public  interface IAttributesRepository : IBaseRepository<Attribute>
     {
         int AddDto(Attribute entitiy);
-        Task AddAsync(Attribute entity);
-        Task<Attribute> updateAttrbiute(Attribute value);
-        Task<bool> IsExsistAttrbiute(int id);
-        Task<bool> IsExsistAttrbiuteNode(int id);
         Attribute GetNodeAttribute(Attribute value);
-
         Task DeleteByIdAsync(int id);
-        Task DeleteByIdNodeAsync(int id);
+        Task DeleteById(int id);
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
+        List<Attribute> GetAttributeList(List<Attribute> attributes);
+        Task<List<Attribute>> GetAttributeListAsync();
 
-        Task<List<Attribute>> GetAttributeList();
 
-        Task<IList<Attribute>> GetAll(string title);
-        Task<IList<Attribute>> GetAll();
-		
-	
     }
 }

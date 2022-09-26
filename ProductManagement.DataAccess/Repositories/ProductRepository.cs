@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Formats.Asn1;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
@@ -26,6 +18,7 @@ namespace ProductManagement.DataAccess.Repositories
             _dbSet = _unitOfWork.Set<Product>();
         }
 
+
         public async  Task<IList<Product>> GetProductByClassification(int classificationId)
         {
 
@@ -36,7 +29,10 @@ namespace ProductManagement.DataAccess.Repositories
         public async Task<Product> GetProductByCode(string code)
         {
 
-            return await _dbSet.Where(mdl => mdl.Code == code).FirstAsync(); 
+            return await _dbSet
+                .Include(mdl => mdl.ProductAttributeDetails)
+                .ThenInclude(mdl=> mdl.Attribute)
+                .Where(mdl => mdl.Code == code).FirstAsync(); 
 
         }
 

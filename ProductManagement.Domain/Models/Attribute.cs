@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProductManagementWebApi.Models
 {
-    public class Attribute :DomainEntity
+    public class Attribute : DomainEntity
     {
 
         public Attribute()
@@ -15,10 +15,10 @@ namespace ProductManagementWebApi.Models
             ProductAttributeDetails = new HashSet<ProductAttributeDetail>();
         }
 
-   
+
         public string Name { get; set; }
         public string Value { get; set; }
-        public int? ParentId { get; set; } 
+        public int? ParentId { get; set; }
         public virtual Attribute ParentNode { get; set; }
         public virtual ICollection<Attribute> subNodes { get; set; }
         public virtual ICollection<ProductAttributeDetail> ProductAttributeDetails { get; set; }

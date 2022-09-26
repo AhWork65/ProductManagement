@@ -1,11 +1,9 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
-
+﻿using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Domain.Models.Base;
 using ProductManagement.Services.Dto.Attribute;
 using ProductManagement.Services.Service.Attributes;
-using ProductManagementWebApi.Models;
-using Attribute = System.Attribute;
+using Attribute = ProductManagementWebApi.Models.Attribute;
+
 
 
 namespace ProductManagementWebApi.Controllers.Api
@@ -13,8 +11,8 @@ namespace ProductManagementWebApi.Controllers.Api
 
     public class AttributeController : MyBaseAttributesController
     {
-
         private readonly IAttributesService _attributesService;
+
         public AttributeController(IAttributesService attributesService)
         {
             _attributesService = attributesService;
@@ -22,85 +20,57 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
 
-
         [HttpPost]
-        public BaseModelResult<string> AddAttribute(AttributeDto valuedto)
+
+        public BaseModelResult<string> CreateAttribute(AttributeDto valuedto)
         {
             var nodeAttribute = new Models.Attribute();
 
             if (string.IsNullOrWhiteSpace(valuedto.Name))
-                return InvalidResult<string>(1, "نام نمی تواند خالی باشد");
-
-            
+                return InvalidResult<string>(1, "The name cannot be empty");
 
             if (nodeAttribute.ParentId == null)
             {
-                nodeAttribute.Name = valuedto.Name;
-                nodeAttribute.Value = valuedto.Value;
                 _attributesService.AddDto(valuedto);
-                return careateModelResult("درج انجام شد");
-
+                return careateModelResult("Insert Is OK....");
             }
             else
             {
-                Models.Attribute parentAttribute = _attributesService.GetNodeAttribute(nodeAttribute);
-                nodeAttribute.Name = valuedto.Name;
-                nodeAttribute.Value = valuedto.Value;
+                Attribute parentAttribute = _attributesService.GetNodeAttribute(nodeAttribute);
                 parentAttribute.subNodes.Add(nodeAttribute);
             }
 
-        
-            return careateModelResult("درج انجام شد");
-
-
-
+            return careateModelResult("Add is ok .....");
         }
-
-
 
         [HttpGet]
         public async Task<BaseModelResult<List<Models.Attribute>>> GetAllAsync()
         {
-            var result = await _attributesService.GetAttributeList();
+            List<Attribute> result = await _attributesService.GetAttributeListAsync();
 
             return careateModelResult(result);
         }
 
+        [HttpGet("{id:int}")]
 
-        [HttpGet("id")]
-
-        public async Task<BaseModelResult<IList<Models.Attribute>>> GetAllAsync(int id)
+        public async Task<BaseModelResult<IList<Attribute>>> GetByIdAsync(int id)
         {
+
             var result = await _attributesService.GetAttributeDetailByParentId(id);
-
-            return careateModelResult(result);
-        }
-
-
-
-        [HttpGet("title")]
-        public async Task<BaseModelResult<IList<Models.Attribute>>> GetNodes(string Title)
-        {
-            var result = await _attributesService.GetAll(Title);
             return careateModelResult(result);
         }
 
         [HttpPut]
-        public async Task<BaseModelResult<Models.Attribute>> UpdateAttribute(AttributeDto attributedto)
+        public async Task<BaseModelResult<string>> UpdateAttribute(AttributeDto attributedto)
         {
-            var result = await _attributesService.UpdateDto(attributedto);
-            return careateModelResult(result);
+            await _attributesService.UpdateDto(attributedto);
+            return careateModelResult("Update is ok");
         }
 
 
-        [HttpDelete("id")]
+        [HttpDelete("{id:int}")]
         public async Task<BaseModelResult<string>> DeleteAttribute(int id)
         {
-            if (!await _attributesService.IsExsistAttrbiute(id))
-
-                return careateModelResult("Not found");
-
-
 
             await _attributesService.DeleteByIdAsync(id);
 
@@ -108,19 +78,16 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
 
+        [HttpDelete("{id:int}")]
 
-        [HttpDelete("id")]
-        public async Task<BaseModelResult<string>> DeleteNodeAttribute(int id)
+        public async Task<BaseModelResult<string>> DeleteParentAttribute(int id)
         {
-            if (!await _attributesService.IsExsistAttrbiuteNode(id))
-
-                return careateModelResult("Not found");
-
-
-
-            await _attributesService.DeleteByIdNodeAsync(id);
+            await _attributesService.DeleteById(id);
 
             return careateModelResult("Delete is ok");
         }
+
+
+
     }
 }

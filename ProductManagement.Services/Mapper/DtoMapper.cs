@@ -5,7 +5,7 @@ namespace ProductManagement.Services.Mapper
 {
     public static class DtoMapper
     {
-        public static TDto MapTo<TEntity, TDto>(TEntity entity) where TEntity : DomainEntity
+        public static TDto MapTo<TEntity, TDto>(TEntity entity) 
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
@@ -16,6 +16,8 @@ namespace ProductManagement.Services.Mapper
 
             return mapper.Map<TDto>(entity);
         }
+
+       
 
         public static IEnumerable<TDto> ListMapTo<TEntity, TDto>(IEnumerable<TEntity> entity)
         {

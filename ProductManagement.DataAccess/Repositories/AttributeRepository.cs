@@ -10,13 +10,10 @@ namespace ProductManagement.DataAccess.Repositories
 {
     public class AttributeRepository : BaseRepository<Attribute>, IAttributesRepository
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly DbSet<Attribute> _dbSet;
 
         public AttributeRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _unitOfWork = unitOfWork;
-            _dbSet = _unitOfWork.Set<Attribute>();
+
         }
 
 

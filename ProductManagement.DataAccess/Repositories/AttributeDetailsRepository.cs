@@ -15,15 +15,10 @@ namespace ProductManagement.DataAccess.Repositories
     public class AttributeDetailsRepository : BaseRepository<ProductAttributeDetail>, IAttributeDetailRepository
     {
 
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly DbSet<ProductAttributeDetail> _dbSet;
-
         public AttributeDetailsRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _unitOfWork = unitOfWork;
-            _dbSet = _unitOfWork.Set<ProductAttributeDetail>();
-        }
 
+        }
 
         public async Task<ProductAttributeDetail> GetByAttributesId(int attributeId)
         {

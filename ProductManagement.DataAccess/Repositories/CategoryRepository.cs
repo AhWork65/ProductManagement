@@ -9,11 +9,8 @@ namespace ProductManagement.DataAccess.Repositories
 {
     public class CategoryRepository : BaseRepository<Category>,  ICategoryRepository
     {
-        private readonly DbSet<Category> _dbSet;
-
         public CategoryRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _dbSet = unitOfWork.Set<Category>();
         }
 
         public async Task<IList<Category>> GetActiveChildCategory(int parrentId)

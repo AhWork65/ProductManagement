@@ -13,8 +13,8 @@ namespace ProductManagement.DataAccess.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : DomainEntity
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public BaseRepository(IUnitOfWork unitOfWork)
         {

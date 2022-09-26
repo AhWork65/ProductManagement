@@ -9,13 +9,8 @@ namespace ProductManagement.DataAccess.Repositories
     public  class ProductRepository : BaseRepository<Product>,  IProductRepository
     {
 
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly DbSet<Product> _dbSet;
-
         public ProductRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _unitOfWork = unitOfWork;
-            _dbSet = _unitOfWork.Set<Product>();
         }
 
 

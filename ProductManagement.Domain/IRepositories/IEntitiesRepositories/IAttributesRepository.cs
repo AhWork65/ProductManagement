@@ -11,7 +11,7 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
        
         Attribute GetNodeAttribute(Attribute value);
         Task DeleteByIdAsync(int id);
-        Task DeleteById(int id);
+        Task DeleteByParentId(int id);
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
         List<Attribute> GetAttributeList(List<Attribute> attributes);
         Task<List<Attribute>> GetAttributeListAsync();

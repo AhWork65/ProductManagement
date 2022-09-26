@@ -82,7 +82,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
         public async Task<BaseModelResult<string>> DeleteParentAttribute(int id)
         {
-            await _attributesService.DeleteById(id);
+            await _attributesService.DeleteByParentId(id);
 
             return careateModelResult("Delete is ok");
         }

@@ -85,12 +85,12 @@ namespace ProductManagement.Services.Service.Attributes
             await _attributesRepository.DeleteByIdAsync(id);
         }
 
-        public async Task DeleteById(int id)
+        public async Task DeleteByParentId(int id)
         {
             if (!await _attributeValidationService.IsExistAttributeById(id))
                 throw new Exception("This Attribute is not Valid");
 
-            await _attributesRepository.DeleteById(id);
+            await _attributesRepository.DeleteByParentId(id);
         }
     }
 }

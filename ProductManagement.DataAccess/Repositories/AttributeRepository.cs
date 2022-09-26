@@ -35,11 +35,27 @@ namespace ProductManagement.DataAccess.Repositories
                 return;
             foreach (var node in subnodes)
             {
+               
                 _dbSet.Remove(node);
             }
             await _unitOfWork.SaveChangesAsync();
         }
 
+        public async Task DeleteByParentId(int id)
+        {
+            
+            var entitList = await _dbSet.Where(e => e.ParentId == id).ToListAsync();
+            if(entitList==null)
+                return;
+            foreach (var e in entitList)
+            {
+                if (e.ParentId != null)
+                {
+                    Delete(e);
+                }
+            }
+            DeleteById(id);
+        }
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {

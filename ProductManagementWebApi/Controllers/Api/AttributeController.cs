@@ -22,7 +22,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
         [HttpPost]
 
-        public BaseModelResult<string> CreateAttribute(AttributeDto valuedto)
+        public async Task<BaseModelResult<string>> CreateAttribute(AttributeDto valuedto)
         {
             var nodeAttribute = new Models.Attribute();
 
@@ -31,7 +31,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
             if (nodeAttribute.ParentId == null)
             {
-                _attributesService.AddDto(valuedto);
+                await _attributesService.AddDto(valuedto);
                 return careateModelResult("Insert Is OK....");
             }
             else

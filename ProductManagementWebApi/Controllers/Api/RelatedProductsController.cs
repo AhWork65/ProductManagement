@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Services.Dto.RelatedProducts;
+using ProductManagement.Domain.Dto.RelatedProducts;
 using ProductManagement.Services.Mapper;
 using ProductManagement.Services.Service.Product.Validation;
 using ProductManagement.Services.Service.RelatedProductsServices;

@@ -14,7 +14,7 @@ namespace ProductManagement.Services.Service.Attributes
     {
         public readonly IAttributesRepository _attributesRepository;
         public readonly IAttributeValidationService _attributeValidationService;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
 
         public AttributesService
         (
@@ -73,11 +73,11 @@ namespace ProductManagement.Services.Service.Attributes
             return await _attributesRepository.GetAttributeDetailByParentId(id);
         }
 
-        public AttributeDto GetNodeAttributeDto(Attribute value)
-        {
-            var valuedto = _attributesRepository.GetNodeAttribute(value);
-            return _mapper.Map<Attribute, AttributeDto>(valuedto);
-        }
+        //public AttributeDto GetNodeAttributeDto(Attribute value)
+        //{
+        //    var valuedto = _attributesRepository.GetNodeAttribute(value);
+        //    return _mapper.Map<Attribute, AttributeDto>(valuedto);
+        //}
 
         public Attribute GetNodeAttribute(Attribute value)
         {

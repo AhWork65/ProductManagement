@@ -6,6 +6,7 @@ using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Services.Service.AttributeDetail;
 using ProductManagement.Services.Service.Attributes;
+using ProductManagement.Services.Service.Attributes.Validation;
 using ProductManagement.Services.Service.CategoryService;
 using ProductManagement.Services.Service.CategoryService.Validation;
 using ProductManagement.Services.Service.Product.Validation;
@@ -15,9 +16,10 @@ using ProductManagement.Services.Services.CategoryService;
 using ProductManagement.Services.Services.IServices;
 using ProductManagement.Services.Services.Services;
 using ProductManagementWebApi.Models ;
+using ProductManagement.Services.Service.Attributes.Validation;
 
 
-var builder = WebApplication.CreateBuilder(args);
+    var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -46,7 +48,8 @@ builder.Services.AddScoped<IProductValidationService, ProductValidationService>(
 builder.Services.AddScoped<IRelatedProductsService, RelatedProductService>();
 builder.Services.AddScoped<IRelatedProductValidationService , RelatedProductsValidationService>();  
 builder.Services.AddScoped<IAttributesService, AttributesService>();
-builder.Services.AddScoped<IAttributeDetailService , AttributeDetailService>(); 
+builder.Services.AddScoped<IAttributeDetailService , AttributeDetailService>();
+builder.Services.AddScoped<IAttributeValidationService, AttributeValidationService>();
 
 
 

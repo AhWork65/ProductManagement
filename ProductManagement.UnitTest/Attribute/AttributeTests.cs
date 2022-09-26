@@ -76,8 +76,8 @@ namespace ProductManagement.UnitTest.Attribute
             dto.ParentId = null;
             dto.Value = "w";
             dto.Id = 34;
-            var action = _attributeController.CreateAttribute(dto);
-            Assert.AreEqual(action.result, dto);
+            var action = _attributesService.AddDto(dto);
+            Assert.AreEqual(dto.Id,action);
         }
 
         [Fact]

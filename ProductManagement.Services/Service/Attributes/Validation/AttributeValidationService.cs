@@ -7,7 +7,7 @@ using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 
 namespace ProductManagement.Services.Service.Attributes.Validation
 {
-    public class AttributeValidationService
+    public class AttributeValidationService:IAttributeValidationService
     {
         public readonly IAttributesRepository _attributesRepository;
 

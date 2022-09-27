@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
-using ProductManagement.Services.Dto.Attribute;
+using ProductManagement.Domain.Dto.Attribute;
 using ProductManagement.Services.Mapper;
 using ProductManagement.Services.Service.Attributes.Validation;
 using ProductManagementWebApi.Models;

@@ -7,7 +7,7 @@ using ProductManagement.DataAccess.Repositories;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
-using ProductManagement.Services.Dto.Product;
+using ProductManagement.Domain.Dto.Product;
 using ProductManagementWebApi.Models;
 
 namespace ProductManagement.Services.Service.Product.Validation

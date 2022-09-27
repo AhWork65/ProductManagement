@@ -1,4 +1,4 @@
-﻿using ProductManagement.Services.Dto.Product;
+﻿using ProductManagement.Domain.Dto.Product;
 using ProductManagementWebApi.Models;
 using System;
 using System.Collections.Generic;

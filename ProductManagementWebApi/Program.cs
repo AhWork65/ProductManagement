@@ -1,4 +1,5 @@
 using AutoMapper;
+using GlobalErrorApp.Configurations;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.DataAccess.Repositories;
@@ -71,5 +72,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.AddGlobalErrorHandler();
 
 app.Run();

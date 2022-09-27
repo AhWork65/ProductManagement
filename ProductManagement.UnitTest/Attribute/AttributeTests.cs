@@ -85,7 +85,7 @@ namespace ProductManagement.UnitTest.Attribute
 
         public void DeleteReturnsOk()
         {
-            var controller = _attributesService.DeleteById(1);
+            var controller = _attributesService.DeleteByParentId(1);
             Assert.AreEqual(1, 1);
         }
     }

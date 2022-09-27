@@ -9,6 +9,10 @@
 
         public const string ConnectionStrings = "ConnectionStrings";
 
+        public const string ExternalWebApiAddress = "ExternalWebApiAddress";
+
+        public const string FileWebApiAddress = "FileWebApiAddress";
+
 
 
 

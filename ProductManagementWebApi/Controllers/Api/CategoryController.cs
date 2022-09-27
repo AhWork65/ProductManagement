@@ -19,22 +19,7 @@ namespace ProductManagementWebApi.Controllers.Api
         [Route("[controller]/Add")]
         public async Task<IActionResult> Add([FromBody] Category category)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            Category modalResult;
-
-
-            try
-            {
-                modalResult  = await _CategoryService.Create(category);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new { message = e.Message });
-            }
-
-           return Ok(modalResult);
+            return Ok(await _CategoryService.Create(category));
         }
 
 
@@ -42,15 +27,9 @@ namespace ProductManagementWebApi.Controllers.Api
         [Route("[controller]/UpdateCategory")]
         public async Task<IActionResult> UpdateCategory([FromBody] Category category)
         {
-            try
-            {
-                await _CategoryService.Update(category);
-            }
-            catch (Exception e)
-            {
-                return NotFound(new { message = e.Message });
-            }
-            return Ok();
+
+           await _CategoryService.Update(category);
+           return Ok();
         }
 
 
@@ -95,20 +74,9 @@ namespace ProductManagementWebApi.Controllers.Api
         [Route("[controller]/Delete/{id}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {
-            try
-            {
-                await _CategoryService.Delete(id);
-            }
-            catch (EntryPointNotFoundException e)
-            {
-                return NotFound(new { message = e.Message });
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new { message = e.Message });
-            }
-            
-            return Ok();
+     
+         await _CategoryService.Delete(id);
+         return Ok();
 
         }
         [HttpGet]

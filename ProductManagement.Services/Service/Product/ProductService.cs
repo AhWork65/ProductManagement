@@ -2,7 +2,7 @@
 using System.Linq;
 using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
-using ProductManagement.Services.Dto.Product;
+using ProductManagement.Domain.Dto.Product;
 using ProductManagement.Services.Services.IServices;
 using ProductManagementWebApi.Models;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Domain.Models.Base;
-using ProductManagement.Services.Dto.Attribute;
+using ProductManagement.Domain.Dto.Attribute;
 using ProductManagement.Services.Service.Attributes;
 using Attribute = ProductManagementWebApi.Models.Attribute;
 

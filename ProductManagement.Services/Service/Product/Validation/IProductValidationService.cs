@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProductManagement.Domain.Models;
-using ProductManagement.Services.Dto.Product;
+using ProductManagement.Domain.Dto.Product;
 using ProductManagementWebApi.Models;
 
 namespace ProductManagement.Services.Service.Product.Validation

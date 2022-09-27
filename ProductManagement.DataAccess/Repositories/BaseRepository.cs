@@ -35,7 +35,7 @@ namespace ProductManagement.DataAccess.Repositories
         public async Task<TEntity> Add(TEntity entity)
         {
             _dbSet.Add(entity);
-            await _unitOfWork.SaveChangesAsync();
+            await  _unitOfWork.SaveChangesAsync();
             return entity;
         }
 

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.DataAccess.AppContext;
-using ProductManagement.Services.Dto.Product;
+using ProductManagement.Domain.Dto.Product;
+using ProductManagement.Services.Domain.Product;
 using ProductManagement.Services.Service.Attributes;
 using ProductManagement.Services.Service.CategoryService.Validation;
 using ProductManagement.Services.Service.Product.Validation;

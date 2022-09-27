@@ -11,6 +11,11 @@ namespace ProductManagementDataAccess.Config
             .GetSection(AppConfigConsts.ConnectionStrings)
             .Value;
 
+        public static string FileWebApiAddress => GetRoot()
+            .GetSection(AppConfigConsts.ExternalWebApiAddress)
+            .GetSection(AppConfigConsts.FileWebApiAddress)
+            .Value;
+
         public static IConfigurationRoot GetRoot()
         {
             var config = 

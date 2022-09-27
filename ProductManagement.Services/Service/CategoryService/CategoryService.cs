@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GlobalErrorApp.Exceptions;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
@@ -35,7 +36,7 @@ namespace ProductManagement.Services.Services.CategoryService
         public async Task<Category> Create(Category entity)
         {
             if (await _CategoryServiceValidation.IsExistCategoryByCode(entity.Code))
-                throw new Exception("Code is not Valid");
+                throw new BadRequestException("Code is not Valid");
 
 
           return  await _CategoryRepository.Add(entity);
@@ -47,7 +48,7 @@ namespace ProductManagement.Services.Services.CategoryService
         {
 
             if (! await _CategoryServiceValidation.IsExistCategoryById(entity.Id))
-                throw new Exception("category Not Found");
+                throw new BadRequestException("category Not Found");
 
             await _CategoryRepository.Update(entity);
 
@@ -56,7 +57,7 @@ namespace ProductManagement.Services.Services.CategoryService
         public void Delete(Category entity)
         {
             if (!_CategoryServiceValidation.IsExistCategoryById(entity.Id).Result)
-                throw new Exception("category Not Found");
+                throw new NotFoundException("category Not Found");
 
             _CategoryRepository.Delete(entity);
 
@@ -68,13 +69,13 @@ namespace ProductManagement.Services.Services.CategoryService
         {
 
             if (!await _CategoryServiceValidation.IsExistCategoryById(categoryId))
-                throw new EntryPointNotFoundException("category Not Found");
+                throw new NotFoundException("category Not Found");
 
             if (await _CategoryServiceValidation.HasAChild(categoryId))
-                throw new Exception("category Has Child");
+                throw new BadRequestException("category Has Child");
 
             if (await _CategoryServiceValidation.HasAProduct(categoryId))
-                throw new Exception("product is connected to the category");
+                throw new BadRequestException("product is connected to the category");
 
             await _CategoryRepository.DeleteById(categoryId);
 

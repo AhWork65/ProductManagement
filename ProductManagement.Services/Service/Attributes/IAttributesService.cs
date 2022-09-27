@@ -1,5 +1,5 @@
 ﻿
-using ProductManagement.Services.Dto.Attribute;
+using ProductManagement.Domain.Dto.Attribute;
 using Attribute=ProductManagementWebApi.Models.Attribute;
 
 

@@ -22,8 +22,7 @@ namespace ProductManagementWebApi.Controllers.Api
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly IProductValidationService _ProductValidationService;
-        private readonly ICategoryServiceValidation _CategoryValidationService;
-        private readonly IAttributesService _AttributeService;
+
         private readonly IAttributeDetailService _AttributeDetailService;
 
         public ProductController
@@ -31,16 +30,12 @@ namespace ProductManagementWebApi.Controllers.Api
                 IProductServices productServices,
                 IUnitOfWork unitOfWork,
                 IProductValidationService productValidationService,
-                ICategoryServiceValidation categoryServiceValidation,
-                IAttributesService attributeService,
                 IAttributeDetailService AttributeDetailService
 
             )
         {
             _ProductServices = productServices;
             _ProductValidationService = productValidationService;
-            _CategoryValidationService = categoryServiceValidation;
-            _AttributeService = attributeService;
             _AttributeDetailService = AttributeDetailService;
             _unitOfWork = unitOfWork;
         }
@@ -77,6 +72,25 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
+        [Route("[controller]/GetByCategoryId/{categoryId}/")]
+        public async Task<IActionResult> GetByCategory([FromRoute] int categoryId)
+        {
+
+            return Ok(await _ProductServices.GetProductByCategory(categoryId)); 
+
+        }
+
+
+        [HttpGet]
+        [Route("[controller]/GetByClassification/{classification}")]
+        public async Task<IActionResult> GetByClassification([FromRoute] int classification)
+        {
+
+            return Ok(await _ProductServices.GetProductByClassification(classification));
+
+        }
+
+        [HttpGet]
         [Route("[controller]/GetById/{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -95,25 +109,6 @@ namespace ProductManagementWebApi.Controllers.Api
 
         }
 
-
-        [HttpGet]
-        [Route("[controller]/GetByCategoryId/{categoryId}/")]
-        public async Task<IActionResult> GetByCategory([FromRoute] int categoryId)
-        {
-
-            return Ok(await _ProductServices.GetProductByCategory(categoryId)); 
-
-        }
-
-
-        [HttpGet]
-        [Route("[controller]/GetByClassification/{classification}")]
-        public async Task<IActionResult> GetByClassification([FromRoute] int classification)
-        {
-            
-            return Ok(await _ProductServices.GetProductByClassification(classification));
-
-        }
 
         [HttpGet]
         [Route("[controller]/GetBaseOnClassification/{classification}")]

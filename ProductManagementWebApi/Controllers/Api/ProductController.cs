@@ -51,14 +51,7 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetAll()
         {
 
-            var objs = await _ProductServices.GetAll();
-
-            var isRecordsExists = _ProductValidationService.IsRecordExists(objs);
-            if (!isRecordsExists) return BadRequest("record does not exists");
-
-            var result = DtoMapper.ListMapTo<Product, ProductListDTO>(objs);
-
-            return Ok(result);
+            return Ok(await _ProductServices.GetAll());
 
         }
 
@@ -67,14 +60,8 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetAllActive()
         {
 
-            var objs = await _ProductServices.GetAllActive();
 
-            var isRecordsExists = _ProductValidationService.IsRecordExists(objs);
-            if (!isRecordsExists) return BadRequest("record does not exists");
-
-            var result = DtoMapper.ListMapTo<Product, ProductListDTO>(objs);
-
-            return Ok(result);
+            return Ok(await _ProductServices.GetAllActive());
 
         }
 
@@ -84,14 +71,8 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetAllInactive()
         {
 
-            var objs = await _ProductServices.GetAllInactive();
+            return Ok(await _ProductServices.GetAllInactive());
 
-            var isRecordsExists = _ProductValidationService.IsRecordExists(objs);
-            if (!isRecordsExists) return BadRequest("record does not exists");
-
-            var result = DtoMapper.ListMapTo<Product, ProductListDTO>(objs);
-
-            return Ok(result);
         }
 
 
@@ -100,14 +81,7 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
 
-            var isIDExists = _ProductValidationService.IsIdExists(id);
-            if (!isIDExists) return BadRequest("Id Does Not Exists");
-
-            var isRecordWithIdExists = await _ProductValidationService.IsRecordWithEnteredIdExists(id);
-            if (!isRecordWithIdExists) return BadRequest("Record does not exists");
-
-            var obj = await _ProductServices.GetById(id);
-            return Ok(obj);
+            return Ok(await _ProductServices.GetById(id));
 
         }
 
@@ -116,14 +90,8 @@ namespace ProductManagementWebApi.Controllers.Api
         [Route("[controller]/GetByCode/{code}")]
         public async Task<IActionResult> GetByCode([FromRoute] string code)
         {
-            var isCodeExists = _ProductValidationService.IsCodeExists(code);
-            if (!isCodeExists) return BadRequest("code does not exists");
 
-            var isRecordWithCodeExists = await _ProductValidationService.IsRecordWithEnteredCodeExists(code);
-            if (!isRecordWithCodeExists) return BadRequest("Record does not exists ");
-
-            var obj = await _ProductServices.GetProductByCode(code);
-            return Ok(obj);
+            return Ok(await _ProductServices.GetProductByCode(code));
 
         }
 
@@ -133,53 +101,17 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetByCategory([FromRoute] int categoryId)
         {
 
-            var isIdExists = _ProductValidationService.IsIdExists(categoryId);
-            if (!isIdExists) return BadRequest("Id does not Exists");
-
-            var isCategoryExists = await _CategoryValidationService.IsExistCategoryById(categoryId);
-            if (!isCategoryExists) return BadRequest("category does not exists");
-
-            var isRecordWithCategoryExists = await _ProductValidationService.IsRecordWithEnteredCategoryExists(categoryId);
-            if (!isRecordWithCategoryExists) return BadRequest("Records does not exists ");
-
-            var obj = await _ProductServices.GetProductByCategory(categoryId);
-            return Ok(obj);
+            return Ok(await _ProductServices.GetProductByCategory(categoryId)); 
 
         }
-
-
-
-        //[HttpGet]
-        //[Route("[controller]/GetByAttribute/{attributeId}/")]
-        //public async Task<IActionResult> GetByAttribute([FromRoute] int attributeId)
-        //{
-
-        //    var isIdExists = _ProductValidationService.IsIdExists(attributeId);
-        //    if (!isIdExists) return BadRequest("Id does not exists"); 
-
-        //    var isAttributeExists = await _ProductValidationService.IsAttributeExists(attributeId);
-        //    if (!isAttributeExists) return BadRequest("Attribute does not exists ");
-
-        //    var attribute = await _AttributeService.GetById(attributeId);
-
-
-        //}
-
 
 
         [HttpGet]
         [Route("[controller]/GetByClassification/{classification}")]
         public async Task<IActionResult> GetByClassification([FromRoute] int classification)
         {
-            var isClassificationIdExists = _ProductValidationService.IsClassificationExists(classification);
-            if (!isClassificationIdExists) return BadRequest("classificationId does not exists");
-
-            var isRecordWithClassificationExists =
-               await _ProductValidationService.IsRecordWithEnteredClassificationExists(classification);
-            if (!isRecordWithClassificationExists) return BadRequest("Record does not exists");
-
-            var obj = await _ProductServices.GetProductByClassification(classification);
-            return Ok(obj);
+            
+            return Ok(await _ProductServices.GetProductByClassification(classification));
 
         }
 

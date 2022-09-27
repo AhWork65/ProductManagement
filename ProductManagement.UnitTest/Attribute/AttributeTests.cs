@@ -1,9 +1,6 @@
-﻿
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProductManagement.Domain.Dto.Attribute;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
-using ProductManagement.Services.Dto.Attribute;
 using ProductManagement.Services.Service.Attributes;
 using ProductManagement.Services.Service.Attributes.Validation;
 using ProductManagementWebApi.Controllers.Api;

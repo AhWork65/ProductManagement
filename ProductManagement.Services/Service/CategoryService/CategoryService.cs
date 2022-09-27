@@ -88,19 +88,19 @@ namespace ProductManagement.Services.Services.CategoryService
 
         }
 
-        public async Task<IEnumerable<Category>> GetAll()
+        public async Task<IList<Category>> GetAll()
         {
 
             return await _CategoryRepository.GetAll();
 
         }
 
-        public async Task<IEnumerable<Category>> GetAllActive()
+        public async Task<IList<Category>> GetAllActive()
         {
             return await _CategoryRepository.GetActiveList();
         }
 
-        public async Task<IEnumerable<Category>> GetAllInactive()
+        public async Task<IList<Category>> GetAllInactive()
         {
 
             return await _CategoryRepository.GetInactiveList();
@@ -108,12 +108,12 @@ namespace ProductManagement.Services.Services.CategoryService
         }
 
 
-        public async Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId)
+        public async Task<IList<Category>> GetActiveChildCategory(int parrentId)
         {
             return await _CategoryRepository.GetActiveChildCategory(parrentId);
         }
 
-        public async Task<IEnumerable<Category>> GetInactiveChildCategory(int parrentId)
+        public async Task<IList<Category>> GetInactiveChildCategory(int parrentId)
         {
             return await _CategoryRepository.GetInactiveChildCategory(parrentId);
         }

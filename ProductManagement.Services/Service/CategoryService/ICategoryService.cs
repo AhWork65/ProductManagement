@@ -12,11 +12,11 @@ namespace ProductManagement.Services.Service.CategoryService
         void Delete(Category entity);
         Task Delete(int categoryId);
         Task<Category> GetById(int id);
-        Task<IEnumerable<Category>> GetAll();
-        Task<IEnumerable<Category>> GetAllActive();
-        Task<IEnumerable<Category>> GetAllInactive();
-        Task<IEnumerable<Category>> GetActiveChildCategory(int parrentId);
-        Task<IEnumerable<Category>> GetInactiveChildCategory(int parrentId);
+        Task<IList<Category>> GetAll();
+        Task<IList<Category>> GetAllActive();
+        Task<IList<Category>> GetAllInactive();
+        Task<IList<Category>> GetActiveChildCategory(int parrentId);
+        Task<IList<Category>> GetInactiveChildCategory(int parrentId);
 
 
     }

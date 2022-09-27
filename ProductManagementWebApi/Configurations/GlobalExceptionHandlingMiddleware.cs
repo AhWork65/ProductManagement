@@ -41,37 +41,37 @@ public class GlobalExceptionHandlingMiddleware
         {
             message = ex.Message;
             status = HttpStatusCode.BadRequest;
-            stackTrace = ex.StackTrace;
+         //   stackTrace = ex.StackTrace;
         }
         else if(exceptionType == typeof(NotFoundException))
         {
             message = ex.Message;
             status = HttpStatusCode.NotFound;
-            stackTrace = ex.StackTrace;
+          //  stackTrace = ex.StackTrace;
         }
         else if(exceptionType == typeof(NotImplementedException))
         {
             message = ex.Message;
             status = HttpStatusCode.NotImplemented;
-            stackTrace = ex.StackTrace;
+         //   stackTrace = ex.StackTrace;
         }
         else if(exceptionType == typeof(KeyNotFoundException))
         {
             message = ex.Message;
             status = HttpStatusCode.NotFound;
-            stackTrace = ex.StackTrace;
+         //   stackTrace = ex.StackTrace;
         }
         else if(exceptionType == typeof(UnauthorizedAccessException))
         {
             message = ex.Message;
             status = HttpStatusCode.Unauthorized;
-            stackTrace = ex.StackTrace;
+         //   stackTrace = ex.StackTrace;
         }
         else
         {
             message = ex.Message;
             status = HttpStatusCode.InternalServerError;
-            stackTrace = ex.StackTrace;
+          //  stackTrace = ex.StackTrace;
         }
 
         var exceptionResult = JsonSerializer.Serialize(new {error = message, stackTrace});

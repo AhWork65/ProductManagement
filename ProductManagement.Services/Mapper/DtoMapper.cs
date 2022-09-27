@@ -19,7 +19,7 @@ namespace ProductManagement.Services.Mapper
 
        
 
-        public static IEnumerable<TDto> ListMapTo<TEntity, TDto>(IEnumerable<TEntity> entity)
+        public static IList<TDto> ListMapTo<TEntity, TDto>(IEnumerable<TEntity> entity)
         {
 
             var mappingConfig = new MapperConfiguration(config =>

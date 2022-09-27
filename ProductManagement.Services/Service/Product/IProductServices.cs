@@ -12,26 +12,28 @@ namespace ProductManagement.Services.Services.IServices
     public interface IProductServices
     {
 
-        public Task Create(Product entity);
-        public Task Update(Product entity);
-        public void Delete(Product entity);
-        public Task Delete(int categoryId);
-        public Task<Product> GetById(int id);
-        public Task<IList<Product>> GetAll();
-        public Task<IList<Product>> GetAllActive();
-        public Task<IList<Product>> GetAllInactive();
-        Task ChangeUnitStock(int id , int enteredUnitStock ); 
-        Task ChangeBaseUnitPrice(int id, int enteredPrice);
-        Task<IList<Product>> GetProductByClassification(int classificationId);
+        Task<Product> Create(Product entity);
+        Task Update(Product entity);
+        void Delete(Product entity);
+        Task Delete(int categoryId);
+        
+        Task<IList<ProductListDTO>> GetAll();
+        Task<IList<ProductListDTO>> GetAllActive();
+        Task<IList<ProductListDTO>> GetAllInactive();
+        Task<IList<ProductListDTO>> GetProductByCategory(int categoryId);
+        Task<IList<ProductListDTO>> GetProductByCategory(Category category);
+        Task<IList<ProductListDTO>> GetProductByClassification(int classificationId);
         Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId);
 
+        Task<Product> GetById(int id);
         Task<Product> GetProductByCode(string code);
-        Task<IList<Product>> GetProductByCategory(int categoryId);
-        Task<IList<Product>> GetProductByCategory(Category category);
         Task<IList<Product>> GetProductByAttribute(ProductAttributeDetail attribute);
         Task<Product> GetByIdWithAttributes(int productId);
-        public bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto);
-        public void  IncreaseUnitsInStock(Product product, int enteredUnitInStock);
-        public void  DeacreaseUnitsInStock(Product product, int enteredUnitInStock);
+        
+        bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto);
+        void IncreaseUnitsInStock(Product product, int enteredUnitInStock);
+        void DeacreaseUnitsInStock(Product product, int enteredUnitInStock);
+        Task ChangeUnitStock(int id, int enteredUnitStock);
+        Task ChangeBaseUnitPrice(int id, int enteredPrice);
     }
 }

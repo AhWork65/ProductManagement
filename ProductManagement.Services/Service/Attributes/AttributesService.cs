@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GlobalErrorApp.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
@@ -15,7 +16,7 @@ namespace ProductManagement.Services.Service.Attributes
     {
         public readonly IAttributesRepository _attributesRepository;
         public readonly IAttributeValidationService _attributeValidationService;
-        //private readonly IMapper _mapper;
+        
 
         public AttributesService
         (
@@ -31,25 +32,25 @@ namespace ProductManagement.Services.Service.Attributes
 
         public async Task UpdateDto(AttributeDto valuedto)
         {
-            var entity = new Attribute
-            {
-                Id = valuedto.Id,
-                ParentId = valuedto.ParentId,
-                Name = valuedto.Name,
-                Value = valuedto.Value
-            };
+       
+            var entity = DtoMapper.MapTo<AttributeDto, Attribute>(valuedto);
             if (!_attributeValidationService.IsExistAttributeNodeById(entity.Id).Result)
-                throw new Exception("The value entered is not Valid");
-
+                throw new BadRequestException("The value entered is not Valid");
 
             await _attributesRepository.Update(entity);
         }
 
-        public async Task<int> AddDto(AttributeDto valuedto)
+        public async Task AddDto(AttributeDto valuedto)
         {
             var entity = DtoMapper.MapTo<AttributeDto, Attribute>(valuedto);
+
+            if (_attributeValidationService.IsExistAttributeByName(valuedto.Name).Result)
+         
+                   throw new BadRequestException("Dont Repeate Attribute ....");
+
             await _attributesRepository.Add(entity);
-            return entity.Id;
+            
+           
         }
 
         public List<Attribute> GetAttributeList(List<Attribute> attributes)
@@ -65,14 +66,11 @@ namespace ProductManagement.Services.Service.Attributes
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {
+            if (!await _attributeValidationService.IsExistAttributeById(id))
+                       throw new BadRequestException("This Attribute is not Valid");
             return await _attributesRepository.GetAttributeDetailByParentId(id);
         }
 
-        //public AttributeDto GetNodeAttributeDto(Attribute value)
-        //{
-        //    var valuedto = _attributesRepository.GetNodeAttribute(value);
-        //    return _mapper.Map<Attribute, AttributeDto>(valuedto);
-        //}
 
         public Attribute GetNodeAttribute(Attribute value)
         {
@@ -82,13 +80,15 @@ namespace ProductManagement.Services.Service.Attributes
 
         public async Task DeleteByIdAsync(int id)
         {
+            if (!await _attributeValidationService.IsExistAttributeNodeById(id))
+                    throw new BadRequestException("This Attribute is not Valid");
             await _attributesRepository.DeleteByIdAsync(id);
         }
 
         public async Task DeleteByParentId(int id)
         {
             if (!await _attributeValidationService.IsExistAttributeById(id))
-                throw new Exception("This Attribute is not Valid");
+                throw new BadRequestException("This Attribute is not Valid");
 
             await _attributesRepository.DeleteByParentId(id);
         }

@@ -17,32 +17,21 @@ namespace ProductManagement.DataAccess.Repositories
         }
 
 
-
-        //public async Task<int> AddDto(Attribute entitiy)
-        //{
-        //    await _dbSet.Add(entitiy);
-
-        //    return entitiy.Id;
-        //}
-
         public async Task DeleteByIdAsync(int id)
         {
-            var subnodes = await _dbSet.Where(x => x.Id == id).ToListAsync();
+            var subnodes = await _dbSet.Where(x => x.Id == id && x.ParentId != null).ToListAsync();
             if (subnodes == null)
                 return;
-            foreach (var node in subnodes)
-            {
-               
-                _dbSet.Remove(node);
-            }
-            await _unitOfWork.SaveChangesAsync();
+
+            await DeleteById(id);
+
         }
 
         public async Task DeleteByParentId(int id)
         {
-            
+
             var entitList = await _dbSet.Where(e => e.ParentId == id).ToListAsync();
-            if(entitList==null)
+            if (entitList == null)
                 return;
             foreach (var e in entitList)
             {
@@ -51,7 +40,8 @@ namespace ProductManagement.DataAccess.Repositories
                     Delete(e);
                 }
             }
-            DeleteById(id);
+            await DeleteById(id);
+
         }
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
@@ -124,12 +114,18 @@ namespace ProductManagement.DataAccess.Repositories
 
 
 
+
         public Attribute GetNodeAttribute(Attribute value)
         {
             return _dbSet.Include(a => a.subNodes).Where(p => p.Id == value.ParentId).FirstOrDefault();
         }
 
+        public async Task<bool> IsExistParent(string Title)
+        {
+            _dbSet.Include(y => y.subNodes).Where(p => p.Name.ToLower() == Title.ToLower());
+            return true;
 
+        }
     }
 }
 

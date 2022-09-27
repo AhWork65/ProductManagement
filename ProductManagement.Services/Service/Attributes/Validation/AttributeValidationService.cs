@@ -17,14 +17,21 @@ namespace ProductManagement.Services.Service.Attributes.Validation
 
         }
 
-        public Task<bool> IsExistAttributeById(int id)
+        public async Task<bool> IsExistAttributeById(int id)
         {
-            return _attributesRepository.Any(a => a.ParentId == id);
+            return await _attributesRepository.Any(a => a.ParentId == id);
         }
 
-        public Task<bool> IsExistAttributeNodeById(int id)
+     
+
+        public async Task<bool> IsExistAttributeNodeById(int id)
         {
-            return _attributesRepository.Any(a => a.Id == id);
+            return await _attributesRepository.Any(a => a.Id == id);
+        }
+
+        public  async Task<bool> IsExistAttributeByName(string name)
+        {
+            return await _attributesRepository.IsExistParent(name);
         }
     }
 }

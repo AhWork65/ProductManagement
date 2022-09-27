@@ -8,15 +8,12 @@ namespace ProductManagement.Domain.Dto.Attribute
     {
         public AttributeDto()
         {
-
-            Id = -1;
+            Id =0;
             ParentId = -1;
         }
 
     public string Name { get; set; }
     public string Value { get; set; }
-   
-
     public int? ParentId { get; set; }
 
     }

@@ -1,13 +1,14 @@
 ﻿
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
-using ProductManagement.Services.Dto.Attribute;
-using ProductManagement.Services.Service.Attributes;
-using ProductManagement.Services.Service.Attributes.Validation;
-using ProductManagementWebApi.Controllers.Api;
-using Xunit;
+using Newtonsoft.Json;
+using ProductManagement.Domain.Dto.Attribute;
+
+
 
 namespace ProductManagement.UnitTest.Attribute
 {
@@ -15,80 +16,96 @@ namespace ProductManagement.UnitTest.Attribute
     public class AttributeTests
     {
 
-
-        private readonly AttributeController _attributeController;
-        private readonly IAttributesService _attributesService;
-        private readonly IAttributesRepository _repository;
-        private readonly IAttributeValidationService _validation;
-
-
+        private readonly HttpClient _httpClient;
 
         public AttributeTests()
         {
-            _attributeController = new AttributeController(_attributesService);
-            _attributesService = new AttributesService(_repository, _validation);
-        }
-
-
-
-        [Fact]
-        [TestMethod]
-        public void GetAllAttribute()
-        {
-            var okResult = _attributeController.GetAllAsync();
-            Assert.IsNotNull(okResult);
-
-        }
-
-
-        [Fact]
-        [TestMethod]
-        public void GetByIdAsyncTest()
-        {
-            var okResult = _attributeController.GetByIdAsync(1);
-            Assert.AreEqual(1, 1);
+            var webAppFactory = new WebApplicationFactory<Program>();
+            _httpClient = webAppFactory.CreateDefaultClient();
 
         }
 
 
 
-        [Fact]
-        [TestMethod]
 
-        public void UpdateAttributeTest()
+        [TestMethod]
+        public async Task GetAllAttribute()
         {
-            AttributeDto dto = new AttributeDto();
-            dto.Name = "yellow";
-            dto.ParentId = null;
-            dto.Value = "yll-1";
-            dto.ParentId = 26;
-            var c = _attributesService.UpdateDto(dto);
-            Assert.AreEqual(1, 1);
+            var response = await _httpClient.GetAsync($"/Attribute/GetAllAsync");
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
         }
 
 
-        [Fact]
-        [TestMethod]
 
-        public void AddAttributeTestAsync()
+        [TestMethod]
+        [DataRow(1)]
+        public async Task GetByIdAsyncTest(int id)
         {
-            AttributeDto dto = new AttributeDto();
-            dto.Name = "yellow";
-            dto.ParentId = 1;
-            dto.Value = "w";
-            var action =_attributesService.AddDto(dto);
-            Assert.IsNotNull(dto.Id);
+            var response = await _httpClient.GetAsync($"/Attribute/GetByIdAsync/{id}");
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
-        [Fact]
-        [TestMethod]
 
-        public void DeleteReturnsOk()
+
+
+        [TestMethod]
+        public async  Task UpdateAttributeTest()
         {
-            var controller = _attributesService.DeleteByParentId(1);
-            Assert.AreEqual(1, 1);
+            var attribute=new ProductManagementWebApi.Models.Attribute
+            {
+               Id = 1,
+                Name = "yellow",
+                Value="yellow1-1",
+                ParentId = null
+            };
+            var json = JsonConvert.SerializeObject(attribute);
+            var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync($"/Attribute/UpdateAttribute",stringContent);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+
+
+        [TestMethod]
+       
+        public async  Task AddAttributeTestAsync()
+        {
+
+            var attribute = new AttributeDto
+            {
+                Name = "sorti",
+                Value = "",
+                ParentId = null
+            };
+            var json = JsonConvert.SerializeObject(attribute);
+            var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"/Attribute/CreateAttribute", stringContent);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+
+        [TestMethod]
+        [DataRow(63)]
+        public async Task DeleteReturnsOk(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"/Attribute/DeleteAttribute/{id}");
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        }
+
+
+
+
+        [TestMethod]
+        [DataRow(61)]
+        public async Task DeleteParentReturnsOk(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"/Attribute/DeleteParentAttribute/{id}");
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
         }
     }
 }
 
-    
+

@@ -9,7 +9,8 @@ using Attribute = ProductManagementWebApi.Models.Attribute;
 namespace ProductManagementWebApi.Controllers.Api
 {
 
-    public class AttributeController : MyBaseAttributesController
+    [ApiController]
+    public class AttributeController : ControllerBase
     {
         private readonly IAttributesService _attributesService;
 
@@ -21,70 +22,57 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpPost]
-
-        public async Task<BaseModelResult<string>> CreateAttribute(AttributeDto valuedto)
-        {
-            var nodeAttribute = new Models.Attribute();
-
-            if (string.IsNullOrWhiteSpace(valuedto.Name))
-                return InvalidResult<string>(1, "The name cannot be empty");
-
-            if (nodeAttribute.ParentId == null)
-            {
-                await _attributesService.AddDto(valuedto);
-                return careateModelResult("Insert Is OK....");
-            }
-            else
-            {
-                Attribute parentAttribute = _attributesService.GetNodeAttribute(nodeAttribute);
-                parentAttribute.subNodes.Add(nodeAttribute);
-            }
-
-            return careateModelResult("Add is ok .....");
+        [Route("[controller]/CreateAttribute")]
+        public async Task<IActionResult>  CreateAttribute(AttributeDto valuedto) {
+            
+            await _attributesService.AddDto(valuedto);
+            return Ok();
         }
 
         [HttpGet]
-        public async Task<BaseModelResult<List<Models.Attribute>>> GetAllAsync()
+        [Route("[controller]/GetAllAsync")]
+        public async Task<IActionResult> GetAllAsync()
         {
-            List<Attribute> result = await _attributesService.GetAttributeListAsync();
+           return Ok(await _attributesService.GetAttributeListAsync());
 
-            return careateModelResult(result);
+        
         }
 
-        [HttpGet("{id:int}")]
-
-        public async Task<BaseModelResult<IList<Attribute>>> GetByIdAsync(int id)
+        [HttpGet]
+        [Route("[controller]/GetByIdAsync/{id:int}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
-
-            var result = await _attributesService.GetAttributeDetailByParentId(id);
-            return careateModelResult(result);
+            var obj_attr=await _attributesService.GetAttributeDetailByParentId(id);
+           return Ok(obj_attr);
         }
 
         [HttpPut]
-        public async Task<BaseModelResult<string>> UpdateAttribute(AttributeDto attributedto)
+        [Route("[controller]/UpdateAttribute")]
+        public  async Task<IActionResult> UpdateAttribute(AttributeDto attributedto)
         {
-            await _attributesService.UpdateDto(attributedto);
-            return careateModelResult("Update is ok");
+           await _attributesService.UpdateDto(attributedto);
+           return Ok();
+
         }
 
 
-        [HttpDelete("{id:int}")]
-        public async Task<BaseModelResult<string>> DeleteAttribute(int id)
+        [HttpDelete]
+        [Route("[controller]/DeleteAttribute/{id:int}")]
+        public async Task<IActionResult> DeleteAttribute(int id)
         {
-
             await _attributesService.DeleteByIdAsync(id);
-
-            return careateModelResult("Delete is ok");
+            return Ok();
         }
 
 
-        [HttpDelete("{id:int}")]
-
-        public async Task<BaseModelResult<string>> DeleteParentAttribute(int id)
+        [HttpDelete]
+        [Route("[controller]/DeleteParentAttribute/{id:int}")]
+        public async Task<IActionResult> DeleteParentAttribute(int id)
         {
+         
             await _attributesService.DeleteByParentId(id);
+            return Ok();
 
-            return careateModelResult("Delete is ok");
         }
 
 

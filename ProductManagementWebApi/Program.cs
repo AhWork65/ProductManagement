@@ -26,10 +26,6 @@ using ProductManagement.Services.Service.Attributes.Validation;
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUnitOfWork, Management_ProductsContext>();
-// builder.Services.AddDbContext<Management_ProductsContext>
-//     (option => 
-//         option.UseSqlServer("Data Source=.;Initial Catalog=Management_Products;Integrated Security=True"));
-
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

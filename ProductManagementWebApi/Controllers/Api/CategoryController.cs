@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProductManagement.Domain.Dto.Category;
 using ProductManagement.Domain.Models;
 using ProductManagement.Services.Service.CategoryService;
 
@@ -17,7 +18,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
         [HttpPost]
         [Route("[controller]/Add")]
-        public async Task<IActionResult> Add([FromBody] Category category)
+        public async Task<IActionResult> Add([FromBody] CategoryDto category)
         {
             return Ok(await _CategoryService.Create(category));
         }
@@ -25,7 +26,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
         [HttpPut]
         [Route("[controller]/UpdateCategory")]
-        public async Task<IActionResult> UpdateCategory([FromBody] Category category)
+        public async Task<IActionResult> UpdateCategory([FromBody] CategoryDto category)
         {
 
            await _CategoryService.Update(category);

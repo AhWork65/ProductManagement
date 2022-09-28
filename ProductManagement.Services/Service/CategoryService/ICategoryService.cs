@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using ProductManagement.Domain.Dto.Category;
 using ProductManagement.Domain.Models;
 using ProductManagementWebApi.Models;
 
@@ -7,8 +8,8 @@ namespace ProductManagement.Services.Service.CategoryService
 {
     public interface ICategoryService
     {
-        Task<Category> Create(Category entity);
-        Task Update(Category entity);
+        Task<Category> Create(CategoryDto entity);
+        Task Update(CategoryDto entity);
         void Delete(Category entity);
         Task Delete(int categoryId);
         Task<Category> GetById(int id);

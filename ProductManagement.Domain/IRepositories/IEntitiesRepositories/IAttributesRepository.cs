@@ -10,12 +10,13 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
     {
        
         Attribute GetNodeAttribute(Attribute value);
-        Task DeleteByIdAsync(int id);
-        Task DeleteByParentId(int id);
+      
+      
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
       
         Task<List<Attribute>> GetAttributeListAsync();
         bool IsExistParent(string Title);
+        Task<List<Attribute>> GetAttributeListByProductId(int id);
 
     }
 }

@@ -29,6 +29,16 @@ namespace ProductManagementWebApi.Controllers.Api
             return Ok();
         }
 
+        [HttpPut]
+        [Route("[controller]/UpdateAttribute")]
+        public async Task<IActionResult> UpdateAttribute(AttributeDto attributedto)
+        {
+            await _attributesService.UpdateDto(attributedto);
+            return Ok();
+
+        }
+
+
         [HttpGet]
         [Route("[controller]/GetAllAsync")]
         public async Task<IActionResult> GetAllAsync()
@@ -46,15 +56,17 @@ namespace ProductManagementWebApi.Controllers.Api
            return Ok(obj_attr);
         }
 
-        [HttpPut]
-        [Route("[controller]/UpdateAttribute")]
-        public  async Task<IActionResult> UpdateAttribute(AttributeDto attributedto)
+        [HttpGet]
+        [Route("[controller]/GetAttributeListByProductId/{id:int}")]
+        public async Task<IActionResult> GetAttributeListByProductId(int id)
         {
-           await _attributesService.UpdateDto(attributedto);
-           return Ok();
+
+           return Ok(await _attributesService.GetAttributeListByProductId(id));
+           
 
         }
 
+ 
 
         [HttpDelete]
         [Route("[controller]/DeleteAttribute/{id:int}")]
@@ -74,6 +86,7 @@ namespace ProductManagementWebApi.Controllers.Api
             return Ok();
 
         }
+
 
 
 

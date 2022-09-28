@@ -101,17 +101,41 @@ namespace ProductManagement.Services.Service.Attributes
 
         public async Task DeleteByIdAsync(int id)
         {
+            var subNodes = await _attributesRepository.GetAttributeDetailByParentId(id);
+            if(subNodes == null)
+                return;
+
             if (!await _attributeValidationService.IsExistAttributeNodeById(id))
                     throw new BadRequestException("This Attribute is not Valid");
-            await _attributesRepository.DeleteByIdAsync(id);
+
+            await _attributesRepository.DeleteById(id);
         }
 
         public async Task DeleteByParentId(int id)
         {
+
             if (!await _attributeValidationService.IsExistAttributeById(id))
                 throw new BadRequestException("This Attribute is not Valid");
 
-            await _attributesRepository.DeleteByParentId(id);
+            var entityList =await _attributesRepository.GetAttributeDetailByParentId(id);
+
+            if (entityList == null)
+                return;
+
+            foreach (var e in entityList)
+            {
+                if (e.ParentId != null)
+                {
+                    _attributesRepository.Delete(e);
+                }
+            }
+
+            await _attributesRepository.DeleteById(id);
+        }
+
+        public async Task<List<Attribute>> GetAttributeListByProductId(int id)
+        {
+            return await _attributesRepository.GetAttributeListByProductId(id);
         }
     }
 }

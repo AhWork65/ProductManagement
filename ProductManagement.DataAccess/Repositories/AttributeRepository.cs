@@ -3,7 +3,7 @@ using System.Text.Json.Nodes;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
-
+using ProductManagementWebApi.Models;
 using Attribute = ProductManagementWebApi.Models.Attribute;
 
 namespace ProductManagement.DataAccess.Repositories
@@ -16,33 +16,6 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-
-        public async Task DeleteByIdAsync(int id)
-        {
-            var subnodes = await _dbSet.Where(x => x.Id == id && x.ParentId != null).ToListAsync();
-            if (subnodes == null)
-                return;
-
-            await DeleteById(id);
-
-        }
-
-        public async Task DeleteByParentId(int id)
-        {
-
-            var entitList = await _dbSet.Where(e => e.ParentId == id).ToListAsync();
-            if (entitList == null)
-                return;
-            foreach (var e in entitList)
-            {
-                if (e.ParentId != null)
-                {
-                    Delete(e);
-                }
-            }
-            await DeleteById(id);
-
-        }
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {
@@ -72,7 +45,9 @@ namespace ProductManagement.DataAccess.Repositories
                             ParentId = y.ParentId,
                             Name = y.Name,
                             Value = y.Value,
-                            subNodes = y.subNodes
+                            subNodes = y.subNodes,
+                          
+                            
                         }).ToListAsync();
             return temp;
         }
@@ -80,7 +55,9 @@ namespace ProductManagement.DataAccess.Repositories
 
         public Attribute GetNodeAttribute(Attribute value)
         {
-            return _dbSet.Include(y => y.subNodes)
+            return _dbSet
+                .Include(y => y.subNodes)
+                .Include(y => y.ProductAttributeDetails)
                 .Where(y => y.Id == value.Id)
                 .Select(y => new Attribute
                 {
@@ -88,7 +65,8 @@ namespace ProductManagement.DataAccess.Repositories
                     ParentId = y.ParentId,
                     Name = y.Name,
                     Value = y.Value,
-                    subNodes = y.subNodes
+                    subNodes = y.subNodes,
+                    ProductAttributeDetails = y.ProductAttributeDetails
                 }).First();
         }
 
@@ -99,6 +77,17 @@ namespace ProductManagement.DataAccess.Repositories
                   .Where(p =>p.Name.ToLower() == Title.ToLower());
 
             return true;
+        }
+
+        public async Task<List<Attribute>> GetAttributeListByProductId(int id)
+        {
+          var listAttribute= await _dbSet
+                       .Include(y=>y.subNodes)
+                       .Include(y => y.ProductAttributeDetails)
+                       .Where(p =>p.ProductAttributeDetails
+                       .Any(m => m.ProductId == id))
+                       .ToListAsync();
+          return listAttribute;
         }
     }
 }

@@ -16,6 +16,6 @@ namespace ProductManagement.Services.Service.Attributes
         List<Attribute> GetAttributeList(List<Attribute> attributes);
         Task<List<Attribute>> GetAttributeListAsync();
 
-
+        Task<List<Attribute>> GetAttributeListByProductId(int id);
     }
 }

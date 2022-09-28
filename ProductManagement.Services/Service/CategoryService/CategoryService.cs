@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GlobalErrorApp.Exceptions;
+using ProductManagement.Domain.Dto.Category;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
+using ProductManagement.Services.Mapper;
 using ProductManagement.Services.Service.CategoryService;
 using ProductManagement.Services.Service.CategoryService.Validation;
 using ProductManagementWebApi.Models;
@@ -19,38 +21,36 @@ namespace ProductManagement.Services.Services.CategoryService
         private readonly ICategoryRepository _CategoryRepository;
         private readonly ICategoryServiceValidation _CategoryServiceValidation;
 
-        public CategoryService
-        (
-            ICategoryRepository categoryRepository,
-            ICategoryServiceValidation categoryServiceValidation
-
-        )
+        public CategoryService(ICategoryRepository categoryRepository,
+            ICategoryServiceValidation categoryServiceValidation)
         {
 
             _CategoryRepository = categoryRepository;
-            _CategoryServiceValidation = categoryServiceValidation
-                ;
+            _CategoryServiceValidation = categoryServiceValidation;
 
         }
 
-        public async Task<Category> Create(Category entity)
+        public async Task<Category> Create(CategoryDto entity)
         {
-            if (await _CategoryServiceValidation.IsExistCategoryByCode(entity.Code))
+            var category = DtoMapper.MapTo<CategoryDto, Category>(entity);
+
+            if (await _CategoryServiceValidation.IsExistCategoryByCode(category.Code))
                 throw new BadRequestException("Code is not Valid");
 
 
-          return  await _CategoryRepository.Add(entity);
+          return  await _CategoryRepository.Add(category);
 
         }
 
 
-        public async Task Update(Category entity)
+        public async Task Update(CategoryDto entity)
         {
+            var category = DtoMapper.MapTo<CategoryDto, Category>(entity);
 
-            if (! await _CategoryServiceValidation.IsExistCategoryById(entity.Id))
+            if (! await _CategoryServiceValidation.IsExistCategoryById(category.Id))
                 throw new BadRequestException("category Not Found");
 
-            await _CategoryRepository.Update(entity);
+            await _CategoryRepository.Update(category);
 
         }
 

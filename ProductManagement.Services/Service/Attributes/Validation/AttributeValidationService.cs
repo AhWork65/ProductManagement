@@ -29,9 +29,9 @@ namespace ProductManagement.Services.Service.Attributes.Validation
             return await _attributesRepository.Any(a => a.Id == id);
         }
 
-        public  async Task<bool> IsExistAttributeByName(string name)
+        public  bool IsExistAttributeByName(string name)
         {
-            return await _attributesRepository.IsExistParent(name);
+            return  _attributesRepository.IsExistParent(name);
         }
     }
 }

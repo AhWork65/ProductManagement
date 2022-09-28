@@ -13,9 +13,9 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
         Task DeleteByIdAsync(int id);
         Task DeleteByParentId(int id);
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
-        List<Attribute> GetAttributeList(List<Attribute> attributes);
+      
         Task<List<Attribute>> GetAttributeListAsync();
-        Task<bool> IsExistParent(string Title);
+        bool IsExistParent(string Title);
 
     }
 }

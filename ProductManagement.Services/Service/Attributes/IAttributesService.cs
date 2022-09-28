@@ -10,10 +10,7 @@ namespace ProductManagement.Services.Service.Attributes
     {
         Task UpdateDto(AttributeDto valuedto);
         Task AddDto(AttributeDto entitiydto);
-      
-        Attribute GetNodeAttribute(Attribute value);
         Task DeleteByIdAsync(int id);
-
         Task DeleteByParentId(int id);
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
         List<Attribute> GetAttributeList(List<Attribute> attributes);

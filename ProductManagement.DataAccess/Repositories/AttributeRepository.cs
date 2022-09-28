@@ -61,42 +61,7 @@ namespace ProductManagement.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public List<Attribute> GetAttributeList(List<Attribute> attributes)
-        {
-            int z = 0;
-            List<Attribute> Lists = new List<Attribute>();
-            if (attributes.Count > 0)
-            {
-                Lists.AddRange(attributes);
-            }
-            foreach (Attribute a in attributes)
-            {
-                var dbNode = _dbSet.Include(y => y.subNodes)
-                    .Where(y => y.Id == a.Id)
-                    .Select(y => new Attribute
-                    {
-                        Id = y.Id,
-                        ParentId = y.ParentId,
-                        Name = y.Name,
-                        Value = y.Value,
-                        subNodes = y.subNodes
-                    }).First();
-                if (dbNode.subNodes == null)
-                {
-                    z++;
-                    continue;
-                }
-
-                List<Attribute> subnodes = dbNode.subNodes.ToList();
-                dbNode.subNodes = GetAttributeList(subnodes);
-                Lists[z] = dbNode;
-                z++;
-            }
-
-            return Lists;
-        }
-
-        public async Task<List<Attribute>> GetAttributeListAsync()
+    public async Task<List<Attribute>> GetAttributeListAsync()
         {
             List<Attribute> temp = await _dbSet
                         .Include(y => y.subNodes)
@@ -109,22 +74,31 @@ namespace ProductManagement.DataAccess.Repositories
                             Value = y.Value,
                             subNodes = y.subNodes
                         }).ToListAsync();
-            return GetAttributeList(temp);
+            return temp;
         }
-
-
 
 
         public Attribute GetNodeAttribute(Attribute value)
         {
-            return _dbSet.Include(a => a.subNodes).Where(p => p.Id == value.ParentId).FirstOrDefault();
+            return _dbSet.Include(y => y.subNodes)
+                .Where(y => y.Id == value.Id)
+                .Select(y => new Attribute
+                {
+                    Id = y.Id,
+                    ParentId = y.ParentId,
+                    Name = y.Name,
+                    Value = y.Value,
+                    subNodes = y.subNodes
+                }).First();
         }
 
-        public async Task<bool> IsExistParent(string Title)
+        public bool IsExistParent(string Title)
         {
-            _dbSet.Include(y => y.subNodes).Where(p => p.Name.ToLower() == Title.ToLower());
-            return true;
+            _dbSet
+                  .Include(y=>y.subNodes)
+                  .Where(p =>p.Name.ToLower() == Title.ToLower());
 
+            return true;
         }
     }
 }

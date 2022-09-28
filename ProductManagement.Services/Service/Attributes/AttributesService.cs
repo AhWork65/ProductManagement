@@ -44,38 +44,59 @@ namespace ProductManagement.Services.Service.Attributes
         {
             var entity = DtoMapper.MapTo<AttributeDto, Attribute>(valuedto);
 
-            if (_attributeValidationService.IsExistAttributeByName(valuedto.Name).Result)
+            if (_attributeValidationService.IsExistAttributeByName(valuedto.Name)&&
+                 _attributeValidationService.IsExistAttributeById(valuedto.Id).Result)
          
                    throw new BadRequestException("Dont Repeate Attribute ....");
 
             await _attributesRepository.Add(entity);
-            
-           
         }
 
         public List<Attribute> GetAttributeList(List<Attribute> attributes)
         {
-            return _attributesRepository.GetAttributeList(attributes);
+            int z = 0;
+            List<Attribute> Lists = new List<Attribute>();
+            if (attributes.Count > 0)
+            {
+                Lists.AddRange(attributes);
+            }
+            foreach (Attribute a in attributes)
+            {
+                var dbNode = _attributesRepository.GetNodeAttribute(a);
+                if (dbNode.subNodes == null)
+                {
+                    z++;
+                    continue;
+                }
+
+                List<Attribute> subnodes = dbNode.subNodes.ToList();
+                dbNode.subNodes = GetAttributeList(subnodes);
+                Lists[z] = dbNode;
+                z++;
+            }
+
+            return Lists;
         }
 
-        public Task<List<Attribute>> GetAttributeListAsync()
+        public async Task<List<Attribute>> GetAttributeListAsync()
         {
-            return _attributesRepository.GetAttributeListAsync();
+            return GetAttributeList(await  _attributesRepository.GetAttributeListAsync());
+
         }
 
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {
-            if (!await _attributeValidationService.IsExistAttributeById(id))
-                       throw new BadRequestException("This Attribute is not Valid");
+            if (
+                !await _attributeValidationService.IsExistAttributeById(id)
+              &&
+                !await _attributeValidationService.IsExistAttributeNodeById(id)
+                )
+                throw new BadRequestException("This Attribute is not Valid");
+
             return await _attributesRepository.GetAttributeDetailByParentId(id);
         }
 
-
-        public Attribute GetNodeAttribute(Attribute value)
-        {
-            return _attributesRepository.GetNodeAttribute(value);
-        }
 
 
         public async Task DeleteByIdAsync(int id)

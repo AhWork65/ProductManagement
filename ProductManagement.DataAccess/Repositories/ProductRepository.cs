@@ -20,7 +20,7 @@ namespace ProductManagement.DataAccess.Repositories
 
             return await _dbSet
                 .Include(mdl => mdl.ProductAttributeDetails)
-              
+                .ThenInclude(mdl => mdl.Attribute)
                 .FirstAsync(mdl => mdl.Id == id); 
 
 

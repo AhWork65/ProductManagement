@@ -2,6 +2,7 @@
 using ProductManagementDomain.Models.BaseEntities;
 using System;
 using System.Collections.Generic;
+using ProductManagement.Domain.Dto.Attribute;
 using ProductManagement.Domain.Models;
 
 namespace ProductManagementWebApi.Models
@@ -30,6 +31,10 @@ namespace ProductManagementWebApi.Models
         public virtual ICollection<ProductAttributeDetail> ProductAttributeDetails { get; set; }
         public virtual ICollection<RelatedProduct> RelatedProductBaseProducts { get; set; }
         public virtual ICollection<RelatedProduct> RelatedProductRelatedProductNavigations { get; set; }
+
+        public IEnumerable<AttributeDto> AttributeList => from att in ProductAttributeDetails select new AttributeDto{
+            Name = att.Attribute.Name , Value = att.Attribute.Value , ParentId = att.Attribute.ParentId
+        };
 
     }
 }

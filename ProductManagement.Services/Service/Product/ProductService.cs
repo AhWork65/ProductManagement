@@ -249,25 +249,19 @@ namespace ProductManagement.Services.Services.Services
        
 
 
-        public async Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId)
+        public async Task<IEnumerable<ProductListDTO>> GetProductBaseOnClassification(int ClassificationId)
         {
-            //     // if (ClassificationId > 3)
-            //     //     return new List<Product>();
-            //     //
-            //     // if (ClassificationId < 0)
-            //     //     return new List<Product>();
-            //     //
-            //     // var ClassificationList = await GetProductByClassification(ClassificationId);
-            //     // var ProductLists = ClassificationList.Union(await GetProductBaseOnClassification(ClassificationId + 1));
-            //     // return ProductLists;
-            throw new NotImplementedException();
+            if (ClassificationId > 3)
+                return new List<ProductListDTO>();
+            
+            if (ClassificationId < 0)
+                return new List<ProductListDTO>();
+            
+            var classificationList = await GetProductByClassification(ClassificationId);
+            var ProductLists = classificationList.Union(await GetProductBaseOnClassification(ClassificationId + 1));
+            return ProductLists;
 
         }
-
-
-
-       
-
 
 
         public Task ChangeUnitStock(int id, int enteredUnitStock)

@@ -33,7 +33,7 @@ namespace ProductManagement.Services.Services.IServices
         Task<IList<ProductListDTO>> GetActiveProductByClassification(int classificationId);
         Task<IList<ProductListDTO>> GetInactiveProductByClassification(int classificationId);
         Task<IList<ProductListDTO>> GetProductByAttribute(ProductAttributeDetail attribute);
-        Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId);
+        Task<IEnumerable<ProductListDTO>> GetProductBaseOnClassification(int ClassificationId);
 
         Task<ProductDetailDTO> GetDetailById(int id);
         Task<ProductDetailDTO> GetDetailByCode(string code);

@@ -1,4 +1,4 @@
-﻿using ProductManagementWebApi.Models;
+﻿using ProductManagement.Domain.Dto.Attribute;
 
 namespace ProductManagement.Domain.Dto.Product
 {
@@ -15,7 +15,7 @@ namespace ProductManagement.Domain.Dto.Product
         public string? Description { get; set; }
         public DateTime CreateDate { get; set; }
         public int BaseUnitPrice { get; set; }
-        public virtual ICollection<ProductAttributeDetail> ProductAttributeDetails { get; set; }
+        public  IEnumerable<AttributeDto> AttributeList { get; set; }
 
     }
 }

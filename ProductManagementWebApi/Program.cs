@@ -1,6 +1,4 @@
-using AutoMapper;
 using GlobalErrorApp.Configurations;
-using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.DataAccess.Repositories;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
@@ -16,8 +14,7 @@ using ProductManagement.Services.Service.RelatedProductsServices.RelatedProducts
 using ProductManagement.Services.Services.CategoryService;
 using ProductManagement.Services.Services.IServices;
 using ProductManagement.Services.Services.Services;
-using ProductManagementWebApi.Models ;
-using ProductManagement.Services.Service.Attributes.Validation;
+
 
 
     var builder = WebApplication.CreateBuilder(args);

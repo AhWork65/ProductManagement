@@ -13,6 +13,8 @@ namespace ProductManagement.Services.Services.IServices
     {
 
         Task<Product> Create(Product entity);
+        Task<Product> GetById(int id); 
+        Task<Product> GetByCode(string code);
         Task Update(Product entity);
         void Delete(Product entity);
         Task Delete(int categoryId);
@@ -21,14 +23,20 @@ namespace ProductManagement.Services.Services.IServices
         Task<IList<ProductListDTO>> GetAllActive();
         Task<IList<ProductListDTO>> GetAllInactive();
         Task<IList<ProductListDTO>> GetProductByCategory(int categoryId);
-        Task<IList<ProductListDTO>> GetProductByCategory(Category category);
-        Task<IList<ProductListDTO>> GetProductByClassification(int classificationId);
-        Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId);
+        Task<IList<ProductListDTO>> GetActiveProductByCategory(int categoryId);
+        Task<IList<ProductListDTO>> GetInactiveProductByCategory(int categoryId);
+        Task<IList<ProductListDTO>> GetProductBySearch(int categoryId, int classification); 
+        Task<IList<ProductListDTO>> GetActiveProductBySearch(int categoryId, int classification); 
+        Task<IList<ProductListDTO>> GetInactiveProductBySearch(int categoryId, int classification); 
 
-        Task<Product> GetById(int id);
-        Task<Product> GetProductByCode(string code);
-        Task<IList<Product>> GetProductByAttribute(ProductAttributeDetail attribute);
-        Task<Product> GetByIdWithAttributes(int productId);
+        Task<IList<ProductListDTO>> GetProductByClassification(int classificationId);
+        Task<IList<ProductListDTO>> GetActiveProductByClassification(int classificationId);
+        Task<IList<ProductListDTO>> GetInactiveProductByClassification(int classificationId);
+        Task<IList<ProductListDTO>> GetProductByAttribute(ProductAttributeDetail attribute);
+        Task<IEnumerable<ProductListDTO>> GetProductBaseOnClassification(int ClassificationId);
+
+        Task<ProductDetailDTO> GetDetailById(int id);
+        Task<ProductDetailDTO> GetDetailByCode(string code);
         
         bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto);
         void IncreaseUnitsInStock(Product product, int enteredUnitInStock);

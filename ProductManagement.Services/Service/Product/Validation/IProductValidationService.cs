@@ -12,22 +12,19 @@ namespace ProductManagement.Services.Service.Product.Validation
     public interface IProductValidationService
     {
 
-        bool IsIdExists(int ProductId);
-        bool IsCodeExists(string ProductCode);
-        bool IsClassificationExists(int classificationId);
-
-        bool IsRecordExists(ProductManagementWebApi.Models.Product product);
-        bool IsRecordExists(IList<ProductManagementWebApi.Models.Product> products);
-
+        
         Task<bool> IsRecordWithEnteredIdExists(int id);
         Task<bool> IsRecordWithEnteredCodeExists(string code);
         Task<bool> IsRecordWithEnteredClassificationExists(int classificationId);
+        Task<bool> IsActiveRecordWithEnteredClassificationExists(int classificationId);
+        Task<bool> IsInactiveRecordWithEnteredClassificationExists(int classificationId);
         Task<bool> IsRecordWithEnteredCategoryExists(int categoryId);
-        Task<bool> IsRecordWithEnteredCategoryExists(Category categoryId);
-        
+        Task<bool> IsActiveRecordWithEnteredCategoryExists(int categoryId);
+        Task<bool> IsInactiveRecordWithEnteredCategoryExists(int categoryId);
+        Task<bool> IsRecordWithEnteredFilterExists(int categoryId , int classification);
+        Task<bool> IsActiveRecordWithEnteredFilterExists(int categoryId , int classification);
+        Task<bool> IsInactiveRecordWithEnteredFilterExists(int categoryId , int classification);
 
-
-        bool IsModelValid(ProductManagementWebApi.Models.Product product);
         bool IsSufficientInventory(ProductManagementWebApi.Models.Product product, ProductUpdateUnitsInStockDTO productDto);
 
 

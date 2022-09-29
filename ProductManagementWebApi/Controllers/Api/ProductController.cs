@@ -72,18 +72,37 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
-        [Route("[controller]/GetByCategoryId/{categoryId}/")]
-        public async Task<IActionResult> GetByCategory([FromRoute] int categoryId)
+        [Route("[controller]/GetByCategory/{categoryId}/")]
+        public async Task<IActionResult> GetProductByCategory([FromRoute] int categoryId)
         {
 
             return Ok(await _ProductServices.GetProductByCategory(categoryId)); 
 
         }
 
+        [HttpGet]
+        [Route("[controller]/GetActiveByCategory/{categoryId}/")]
+        public async Task<IActionResult> GetActiveProductByCategory([FromRoute] int categoryId)
+        {
+
+            return Ok(await _ProductServices.GetActiveProductByCategory(categoryId));
+
+        }
+
+        [HttpGet]
+        [Route("[controller]/GetInactiveByCategory/{categoryId}/")]
+        public async Task<IActionResult> GetInactiveProductByCategory([FromRoute] int categoryId)
+        {
+
+            return Ok(await _ProductServices.GetInactiveProductByCategory(categoryId));
+
+        }
+
+
 
         [HttpGet]
         [Route("[controller]/GetByClassification/{classification}")]
-        public async Task<IActionResult> GetByClassification([FromRoute] int classification)
+        public async Task<IActionResult> GetProductByClassification([FromRoute] int classification)
         {
 
             return Ok(await _ProductServices.GetProductByClassification(classification));
@@ -91,23 +110,82 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
         [HttpGet]
-        [Route("[controller]/GetById/{id}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        [Route("[controller]/GetActiveByClassification/{classification}")]
+        public async Task<IActionResult> GetActiveProductByClassification([FromRoute] int classification)
         {
 
-            return Ok(await _ProductServices.GetById(id));
+            return Ok(await _ProductServices.GetActiveProductByClassification(classification));
+
+        }
+
+        [HttpGet]
+        [Route("[controller]/GetInactiveByClassification/{classification}")]
+        public async Task<IActionResult> GetInactiveProductByClassification([FromRoute] int classification)
+        {
+
+            return Ok(await _ProductServices.GetInactiveProductByClassification(classification));
+
+        }
+
+
+        [HttpGet]
+        [Route("[controller]/GetProductBaseOnClassification/{classification}")]
+        public async Task<IActionResult> GetProductBaseOnClassification([FromRoute] int classification)
+        {
+
+            return Ok(await _ProductServices.GetProductBaseOnClassification(classification));
+
+        }
+
+        [HttpGet]
+        [Route("[controller]/GetById/{id}")]
+        public async Task<IActionResult> GetProductById([FromRoute] int id)
+        {
+
+            return Ok(await _ProductServices.GetDetailById(id));
 
         }
 
 
         [HttpGet]
         [Route("[controller]/GetByCode/{code}")]
-        public async Task<IActionResult> GetByCode([FromRoute] string code)
+        public async Task<IActionResult> GetProductByCode([FromRoute] string code)
         {
 
-            return Ok(await _ProductServices.GetProductByCode(code));
+            return Ok(await _ProductServices.GetDetailByCode(code));
 
         }
+
+
+        [HttpGet]
+        [Route("[controller]/GetByFilter/{categoryId}/{classification}/")]
+        public async Task<IActionResult> GetProductBySearch([FromRoute]int categoryId, [FromRoute] int classification)
+        {
+
+            return Ok(await _ProductServices.GetProductBySearch(categoryId, classification)); 
+
+        }
+
+
+        [HttpGet]
+        [Route("[controller]/GetActiveByFilter/{categoryId}/{classification}/")]
+        public async Task<IActionResult> GetActiveProductBySearch(int categoryId, int classification)
+        {
+
+            return Ok(await _ProductServices.GetActiveProductBySearch(categoryId , classification));
+
+        }
+
+
+        [HttpGet]
+        [Route("[controller]/GetInactiveByFilter/{categoryId}/{classification}/")]
+        public async Task<IActionResult> GetInactiveProductBySearch(int categoryId, int classification)
+        {
+
+            return Ok(await _ProductServices.GetInactiveProductBySearch(categoryId , classification));
+
+        }
+
 
 
         [HttpGet]
@@ -115,32 +193,15 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetBaseOnClassification([FromRoute] int classification)
         {
 
-            var isClassificationIdExists = _ProductValidationService.IsClassificationExists(classification);
-            if (!isClassificationIdExists) return BadRequest("classificationId does not exists");
-
-            var isRecordWithClassificationExists =
-                await _ProductValidationService.IsRecordWithEnteredClassificationExists(classification);
-            if (!isRecordWithClassificationExists) return BadRequest("Record does not exists");
-
-            var objs = await _ProductServices.GetProductBaseOnClassification(classification);
-            return Ok(objs);
-
-        }
-
-
-        [HttpGet]
-        [Route("[controller]/GetById/withAttributes/{id}")]
-        public async Task<IActionResult> GetByIdWithAttributes([FromRoute] int id)
-        {
-
-            var isIdExists = _ProductValidationService.IsIdExists(id);
-            if (!isIdExists) return BadRequest("id does not exists");
-
-            var isRecordExists = await _ProductValidationService.IsRecordWithEnteredIdExists(id);
-            if (!isRecordExists) return BadRequest("record does not exists ");
-
-            var obj = await _ProductServices.GetByIdWithAttributes(id);
-            return Ok(obj);
+            // var isClassificationIdExists = _ProductValidationService.IsClassificationExists(classification);
+            // if (!isClassificationIdExists) return BadRequest("classificationId does not exists");
+            //
+            // var isRecordWithClassificationExists =
+            //     await _ProductValidationService.IsRecordWithEnteredClassificationExists(classification);
+            // if (!isRecordWithClassificationExists) return BadRequest("Record does not exists");
+            //
+            // var objs = await _ProductServices.GetProductBaseOnClassification(classification);
+            return Ok();
 
         }
 
@@ -149,33 +210,35 @@ namespace ProductManagementWebApi.Controllers.Api
         [Route("[controller]/Update/UnitsOfStock/")]
         public async Task<IActionResult> UpdateUnitsOfStock(ProductUpdateUnitsInStockDTO dto)
         {
-
-            var isIdExists = _ProductValidationService.IsIdExists(dto.Id);
-            if (!isIdExists) return BadRequest("id does not exists");
-
-            var isRecordWithEnterdIdExists = await _ProductValidationService.IsRecordWithEnteredIdExists(dto.Id);
-            if (!isRecordWithEnterdIdExists) return BadRequest("record does not exists");
-
-            var product = await _ProductServices.GetById(dto.Id);
-
-            var IsSufficientInventory = _ProductValidationService.IsSufficientInventory(product, dto);
-            if (!IsSufficientInventory) return BadRequest("not enough units in stock");
-
-            var IsIncreasingStock = _ProductServices.IsIncreasingProductUpdateUnitStock(dto);
-            if (IsIncreasingStock) _ProductServices.IncreaseUnitsInStock(product, dto.Quantity);
-            else _ProductServices.DeacreaseUnitsInStock(product, dto.Quantity);
-
-            await _unitOfWork.SaveChangesAsync();
+            //
+            // var isIdExists = _ProductValidationService.IsIdExists(dto.Id);
+            // if (!isIdExists) return BadRequest("id does not exists");
+            //
+            // var isRecordWithEnterdIdExists = await _ProductValidationService.IsRecordWithEnteredIdExists(dto.Id);
+            // if (!isRecordWithEnterdIdExists) return BadRequest("record does not exists");
+            //
+            // var product = await _ProductServices.GetDetailById(dto.Id);
+            //
+            // var IsSufficientInventory = _ProductValidationService.IsSufficientInventory(product, dto);
+            // if (!IsSufficientInventory) return BadRequest("not enough units in stock");
+            //
+            // var IsIncreasingStock = _ProductServices.IsIncreasingProductUpdateUnitStock(dto);
+            // if (IsIncreasingStock) _ProductServices.IncreaseUnitsInStock(product, dto.Quantity);
+            // else _ProductServices.DeacreaseUnitsInStock(product, dto.Quantity);
+            //
+            // await _unitOfWork.SaveChangesAsync();
             return Ok();
 
         }
 
         [HttpDelete]
-        [Route("[controller]/Delete/")]
-        public async Task DeleteProduct([FromRoute] int id)
+        [Route("[controller]/Delete/{id}")]
+        public async Task<IActionResult> DeleteProduct([FromRoute] int id)
         {
 
             await _ProductServices.Delete(id);
+
+            return Ok();
 
         }
 

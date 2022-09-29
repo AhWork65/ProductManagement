@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.Repositories.Base;
@@ -55,12 +50,9 @@ namespace ProductManagement.DataAccess.Repositories
         {
             var entityToDelete = await _dbSet.FindAsync(id);
 
-            if (entityToDelete == null)
-                return;
-
             _dbSet.Remove(entityToDelete);
 
-            await _unitOfWork.SaveChangesAsync();
+             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IList<TEntity>> FindList(Expression<Func<TEntity, bool>> predicate)

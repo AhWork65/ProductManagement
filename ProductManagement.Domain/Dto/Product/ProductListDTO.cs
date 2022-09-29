@@ -12,5 +12,6 @@ namespace ProductManagement.Domain.Dto.Product
         public string Code { get; set; } = null!;
         public string Name { get; set; } = null!;
         public int CategoryId { get; set; }
+        public int BaseUnitPrice { get; set; }
     }
 }

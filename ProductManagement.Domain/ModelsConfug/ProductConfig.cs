@@ -36,6 +36,10 @@ namespace ProductManagement.Domain.ModelsConfug
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Products_Category");
+
+            builder.Ignore(e => e.AttributeList);
+
+            
         }
     }
 }

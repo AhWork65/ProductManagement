@@ -21,98 +21,109 @@ namespace ProductManagement.Services.Service.Product.Validation
 
         public ProductValidationService
             (
-            IProductRepository productRepository 
+            IProductRepository productRepository
             )
         {
-
-
             _ProductRepository = productRepository;
- 
-
-        }
-        public  bool IsIdExists(int ProductId)
-        {
-
-            return
-                ProductId != null && ProductId > 0;
 
         }
 
-        public bool IsCodeExists(string productCode)
-        {
-
-            productCode = productCode.Trim(); 
-            return
-                productCode != null && productCode != ""; 
-
-        }
-
-        public bool IsClassificationExists(int classificationId)
-        {
-
-            return (classificationId != null) && (classificationId >= 0 && classificationId < 4);
-            
-        }
-
-
-        public bool IsRecordExists(ProductManagementWebApi.Models.Product product)
-        {
-
-            return product != null; 
-
-        }
-
-        public bool IsRecordExists(IList<ProductManagementWebApi.Models.Product> products)
-        {
-
-            return products.Count() != 0;
-
-        }
 
         public async Task<bool> IsRecordWithEnteredIdExists(int id)
         {
 
-            return await  _ProductRepository.Any(mdl => mdl.Id == id); 
+            return await _ProductRepository.Any(mdl => mdl.Id == id);
 
         }
 
         public async Task<bool> IsRecordWithEnteredCodeExists(string code)
         {
 
-            return await _ProductRepository.Any(mdl => mdl.Code == code); 
+            return await _ProductRepository.Any(mdl => mdl.Code == code);
 
         }
+
 
         public async Task<bool> IsRecordWithEnteredClassificationExists(int classificationId)
         {
 
-            return await _ProductRepository.Any(mdl => mdl.Classification == classificationId); 
+            return await _ProductRepository.Any(mdl => mdl.Classification == classificationId);
 
         }
 
-        public Task<bool> IsRecordWithEnteredCategoryExists(int categoryId)
+
+        public async Task<bool> IsActiveRecordWithEnteredClassificationExists(int classificationId)
         {
 
-            return _ProductRepository.Any(mdl => mdl.CategoryId == categoryId); 
+            return await _ProductRepository
+                .Any(mdl => mdl.Classification == classificationId & mdl.IsActive == true);
 
         }
 
-        public Task<bool> IsRecordWithEnteredCategoryExists(Category categoryId)
+
+        public async Task<bool> IsInactiveRecordWithEnteredClassificationExists(int classificationId)
         {
-            throw new NotImplementedException();
+
+            return await _ProductRepository
+                .Any(mdl => mdl.Classification == classificationId & mdl.IsActive == false);
+
         }
+
+
+        public async Task<bool> IsRecordWithEnteredCategoryExists(int categoryId)
+        {
+
+            return await _ProductRepository.Any(mdl => mdl.CategoryId == categoryId);
+
+        }
+
+
+        public async Task<bool> IsActiveRecordWithEnteredCategoryExists(int categoryId)
+        {
+
+            return await _ProductRepository
+                .Any(mdl => mdl.CategoryId == categoryId & mdl.IsActive == true);
+
+        }
+
+
+        public async Task<bool> IsInactiveRecordWithEnteredCategoryExists(int categoryId)
+        {
+            return await _ProductRepository
+                .Any(mdl => mdl.CategoryId == categoryId & mdl.IsActive == true);
+
+        }
+
+
+        public async Task<bool> IsRecordWithEnteredFilterExists(int categoryId, int classification)
+        {
+
+            return await _ProductRepository.Any(mdl => mdl.CategoryId == categoryId & mdl.Classification == classification);
+
+        }
+
+        public async Task<bool> IsActiveRecordWithEnteredFilterExists(int categoryId, int classification)
+        {
+
+            return await _ProductRepository
+                .Any(mdl => mdl.CategoryId == categoryId & mdl.Classification == classification & mdl.IsActive == true);
+
+        }
+
+
+        public async Task<bool> IsInactiveRecordWithEnteredFilterExists(int categoryId, int classification)
+        {
+            return await  _ProductRepository
+                .Any(mdl => mdl.CategoryId == categoryId & mdl.Classification == classification & mdl.IsActive == false);
+        }
+
 
         public Task<bool> IsRecordWithEnteredAttributeExists(int attributeId)
         {
             throw new NotImplementedException();
         }
 
-      
 
-        public bool IsModelValid(ProductManagementWebApi.Models.Product product)
-        {
-            throw new NotImplementedException();
-        }
 
         public bool IsSufficientInventory
             (ProductManagementWebApi.Models.Product product, ProductUpdateUnitsInStockDTO productDto)
@@ -120,7 +131,7 @@ namespace ProductManagement.Services.Service.Product.Validation
 
             if (product.UnitStock < productDto.Quantity)
                 return false;
-            return true; 
+            return true;
 
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
@@ -14,53 +15,42 @@ namespace ProductManagement.DataAccess.Repositories
         }
 
 
-        public async  Task<IList<Product>> GetProductByClassification(int classificationId)
-        {
-
-            return await _dbSet.Where(mdl => mdl.Classification == classificationId).ToListAsync(); 
-
-        }
-
-        public async Task<Product> GetProductByCode(string code)
+        public async Task<Product> GetDetailById(int id)
         {
 
             return await _dbSet
                 .Include(mdl => mdl.ProductAttributeDetails)
-                .ThenInclude(mdl=> mdl.Attribute)
-                .Where(mdl => mdl.Code == code).FirstAsync(); 
+              
+                .FirstAsync(mdl => mdl.Id == id); 
+
 
         }
 
-        public async  Task<IList<Product>> GetProductByCategory(int categoryId)
+        public async Task<Product> GetDetailByCode(string code)
         {
 
-            return await _dbSet.Where(mdl => mdl.CategoryId == categoryId).ToListAsync(); 
-
-        }
-
-        public async  Task<IList<Product>> GetProductByCategory(Category category)
-        {
-
-            return await _dbSet.Where(mdl => mdl.Category == category).ToListAsync(); 
-
-        }
-
-        public async  Task<IList<Product>> GetProductByAttribute(ProductAttributeDetail attribute)
-        {
-
-            return await _dbSet.Where(mdl => mdl.ProductAttributeDetails.Contains(attribute)).ToListAsync();
-
-        }
-
-        public async  Task<Product> GetByIdWithAttributes(int productId)
-        {
-
-            return  await _dbSet
+            return await _dbSet
                 .Include(mdl => mdl.ProductAttributeDetails)
                 .ThenInclude(mdl => mdl.Attribute)
-                .Where(mdl => mdl.Id == productId)
-                .FirstAsync();
+                .FirstAsync(mdl => mdl.Code == code);
 
+        }
+
+        public async Task<Product> FindActive(Expression<Func<Product, bool>> predicate)
+        {
+
+            return await _dbSet
+                .Where(predicate)
+                .Where(mdl => mdl.IsActive == true & mdl.Category.IsActive == true)
+                .FirstOrDefaultAsync(); 
+        }
+
+        public async Task<Product> FindInactive(Expression<Func<Product, bool>> predicate)
+        {
+            return await _dbSet
+                .Where(predicate)
+                .Where(mdl => mdl.IsActive == false)
+                .FirstOrDefaultAsync();
         }
 
 
@@ -79,6 +69,31 @@ namespace ProductManagement.DataAccess.Repositories
             return await _dbSet
                 .Where(mdl => mdl.IsActive == false )
                 .ToListAsync();
+
+        }
+
+        public async Task<IList<Product>> FindActiveList(Expression<Func<Product, bool>> predicate)
+        {
+
+            return await _dbSet
+                .Where(predicate)
+                .Where(mdl => mdl.IsActive == true & mdl.Category.IsActive == true)
+                .ToListAsync(); 
+
+        }
+
+        public async Task<IList<Product>> FindInactiveList(Expression<Func<Product, bool>> predicate)
+        {
+            return await _dbSet
+                .Where(predicate)
+                .Where(mdl => mdl.IsActive == false)
+                .ToListAsync();
+        }
+
+        public async Task<IList<Product>> GetProductByAttribute(ProductAttributeDetail attribute)
+        {
+
+            return await _dbSet.Where(mdl => mdl.ProductAttributeDetails.Contains(attribute)).ToListAsync();
 
         }
     }

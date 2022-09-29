@@ -27,10 +27,11 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public ProductListDTO ConvertToProductListDTO(Product product)
+
+        public ProductDetailDTO ConvertToProductDetailDto(Product product)
         {
 
-            return DtoMapper.MapTo<Product, ProductListDTO>(product);
+            return DtoMapper.MapTo<Product, ProductDetailDTO>(product);
 
         }
 
@@ -41,6 +42,8 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
+
+        
         public async Task<Product> Create(Product entity)
         {
 
@@ -50,6 +53,22 @@ namespace ProductManagement.Services.Services.Services
 
             return await _ProductRepository.Add(entity);
 
+
+        }
+
+        public async Task<Product> GetById(int id)
+        {
+
+            await IsProductWithEnteredIdExists(id);
+            return await _ProductRepository.FindEntity(mdl => mdl.Id == id);
+
+        }
+
+        public async Task<Product> GetByCode(string code)
+        {
+
+            await IsProductWithEnteredCodeExists(code);
+            return await _ProductRepository.FindEntity(mdl => mdl.Code == code);
 
         }
 
@@ -67,13 +86,11 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public async Task Delete(int categoryId)
+        public async Task Delete(int productId)
         {
 
-            if (!await _ProductValidationService.IsRecordWithEnteredIdExists(categoryId))
-                throw new BadRequestException("Product not found");
-
-            await _ProductRepository.DeleteById(categoryId);
+            await IsProductWithEnteredIdExists(productId);
+            await _ProductRepository.DeleteById(productId);
 
         }
 
@@ -105,23 +122,22 @@ namespace ProductManagement.Services.Services.Services
 
 
 
-        public async Task<Product> GetById(int id)
+        public async Task<ProductDetailDTO> GetDetailById(int id)
         {
 
-            if (!await _ProductValidationService.IsRecordWithEnteredIdExists(id))
-                throw new BadRequestException("Product  not found ");
+            await IsProductWithEnteredIdExists(id);
+            var product = await _ProductRepository.GetDetailById(id);
 
-            return await _ProductRepository.GetById(id);
+            return ConvertToProductDetailDto(product);
 
         }
 
-        public async Task<Product> GetProductByCode(string code)
+        public async Task<ProductDetailDTO> GetDetailByCode(string code)
         {
 
-            if (!await _ProductValidationService.IsRecordWithEnteredCodeExists(code))
-                throw new BadRequestException("product not found ");
-
-            return await _ProductRepository.GetProductByCode(code);
+            await IsProductWithEnteredCodeExists(code);
+            var product = await _ProductRepository.GetDetailByCode(code);
+            return ConvertToProductDetailDto(product);
 
         }
 
@@ -129,13 +145,109 @@ namespace ProductManagement.Services.Services.Services
         public async Task<IList<ProductListDTO>> GetProductByClassification(int classificationId)
         {
 
-            if (!await _ProductValidationService.IsRecordWithEnteredClassificationExists(classificationId))
-                throw new BadRequestException("product not found "); 
-
-            var products = await _ProductRepository.GetProductByClassification(classificationId);
+            await IsProductWithEnteredClassificationExists(classificationId);
+            var products = await _ProductRepository.FindList(mdl => mdl.Classification == classificationId);
             return ConvertToProductListDTO(products);
 
         }
+
+        public async Task<IList<ProductListDTO>> GetActiveProductByClassification(int classificationId)
+        {
+
+            await IsActiveProductWithEnteredClassificationExists(classificationId);
+            var products = await _ProductRepository.FindActiveList(mdl => mdl.Classification == classificationId);
+            return ConvertToProductListDTO(products);
+
+        }
+
+        public async Task<IList<ProductListDTO>> GetInactiveProductByClassification(int classificationId)
+        {
+            await IsInactiveProductWithEnteredClassificationExists(classificationId);
+            var products = await _ProductRepository.FindInactiveList(mdl => mdl.Classification == classificationId);
+            return ConvertToProductListDTO(products);
+        }
+
+
+        public async Task<IList<ProductListDTO>> GetProductByCategory(int categoryId)
+        {
+
+            await IsProductWithEnteredCategoryExists(categoryId);
+
+            var products = await _ProductRepository.FindList(mdl => mdl.CategoryId == categoryId);
+
+            return ConvertToProductListDTO(products);
+
+        }
+
+        public async Task<IList<ProductListDTO>> GetActiveProductByCategory(int categoryId)
+        {
+
+
+            await IsActiveProductWithEnteredCategoryExists(categoryId);
+
+            var products = await _ProductRepository.FindActiveList(mdl => mdl.CategoryId == categoryId);
+
+            return ConvertToProductListDTO(products);
+
+
+        }
+
+        public async Task<IList<ProductListDTO>> GetInactiveProductByCategory(int categoryId)
+        {
+
+            await IsInactiveProductWithEnteredCategoryExists(categoryId);
+
+            var products = await _ProductRepository.FindInactiveList(mdl => mdl.CategoryId == categoryId);
+
+            return ConvertToProductListDTO(products);
+
+        }
+
+        public async Task<IList<ProductListDTO>> GetProductBySearch(int categoryId, int classification)
+        {
+
+            await IsProductWithEnteredFilterExists(categoryId, classification);
+
+            var product = await _ProductRepository
+                .FindList(mdl => mdl.CategoryId == categoryId & mdl.Classification == classification);
+            return ConvertToProductListDTO(product);
+
+        }
+
+
+        public async Task<IList<ProductListDTO>> GetActiveProductBySearch(int categoryId, int classification)
+        {
+            await IsActiveProductWithEnteredFilterExists(categoryId, classification);
+
+            var product = await _ProductRepository
+                .FindActiveList(mdl => mdl.CategoryId == categoryId & mdl.Classification == classification);
+            return ConvertToProductListDTO(product);
+
+        }
+
+
+        public async Task<IList<ProductListDTO>> GetInactiveProductBySearch(int categoryId, int classification)
+        {
+
+            await IsInactiveProductWithEnteredFilterExists(categoryId, classification);
+
+            var product = await _ProductRepository
+                .FindInactiveList(mdl => mdl.CategoryId == categoryId & mdl.Classification == classification);
+            return ConvertToProductListDTO(product);
+
+        }
+
+
+        public async Task<IList<ProductListDTO>> GetProductByAttribute(ProductAttributeDetail attribute)
+        {
+
+            var product = await _ProductRepository.GetProductByAttribute(attribute);
+
+            return ConvertToProductListDTO(product);
+
+        }
+       
+
 
         public async Task<IEnumerable<Product>> GetProductBaseOnClassification(int ClassificationId)
         {
@@ -149,46 +261,12 @@ namespace ProductManagement.Services.Services.Services
             //     // var ProductLists = ClassificationList.Union(await GetProductBaseOnClassification(ClassificationId + 1));
             //     // return ProductLists;
             throw new NotImplementedException();
- 
-        }
-
-
-
-
-        public async Task<IList<ProductListDTO>> GetProductByCategory(int categoryId)
-        {
-
-            if (!await _ProductValidationService.IsRecordWithEnteredCategoryExists(categoryId))
-                throw new BadRequestException("Product not found ");
-
-            var products = await _ProductRepository.GetProductByCategory(categoryId);
-
-            return ConvertToProductListDTO(products);
-
-        }
-
-        public async Task<IList<ProductListDTO>> GetProductByCategory(Category category)
-        {
-
-            var products = await _ProductRepository.GetProductByCategory(category);
-            return ConvertToProductListDTO(products);
 
         }
 
 
-        public async Task<IList<Product>> GetProductByAttribute(ProductAttributeDetail attribute)
-        {
 
-            return await _ProductRepository.GetProductByAttribute(attribute);
-
-        }
-
-        public async Task<Product> GetByIdWithAttributes(int productId)
-        {
-
-            return await _ProductRepository.GetByIdWithAttributes(productId);
-
-        }
+       
 
 
 
@@ -198,12 +276,6 @@ namespace ProductManagement.Services.Services.Services
         }
 
 
-        public async Task ChangeUnitStock(Product entity, int enteredUnitInStock)
-        {
-
-            entity.UnitStock = enteredUnitInStock;
-
-        }
 
         public bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto)
         {
@@ -230,6 +302,100 @@ namespace ProductManagement.Services.Services.Services
 
             var obj = await _ProductRepository.GetById(id);
             obj.BaseUnitPrice = enteredPrice;
+
+        }
+
+        // ----------------------------------------------------------------- 
+
+
+        public async Task IsProductWithEnteredIdExists(int id)
+        {
+
+            if (!await _ProductValidationService.IsRecordWithEnteredIdExists(id))
+                throw new BadRequestException("product not exists");
+
+        }
+
+        public async Task IsProductWithEnteredCodeExists(string code)
+        {
+
+            if (!await _ProductValidationService.IsRecordWithEnteredCodeExists(code))
+                throw new BadRequestException("product not exists");
+
+        }
+
+        public async Task IsProductWithEnteredClassificationExists(int classification)
+        {
+
+            if (!await _ProductValidationService.IsRecordWithEnteredClassificationExists(classification))
+                throw new BadRequestException("product not exists");
+
+        }
+
+        public async Task IsActiveProductWithEnteredClassificationExists(int classification)
+        {
+
+            if (!await _ProductValidationService.IsActiveRecordWithEnteredClassificationExists(classification))
+                throw new BadRequestException("product not exists");
+
+        }
+        
+
+        public async Task IsInactiveProductWithEnteredClassificationExists(int classification)
+        {
+
+            if (!await _ProductValidationService.IsInactiveRecordWithEnteredClassificationExists(classification))
+                throw new BadRequestException("product not exists");
+
+        }
+
+
+
+        public async Task IsProductWithEnteredCategoryExists(int categoryId)
+        {
+
+            if (!await _ProductValidationService.IsRecordWithEnteredCategoryExists(categoryId))
+                throw new BadRequestException("product not exists");
+
+        }
+
+        public async Task IsActiveProductWithEnteredCategoryExists(int categoryId)
+        {
+
+            if (!await _ProductValidationService.IsActiveRecordWithEnteredCategoryExists(categoryId))
+                throw new BadRequestException("product not exists");
+
+        }
+
+        public async Task IsInactiveProductWithEnteredCategoryExists(int categoryId)
+        {
+
+            if (!await _ProductValidationService.IsInactiveRecordWithEnteredCategoryExists(categoryId))
+                throw new BadRequestException("product not exists");
+
+        }
+
+        public async Task IsProductWithEnteredFilterExists(int categoryId, int classification)
+        {
+
+            if (!await _ProductValidationService.IsRecordWithEnteredFilterExists(categoryId, classification))
+                throw new BadRequestException("product not exists ");
+
+        }
+
+        public async Task IsActiveProductWithEnteredFilterExists(int categoryId, int classification)
+        {
+
+            if (!await _ProductValidationService.IsActiveRecordWithEnteredFilterExists(categoryId, classification))
+                throw new BadRequestException("product not exists ");
+
+        }
+
+        public async Task IsInactiveProductWithEnteredFilterExists(int categoryId, int classification)
+        {
+
+            if (!await _ProductValidationService.IsInactiveRecordWithEnteredFilterExists(categoryId, classification))
+                throw new BadRequestException("product not exists ");
 
         }
     }

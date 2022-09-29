@@ -33,5 +33,10 @@ namespace ProductManagement.Services.Service.Attributes.Validation
         {
             return  _attributesRepository.IsExistParent(name);
         }
+
+        public Task<bool> IsExistAttributeByProductId(int id)
+        {
+            return _attributesRepository.Any(e => e.ProductAttributeDetails.Any(e => e.ProductId == id));
+        }
     }
 }

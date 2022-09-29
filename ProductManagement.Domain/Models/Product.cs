@@ -33,7 +33,7 @@ namespace ProductManagementWebApi.Models
         public virtual ICollection<RelatedProduct> RelatedProductRelatedProductNavigations { get; set; }
 
         public IEnumerable<AttributeDto> AttributeList => from att in ProductAttributeDetails select new AttributeDto{
-            Name = att.Attribute.Name , Value = att.Attribute.Value , ParentId = att.Attribute.ParentId
+         Id  = att.Attribute.Id, Name = att.Attribute.Name , Value = att.Attribute.Value , ParentId = att.Attribute.ParentId
         };
 
     }

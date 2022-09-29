@@ -6,19 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProductManagement.Domain.Models;
+using ProductManagement.Services.Domain.Product;
 
 namespace ProductManagement.Services.Services.IServices
 {
     public interface IProductServices
     {
 
-        Task<Product> Create(Product entity);
+        Task<Product> Create(ProductDTO entity);
         Task<Product> GetById(int id); 
         Task<Product> GetByCode(string code);
-        Task Update(Product entity);
+        Task Update(ProductDTO entity);
         void Delete(Product entity);
         Task Delete(int categoryId);
-        
         Task<IList<ProductListDTO>> GetAll();
         Task<IList<ProductListDTO>> GetAllActive();
         Task<IList<ProductListDTO>> GetAllInactive();
@@ -43,5 +43,7 @@ namespace ProductManagement.Services.Services.IServices
         void DeacreaseUnitsInStock(Product product, int enteredUnitInStock);
         Task ChangeUnitStock(int id, int enteredUnitStock);
         Task ChangeBaseUnitPrice(int id, int enteredPrice);
+        Task AddAttributeToProduct(IList<ProductAttributesDTO> productAttributes);
+        Task AddImageToProduct(ProductSendImageDto productSendImage);
     }
 }

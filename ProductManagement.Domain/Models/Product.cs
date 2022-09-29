@@ -16,7 +16,6 @@ namespace ProductManagementWebApi.Models
             RelatedProductRelatedProductNavigations = new HashSet<RelatedProduct>();
         }
 
-        public int Id { get; set; }
         public string Code { get; set; } = null!;
         public string Name { get; set; } = null!;
         public int UnitStock { get; set; }

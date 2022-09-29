@@ -187,25 +187,6 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
 
-
-        [HttpGet]
-        [Route("[controller]/GetBaseOnClassification/{classification}")]
-        public async Task<IActionResult> GetBaseOnClassification([FromRoute] int classification)
-        {
-
-            // var isClassificationIdExists = _ProductValidationService.IsClassificationExists(classification);
-            // if (!isClassificationIdExists) return BadRequest("classificationId does not exists");
-            //
-            // var isRecordWithClassificationExists =
-            //     await _ProductValidationService.IsRecordWithEnteredClassificationExists(classification);
-            // if (!isRecordWithClassificationExists) return BadRequest("Record does not exists");
-            //
-            // var objs = await _ProductServices.GetProductBaseOnClassification(classification);
-            return Ok();
-
-        }
-
-
         [HttpPost]
         [Route("[controller]/Update/UnitsOfStock/")]
         public async Task<IActionResult> UpdateUnitsOfStock(ProductUpdateUnitsInStockDTO dto)
@@ -251,47 +232,36 @@ namespace ProductManagementWebApi.Controllers.Api
 
         [HttpPost]
         [Route("[controller]/Add/")]
-        public async Task<IActionResult> AddProduct([FromBody] ProductCreaionDTO entity)
+        public async Task<IActionResult> AddProduct([FromBody] ProductDTO entity)
         {
-
-            var isRecordExists = await _ProductValidationService.IsRecordWithEnteredCodeExists(entity.Code);
-            if (isRecordExists) return BadRequest("Product exists ");
-
-            var newProduct = DtoMapper.MapTo<ProductCreaionDTO, Product>(entity);
-            if (!ModelState.IsValid) return BadRequest("Validation Error ");
-
-
-            await _ProductServices.Create(newProduct);
-
-
-            var attributesList = entity.Attributes;
-            if (attributesList != null)
-            {
-                foreach (var item in attributesList)
-                {
-                    var newAttributeDetail = DtoMapper.MapTo<ProductAttributesDTO, ProductAttributeDetail>(item);
-                    //await _AttributeService.AddDto(newAttribute);\
-                    newAttributeDetail.ProductId = newProduct.Id;
-                    await _AttributeDetailService.Add(newAttributeDetail);
-
-                }
-
-                _unitOfWork.SaveChanges();
-            }
-
-            return Ok("Created");
+          
+            return Ok(await _ProductServices.Create(entity));
 
         }
 
 
         [HttpPut]
         [Route("[controller]/Update/")]
-        public IActionResult UpdateProduct()
+        public async Task<IActionResult> UpdateProduct([FromBody] ProductDTO entity)
         {
-
+            await _ProductServices.Update(entity);
             return Ok("");
-
         }
+
+        [HttpPost]
+        [Route("[controller]/AddAttributeToProduct/")]
+        public async Task AddAttributeToProduct(IList<ProductAttributesDTO> productAttributes)
+        {
+            await _ProductServices.AddAttributeToProduct(productAttributes);
+        }
+        [HttpPost]
+        [Route("[controller]/AddImageToProduct/")]
+        public async Task AddImageToProduct(ProductSendImageDto productSendImage)
+        {
+            await _ProductServices.AddImageToProduct(productSendImage);
+        }
+
+
 
 
 

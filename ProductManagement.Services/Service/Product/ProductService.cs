@@ -1,10 +1,15 @@
-﻿using GlobalErrorApp.Exceptions;
+﻿using System.Text;
+using GlobalErrorApp.Exceptions;
+using Newtonsoft.Json;
 using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Domain.Dto.Product;
+using ProductManagement.Services.Domain.Product;
 using ProductManagement.Services.Mapper;
+using ProductManagement.Services.Service.AttributeDetail;
 using ProductManagement.Services.Service.Product.Validation;
 using ProductManagement.Services.Services.IServices;
+using ProductManagementDataAccess.Config;
 using ProductManagementWebApi.Models;
 using NotImplementedException = System.NotImplementedException;
 
@@ -14,16 +19,21 @@ namespace ProductManagement.Services.Services.Services
     {
         private readonly IProductRepository _ProductRepository;
         private readonly IProductValidationService _ProductValidationService;
+        private readonly IAttributeDetailService _AttributeDetailService;
+        private HttpClient _httpClient;
 
         public ProductService
             (
                 IProductRepository productRepository,
-                IProductValidationService productValidationService
+                IProductValidationService productValidationService,
+                IAttributeDetailService AttributeDetailService
             )
         {
 
             _ProductRepository = productRepository;
             _ProductValidationService = productValidationService;
+            _AttributeDetailService = AttributeDetailService;
+            _httpClient = new HttpClient();
 
         }
 
@@ -43,25 +53,23 @@ namespace ProductManagement.Services.Services.Services
         }
 
 
-        
-        public async Task<Product> Create(Product entity)
+
+        public async Task<Product> Create(ProductDTO entity)
         {
 
+
             var isRecordExists = await _ProductValidationService.IsRecordWithEnteredCodeExists(entity.Code);
-            if (!isRecordExists)
+            if (isRecordExists)
                 throw new BadRequestException("code is not valid ");
 
-            return await _ProductRepository.Add(entity);
-
-
+            var product = DtoMapper.MapTo<ProductDTO, Product>(entity);
+            return await _ProductRepository.Add(product);
         }
 
         public async Task<Product> GetById(int id)
         {
-
             await IsProductWithEnteredIdExists(id);
             return await _ProductRepository.FindEntity(mdl => mdl.Id == id);
-
         }
 
         public async Task<Product> GetByCode(string code)
@@ -72,10 +80,22 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public Task Update(Product entity)
+        public async Task Update(ProductDTO entity)
         {
+            try
+            {
+                var isRecordExists = await _ProductValidationService.IsRecordWithEnteredIdExists(entity.Id);
+                if (!isRecordExists)
+                    throw new BadRequestException("Product is not Exists ");
 
-            throw new NotImplementedException();
+                var product = DtoMapper.MapTo<ProductDTO, Product>(entity);
+                await _ProductRepository.Update(product);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
         }
 
@@ -246,17 +266,17 @@ namespace ProductManagement.Services.Services.Services
             return ConvertToProductListDTO(product);
 
         }
-       
+
 
 
         public async Task<IEnumerable<ProductListDTO>> GetProductBaseOnClassification(int ClassificationId)
         {
             if (ClassificationId > 3)
                 return new List<ProductListDTO>();
-            
+
             if (ClassificationId < 0)
                 return new List<ProductListDTO>();
-            
+
             var classificationList = await GetProductByClassification(ClassificationId);
             var ProductLists = classificationList.Union(await GetProductBaseOnClassification(ClassificationId + 1));
             return ProductLists;
@@ -299,6 +319,35 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
+        public async Task AddAttributeToProduct(IList<ProductAttributesDTO> productAttributes)
+        {
+            if (productAttributes == null)
+                throw new BadRequestException("Attributes is not Valid ");
+
+            foreach (var item in productAttributes)
+            {
+                var newAttributeDetail = DtoMapper.MapTo<ProductAttributesDTO, ProductAttributeDetail>(item);
+                newAttributeDetail.ProductId = item.ProductId;
+                await _AttributeDetailService.Add(newAttributeDetail);
+
+            }
+
+        }
+
+        public async Task AddImageToProduct(ProductSendImageDto productSendImage)
+        {
+
+            if (productSendImage == null)
+
+                using (_httpClient)
+                {
+                    var studentJson = JsonConvert.SerializeObject(productSendImage);
+                    var requstContent = new StringContent(studentJson, Encoding.UTF8, "application/json");
+                    var responseTask = await _httpClient.PostAsync(AppSettingConfiguration.FileWebApiAddress, requstContent);
+                }
+
+        }
+
         // ----------------------------------------------------------------- 
 
 
@@ -333,7 +382,7 @@ namespace ProductManagement.Services.Services.Services
                 throw new BadRequestException("product not exists");
 
         }
-        
+
 
         public async Task IsInactiveProductWithEnteredClassificationExists(int classification)
         {

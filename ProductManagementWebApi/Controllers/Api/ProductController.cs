@@ -4,6 +4,7 @@ using ProductManagement.Domain.Dto.Product;
 using ProductManagement.Services.Service.Product.Validation;
 using ProductManagement.Services.Services.IServices;
 using ProductManagement.Services.Service.AttributeDetail;
+using ProductManagementWebApi.Models;
 
 namespace ProductManagementWebApi.Controllers.Api
 {
@@ -27,7 +28,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
-        [Route("[controller]/getall/")]
+        [Route("[controller]/GetAll/")]
         public async Task<IActionResult> GetAll()
         {
 
@@ -168,6 +169,15 @@ namespace ProductManagementWebApi.Controllers.Api
         {
 
             return Ok(await _ProductServices.GetInactiveProductBySearch(categoryId , classification));
+
+        }
+
+        [HttpGet]
+        [Route("[controller]/GetDetail/CategoryAndClassification/{productId}")]
+        public async Task<IActionResult> GetCategoryAndClassificationDetail(int productId)
+
+        {
+            return Ok(await _ProductServices.GetCategoryAndClassificationDetail(productId)); 
 
         }
 

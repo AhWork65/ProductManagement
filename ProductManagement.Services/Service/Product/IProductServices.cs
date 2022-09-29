@@ -19,6 +19,9 @@ namespace ProductManagement.Services.Services.IServices
         Task Update(ProductDTO entity);
         void Delete(Product entity);
         Task Delete(int categoryId);
+
+        Task<ProductCategoryAndClassificationDetailDTO> GetCategoryAndClassificationDetail(int productId); 
+
         Task<IList<ProductListDTO>> GetAll();
         Task<IList<ProductListDTO>> GetAllActive();
         Task<IList<ProductListDTO>> GetAllInactive();

@@ -52,7 +52,13 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
+        public ProductCategoryAndClassificationDetailDTO ConvertToProductCategoryAndClassificationDetailDto(
+            Product product)
+        {
 
+            return DtoMapper.MapTo<Product, ProductCategoryAndClassificationDetailDTO>(product); 
+
+        }
 
         public async Task<Product> Create(ProductDTO entity)
         {
@@ -114,6 +120,15 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
+        public async Task<ProductCategoryAndClassificationDetailDTO> GetCategoryAndClassificationDetail(int productId)
+        {
+
+            await IsProductWithEnteredIdExists(productId);
+            var product = await _ProductRepository.GetById(productId);
+
+            return ConvertToProductCategoryAndClassificationDetailDto(product); 
+
+        }
 
 
         public async Task<IList<ProductListDTO>> GetAll()

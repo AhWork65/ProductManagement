@@ -135,6 +135,8 @@ namespace ProductManagement.Services.Service.Attributes
 
         public async Task<List<Attribute>> GetAttributeListByProductId(int id)
         {
+            if (!await _attributeValidationService.IsExistAttributeByProductId(id))
+                throw new BadRequestException("Not Find Details attrbute product by Id");
             return await _attributesRepository.GetAttributeListByProductId(id);
         }
     }

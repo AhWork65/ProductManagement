@@ -284,9 +284,11 @@ namespace ProductManagement.Services.Services.Services
         }
 
 
-        public Task ChangeUnitStock(int id, int enteredUnitStock)
+        public async Task ChangeUnitStock(int id, int enteredUnitStock)
         {
-            throw new NotImplementedException();
+            var product = await _ProductRepository.GetById(id);
+            product.UnitStock = enteredUnitStock;
+            await _ProductRepository.Update(product);
         }
 
 
@@ -297,25 +299,29 @@ namespace ProductManagement.Services.Services.Services
             return dto.State == 1;
 
         }
-        public void IncreaseUnitsInStock(Product product, int enteredUnitInStock)
+        public async Task IncreaseUnitsInStock(int id, int enteredUnitInStock)
         {
-
+            var product = await _ProductRepository.GetById(id);
             product.UnitStock += enteredUnitInStock;
+            await _ProductRepository.Update(product);
 
         }
 
-        public void DeacreaseUnitsInStock(Product product, int enteredUnitInStock)
+        public async Task DeacreaseUnitsInStock(int id, int enteredUnitInStock)
         {
-
+            var product = await _ProductRepository.GetById(id);
             product.UnitStock -= enteredUnitInStock;
+            await _ProductRepository.Update(product);
+
 
         }
 
         public async Task ChangeBaseUnitPrice(int id, int enteredPrice)
         {
 
-            var obj = await _ProductRepository.GetById(id);
-            obj.BaseUnitPrice = enteredPrice;
+            var product = await _ProductRepository.GetById(id);
+            product.BaseUnitPrice = enteredPrice;
+            await _ProductRepository.Update(product);
 
         }
 

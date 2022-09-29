@@ -39,8 +39,8 @@ namespace ProductManagement.Services.Services.IServices
         Task<ProductDetailDTO> GetDetailByCode(string code);
         
         bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto);
-        void IncreaseUnitsInStock(Product product, int enteredUnitInStock);
-        void DeacreaseUnitsInStock(Product product, int enteredUnitInStock);
+        Task IncreaseUnitsInStock(int id, int enteredUnitInStock);
+        Task DeacreaseUnitsInStock(int id, int enteredUnitInStock);
         Task ChangeUnitStock(int id, int enteredUnitStock);
         Task ChangeBaseUnitPrice(int id, int enteredPrice);
         Task AddAttributeToProduct(IList<ProductAttributesDTO> productAttributes);

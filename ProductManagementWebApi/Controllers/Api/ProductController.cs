@@ -16,7 +16,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
         public ProductController
             (
-                IProductServices productServices,
+                IProductServices productServices
    
 
             )
@@ -114,7 +114,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
-        [Route("[controller]/GetProductBaseOnClassification/{classification}")]
+        [Route("[controller]/GetBaseOnClassification/{classification}")]
         public async Task<IActionResult> GetProductBaseOnClassification([FromRoute] int classification)
         {
 

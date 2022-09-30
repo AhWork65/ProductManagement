@@ -1,17 +1,14 @@
 ﻿using System.Text;
 using GlobalErrorApp.Exceptions;
 using Newtonsoft.Json;
-using ProductManagement.Domain.Models;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Domain.Dto.Product;
-using ProductManagement.Services.Domain.Product;
 using ProductManagement.Services.Mapper;
 using ProductManagement.Services.Service.AttributeDetail;
 using ProductManagement.Services.Service.Product.Validation;
 using ProductManagement.Services.Services.IServices;
 using ProductManagementDataAccess.Config;
 using ProductManagementWebApi.Models;
-using NotImplementedException = System.NotImplementedException;
 
 namespace ProductManagement.Services.Services.Services
 {

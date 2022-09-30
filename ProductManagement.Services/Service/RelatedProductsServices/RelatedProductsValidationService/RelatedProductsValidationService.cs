@@ -17,10 +17,25 @@ namespace ProductManagement.Services.Service.RelatedProductsServices.RelatedProd
             _RelatedProductRepository = relatedProductRepository;
 
         }
+
+        public bool IsBaseProductAndRelatedProductAreDifferent(int baseProductId , int relatedProductId)
+        {
+
+            return (baseProductId != relatedProductId); 
+
+        }
+
         public async Task<bool> IsRecordWithEnteredIdExists(int id)
         {
 
-            return await _RelatedProductRepository.Any(mdl => mdl.Id == id);
+            return await _RelatedProductRepository.Any(mdl => mdl.Id == id); 
+
+        }
+
+        public async Task<bool> IsRecordWithEnteredBaseProductIdExists(int baseProductId)
+        {
+
+            return await _RelatedProductRepository.Any(mdl => mdl.BaseProductId == baseProductId);
 
         }
     }

@@ -8,8 +8,9 @@ namespace ProductManagement.Services.Service.RelatedProductsServices.RelatedProd
 {
     public interface IRelatedProductValidationService
     {
-        Task<bool> IsRecordWithEnteredIdExists(int id); 
-
+        bool IsBaseProductAndRelatedProductAreDifferent(int baseProductId , int relatedProductId);
+        Task<bool> IsRecordWithEnteredIdExists(int id);
+        Task<bool> IsRecordWithEnteredBaseProductIdExists(int baseProductId); 
 
     }
 }

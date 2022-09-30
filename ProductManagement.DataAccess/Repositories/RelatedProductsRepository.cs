@@ -55,10 +55,20 @@ namespace ProductManagement.DataAccess.Repositories
 
         }
 
-        public async Task<IList<RelatedProduct>> GetByBaseProductId(int id)
+        public async Task<IList<RelatedProduct>> GetListOfProductsByBaseProductId(int id)
         {
 
             return await _dbSet.Where(mdl => mdl.BaseProductId == id).ToListAsync();
+
+        }
+
+        public async Task<IList<int>> GetListOfProductsIdByBaseProductId(int id)
+        {
+
+            return await _dbSet
+                .Where(mdl => mdl.BaseProductId == id)
+                .Select(mdl => mdl.RelatedProductId)
+                .ToListAsync();
 
         }
 

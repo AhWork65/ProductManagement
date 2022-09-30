@@ -182,41 +182,9 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
 
-        [HttpPost]
-        [Route("[controller]/Update/UnitsOfStock/")]
-        public async Task<IActionResult> UpdateUnitsOfStock(ProductUpdateUnitsInStockDTO dto)
-        {
-            //
-            // var isIdExists = _ProductValidationService.IsIdExists(dto.Id);
-            // if (!isIdExists) return BadRequest("id does not exists");
-            //
-            // var isRecordWithEnterdIdExists = await _ProductValidationService.IsRecordWithEnteredIdExists(dto.Id);
-            // if (!isRecordWithEnterdIdExists) return BadRequest("record does not exists");
-            //
-            // var product = await _ProductServices.GetDetailById(dto.Id);
-            //
-            // var IsSufficientInventory = _ProductValidationService.IsSufficientInventory(product, dto);
-            // if (!IsSufficientInventory) return BadRequest("not enough units in stock");
-            //
-            // var IsIncreasingStock = _ProductServices.IsIncreasingProductUpdateUnitStock(dto);
-            // if (IsIncreasingStock) _ProductServices.IncreaseUnitsInStock(product, dto.Quantity);
-            // else _ProductServices.DeacreaseUnitsInStock(product, dto.Quantity);
-            //
-            // await _unitOfWork.SaveChangesAsync();
-            return Ok();
+        
 
-        }
-
-        [HttpDelete]
-        [Route("[controller]/Delete/{id}")]
-        public async Task<IActionResult> DeleteProduct([FromRoute] int id)
-        {
-
-            await _ProductServices.Delete(id);
-
-            return Ok();
-
-        }
+       
 
 
         [HttpPost]
@@ -264,7 +232,26 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
 
+        [HttpPut]
+        [Route("[controller]/Update/UnitsStock/")]
+        public async Task<IActionResult> UpdateUnitsStock(ProductUpdateUnitsInStockDTO dto)
+        {
+            await _ProductServices.UpdateUnitStock(dto); 
+            return Ok("Updated ! ");
 
+        }
+
+
+        [HttpDelete]
+        [Route("[controller]/Delete/{id}")]
+        public async Task<IActionResult> DeleteProduct([FromRoute] int id)
+        {
+
+            await _ProductServices.Delete(id);
+
+            return Ok();
+
+        }
 
 
 

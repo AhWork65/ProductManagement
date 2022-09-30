@@ -300,34 +300,37 @@ namespace ProductManagement.Services.Services.Services
         }
 
 
-        public async Task ChangeUnitStock(int id, int enteredUnitStock)
+        public async Task UpdateUnitStock(ProductUpdateUnitsInStockDTO obj)
         {
-            var product = await _ProductRepository.GetById(id);
-            product.UnitStock = enteredUnitStock;
+
+            await IsProductWithEnteredIdExists(obj.Id);
+            var product = await _ProductRepository.GetById(obj.Id);
+
             await _ProductRepository.Update(product);
+            
+            if (obj.State == 1) await IncreaseUnitsInStock(product, obj);
+            else if (obj.State == 0) await DeacreaseUnitsInStock(product, obj);
+         
+
         }
 
 
 
-        public bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto)
+        public async Task IncreaseUnitsInStock(Product product, ProductUpdateUnitsInStockDTO obj)
         {
 
-            return dto.State == 1;
+            product.UnitStock += obj.Quantity;
+            await _UnitOfWork.SaveChangesAsync(); 
 
-        }
-        public async Task IncreaseUnitsInStock(int id, int enteredUnitInStock)
-        {
-            var product = await _ProductRepository.GetById(id);
-            product.UnitStock += enteredUnitInStock;
-            await _ProductRepository.Update(product);
 
         }
 
-        public async Task DeacreaseUnitsInStock(int id, int enteredUnitInStock)
+        public async Task DeacreaseUnitsInStock(Product product, ProductUpdateUnitsInStockDTO obj)
         {
-            var product = await _ProductRepository.GetById(id);
-            product.UnitStock -= enteredUnitInStock;
-            await _ProductRepository.Update(product);
+
+            IsProductHaveSufficientInventoryForAnOrder(product, obj);
+            product.UnitStock -= obj.Quantity;
+            await _UnitOfWork.SaveChangesAsync();
 
 
         }
@@ -416,7 +419,13 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
+        public  void IsProductHaveSufficientInventoryForAnOrder(Product product  , ProductUpdateUnitsInStockDTO obj)
+        {
 
+            if (!_ProductValidationService.IsSufficientInventory(product, obj))
+                throw new BadRequestException("Not Enough Stocks in Inventory"); 
+
+        }
 
         public async Task IsProductWithEnteredCategoryExists(int categoryId)
         {

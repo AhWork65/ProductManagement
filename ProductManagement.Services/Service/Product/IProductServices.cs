@@ -41,10 +41,8 @@ namespace ProductManagement.Services.Services.IServices
         Task<ProductDetailDTO> GetDetailById(int id);
         Task<ProductDetailDTO> GetDetailByCode(string code);
         
-        bool IsIncreasingProductUpdateUnitStock(ProductUpdateUnitsInStockDTO dto);
-        Task IncreaseUnitsInStock(int id, int enteredUnitInStock);
-        Task DeacreaseUnitsInStock(int id, int enteredUnitInStock);
-        Task ChangeUnitStock(int id, int enteredUnitStock);
+ 
+        Task UpdateUnitStock(ProductUpdateUnitsInStockDTO obj);
         Task UpdateBaseUnitPrice(ProductUpdateUnitPriceDTO obj);
         Task AddAttributeToProduct(IList<ProductAttributesDTO> productAttributes);
         Task AddImageToProduct(ProductSendImageDto productSendImage);

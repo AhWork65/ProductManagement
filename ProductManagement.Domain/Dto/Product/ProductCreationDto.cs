@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using ProductManagement.Domain.Dto.Product;
 
@@ -10,6 +11,8 @@ namespace ProductManagement.Services.Domain.Product
         public string Name { get; set; } = null!;
         public int UnitStock { get; set; }
         public int CategoryId { get; set; }
+
+        [Range(0 , 3 )]
         public int Classification { get; set; }
         public bool? IsActive { get; set; }
         public string? Description { get; set; }

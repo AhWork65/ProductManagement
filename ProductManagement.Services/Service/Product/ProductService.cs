@@ -6,6 +6,7 @@ using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Domain.Dto.Product;
 using ProductManagement.Services.Mapper;
 using ProductManagement.Services.Service.AttributeDetail;
+using ProductManagement.Services.Service.CategoryService.Validation;
 using ProductManagement.Services.Service.Product.Validation;
 using ProductManagement.Services.Services.IServices;
 using ProductManagementDataAccess.Config;
@@ -17,14 +18,17 @@ namespace ProductManagement.Services.Services.Services
     {
         private readonly IProductRepository _ProductRepository;
         private readonly IProductValidationService _ProductValidationService;
+        private readonly ICategoryServiceValidation _CategoryValidationService;
         private readonly IAttributeDetailService _AttributeDetailService;
         private readonly IUnitOfWork _UnitOfWork;
+
         private HttpClient _httpClient;
 
         public ProductService
             (
                 IProductRepository productRepository,
                 IProductValidationService productValidationService,
+                ICategoryServiceValidation categoryServiceValidation,
                 IAttributeDetailService AttributeDetailService,
                 IUnitOfWork unitOfWork
             )
@@ -32,6 +36,7 @@ namespace ProductManagement.Services.Services.Services
 
             _ProductRepository = productRepository;
             _ProductValidationService = productValidationService;
+            _CategoryValidationService = categoryServiceValidation;
             _AttributeDetailService = AttributeDetailService;
             _UnitOfWork = unitOfWork;
             _httpClient = new HttpClient();
@@ -65,19 +70,22 @@ namespace ProductManagement.Services.Services.Services
         {
 
 
-            var isRecordExists = await _ProductValidationService.IsRecordWithEnteredCodeExists(entity.Code);
-            if (isRecordExists)
-                throw new BadRequestException("code is not valid ");
+            await IsProductWithEnteredCodeExists(entity.Code);
+            await IsCategoryWithEnteredIdExists(entity.CategoryId);
+
 
             var product = DtoMapper.MapTo<ProductDTO, Product>(entity);
             return await _ProductRepository.Add(product);
+
         }
+
 
         public async Task<Product> GetById(int id)
         {
             await IsProductWithEnteredIdExists(id);
             return await _ProductRepository.FindEntity(mdl => mdl.Id == id);
         }
+
 
         public async Task<Product> GetByCode(string code)
         {
@@ -87,22 +95,16 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
+
         public async Task Update(ProductDTO entity)
         {
-            try
-            {
-                var isRecordExists = await _ProductValidationService.IsRecordWithEnteredIdExists(entity.Id);
-                if (!isRecordExists)
-                    throw new BadRequestException("Product is not Exists ");
 
-                var product = DtoMapper.MapTo<ProductDTO, Product>(entity);
-                await _ProductRepository.Update(product);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            await IsProductWithEnteredIdExists(entity.Id);
+            await IsCategoryWithEnteredIdExists(entity.CategoryId); 
+
+            var product = DtoMapper.MapTo<ProductDTO, Product>(entity);
+            await _ProductRepository.Update(product);
+
 
         }
 
@@ -307,10 +309,10 @@ namespace ProductManagement.Services.Services.Services
             var product = await _ProductRepository.GetById(obj.Id);
 
             await _ProductRepository.Update(product);
-            
+
             if (obj.State == 1) await IncreaseUnitsInStock(product, obj);
             else if (obj.State == 0) await DeacreaseUnitsInStock(product, obj);
-         
+
 
         }
 
@@ -320,7 +322,7 @@ namespace ProductManagement.Services.Services.Services
         {
 
             product.UnitStock += obj.Quantity;
-            await _UnitOfWork.SaveChangesAsync(); 
+            await _UnitOfWork.SaveChangesAsync();
 
 
         }
@@ -342,7 +344,7 @@ namespace ProductManagement.Services.Services.Services
 
             var product = await _ProductRepository.GetById(obj.Id);
             product.BaseUnitPrice = obj.BaseUnitPrice;
-            await _UnitOfWork.SaveChangesAsync(); 
+            await _UnitOfWork.SaveChangesAsync();
 
         }
 
@@ -376,6 +378,16 @@ namespace ProductManagement.Services.Services.Services
         }
 
         // ----------------------------------------------------------------- 
+
+
+
+        public async Task IsCategoryWithEnteredIdExists(int categoryId)
+        {
+
+            if (!await _CategoryValidationService.IsExistCategoryById(categoryId))
+                throw new BadRequestException("Category not Exists");
+
+        }
 
 
         public async Task IsProductWithEnteredIdExists(int id)
@@ -419,11 +431,11 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public  void IsProductHaveSufficientInventoryForAnOrder(Product product  , ProductUpdateUnitsInStockDTO obj)
+        public void IsProductHaveSufficientInventoryForAnOrder(Product product, ProductUpdateUnitsInStockDTO obj)
         {
 
             if (!_ProductValidationService.IsSufficientInventory(product, obj))
-                throw new BadRequestException("Not Enough Stocks in Inventory"); 
+                throw new BadRequestException("Not Enough Stocks in Inventory");
 
         }
 

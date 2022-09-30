@@ -2,6 +2,7 @@
 using ProductManagementDomain.Models.BaseEntities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using ProductManagement.Domain.Dto.Attribute;
 using ProductManagement.Domain.Models;
 
@@ -20,6 +21,8 @@ namespace ProductManagementWebApi.Models
         public string Name { get; set; } = null!;
         public int UnitStock { get; set; }
         public int CategoryId { get; set; }
+
+        [Range(0 , 3 )]
         public int Classification { get; set; }
         public bool? IsActive { get; set; }
         public string? Description { get; set; }

@@ -9,6 +9,7 @@ using ProductManagement.Services.Service.Attributes.Validation;
 using ProductManagement.Services.Service.CategoryService;
 using ProductManagement.Services.Service.CategoryService.Validation;
 using ProductManagement.Services.Service.Product.Validation;
+using ProductManagement.Services.Service.Product.ValidationHanlder;
 using ProductManagement.Services.Service.RelatedProductsServices;
 using ProductManagement.Services.Service.RelatedProductsServices.RelatedProductsValidationService;
 using ProductManagement.Services.Services.CategoryService;
@@ -17,7 +18,7 @@ using ProductManagement.Services.Services.Services;
 
 
 
-    var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -39,10 +40,11 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryServiceValidation, CategoryServiceValidation>();
 builder.Services.AddScoped<IProductServices, ProductService>();
 builder.Services.AddScoped<IProductValidationService, ProductValidationService>();
+builder.Services.AddScoped<IProductValidationHandler, ProductValidationHandler>();
 builder.Services.AddScoped<IRelatedProductsService, RelatedProductService>();
-builder.Services.AddScoped<IRelatedProductValidationService , RelatedProductsValidationService>();  
+builder.Services.AddScoped<IRelatedProductValidationService, RelatedProductsValidationService>();
 builder.Services.AddScoped<IAttributesService, AttributesService>();
-builder.Services.AddScoped<IAttributeDetailService , AttributeDetailService>();
+builder.Services.AddScoped<IAttributeDetailService, AttributeDetailService>();
 builder.Services.AddScoped<IAttributeValidationService, AttributeValidationService>();
 
 

@@ -218,12 +218,6 @@ namespace ProductManagementWebApi.Controllers.Api
 
         }
 
-        [HttpPost]
-        [Route("[controller]/Update/UnitOfPrice/")]
-        public IActionResult UpdateUnitOfPrice()
-        {
-            return Ok("");
-        }
 
         [HttpPost]
         [Route("[controller]/Add/")]
@@ -232,6 +226,21 @@ namespace ProductManagementWebApi.Controllers.Api
           
             return Ok(await _ProductServices.Create(entity));
 
+        }
+
+        [HttpPost]
+        [Route("[controller]/AddAttributeToProduct/")]
+        public async Task AddAttributeToProduct(IList<ProductAttributesDTO> productAttributes)
+        {
+            await _ProductServices.AddAttributeToProduct(productAttributes);
+        }
+
+
+        [HttpPost]
+        [Route("[controller]/AddImageToProduct/")]
+        public async Task AddImageToProduct(ProductSendImageDto productSendImage)
+        {
+            await _ProductServices.AddImageToProduct(productSendImage);
         }
 
 
@@ -243,18 +252,18 @@ namespace ProductManagementWebApi.Controllers.Api
             return Ok("");
         }
 
-        [HttpPost]
-        [Route("[controller]/AddAttributeToProduct/")]
-        public async Task AddAttributeToProduct(IList<ProductAttributesDTO> productAttributes)
+
+        [HttpPut]
+        [Route("[controller]/Update/UnitPrice/")]
+        public async Task<IActionResult> UpdateBaseUnitPrice([FromBody] ProductUpdateUnitPriceDTO obj)
         {
-            await _ProductServices.AddAttributeToProduct(productAttributes);
+
+            await _ProductServices.UpdateBaseUnitPrice(obj);
+            return Ok("Updated !");
+
         }
-        [HttpPost]
-        [Route("[controller]/AddImageToProduct/")]
-        public async Task AddImageToProduct(ProductSendImageDto productSendImage)
-        {
-            await _ProductServices.AddImageToProduct(productSendImage);
-        }
+
+
 
 
 

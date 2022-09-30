@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using GlobalErrorApp.Exceptions;
 using Newtonsoft.Json;
+using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Domain.Dto.Product;
 using ProductManagement.Services.Mapper;
@@ -17,19 +18,22 @@ namespace ProductManagement.Services.Services.Services
         private readonly IProductRepository _ProductRepository;
         private readonly IProductValidationService _ProductValidationService;
         private readonly IAttributeDetailService _AttributeDetailService;
+        private readonly IUnitOfWork _UnitOfWork;
         private HttpClient _httpClient;
 
         public ProductService
             (
                 IProductRepository productRepository,
                 IProductValidationService productValidationService,
-                IAttributeDetailService AttributeDetailService
+                IAttributeDetailService AttributeDetailService,
+                IUnitOfWork unitOfWork
             )
         {
 
             _ProductRepository = productRepository;
             _ProductValidationService = productValidationService;
             _AttributeDetailService = AttributeDetailService;
+            _UnitOfWork = unitOfWork;
             _httpClient = new HttpClient();
 
         }
@@ -53,7 +57,7 @@ namespace ProductManagement.Services.Services.Services
             Product product)
         {
 
-            return DtoMapper.MapTo<Product, ProductCategoryAndClassificationDetailDTO>(product); 
+            return DtoMapper.MapTo<Product, ProductCategoryAndClassificationDetailDTO>(product);
 
         }
 
@@ -123,7 +127,7 @@ namespace ProductManagement.Services.Services.Services
             await IsProductWithEnteredIdExists(productId);
             var product = await _ProductRepository.GetById(productId);
 
-            return ConvertToProductCategoryAndClassificationDetailDto(product); 
+            return ConvertToProductCategoryAndClassificationDetailDto(product);
 
         }
 
@@ -328,12 +332,14 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public async Task ChangeBaseUnitPrice(int id, int enteredPrice)
+        public async Task UpdateBaseUnitPrice(ProductUpdateUnitPriceDTO obj)
         {
+            await IsProductWithEnteredIdExists(obj.Id);
 
-            var product = await _ProductRepository.GetById(id);
-            product.BaseUnitPrice = enteredPrice;
-            await _ProductRepository.Update(product);
+
+            var product = await _ProductRepository.GetById(obj.Id);
+            product.BaseUnitPrice = obj.BaseUnitPrice;
+            await _UnitOfWork.SaveChangesAsync(); 
 
         }
 

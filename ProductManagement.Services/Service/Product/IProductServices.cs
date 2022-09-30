@@ -45,7 +45,7 @@ namespace ProductManagement.Services.Services.IServices
         Task IncreaseUnitsInStock(int id, int enteredUnitInStock);
         Task DeacreaseUnitsInStock(int id, int enteredUnitInStock);
         Task ChangeUnitStock(int id, int enteredUnitStock);
-        Task ChangeBaseUnitPrice(int id, int enteredPrice);
+        Task UpdateBaseUnitPrice(ProductUpdateUnitPriceDTO obj);
         Task AddAttributeToProduct(IList<ProductAttributesDTO> productAttributes);
         Task AddImageToProduct(ProductSendImageDto productSendImage);
     }

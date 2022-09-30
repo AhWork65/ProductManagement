@@ -5,6 +5,7 @@ using ProductManagement.Services.Mapper;
 using ProductManagement.Services.Service.Product.Validation;
 using ProductManagementWebApi.Models;
 using GlobalErrorApp.Exceptions;
+using ProductManagement.Domain.Dto.Product;
 using ProductManagement.Services.Service.RelatedProductsServices.RelatedProductsValidationService;
 
 namespace ProductManagement.Services.Service.RelatedProductsServices
@@ -74,10 +75,12 @@ namespace ProductManagement.Services.Service.RelatedProductsServices
         }
 
 
-        public async Task<IList<RelatedProduct>> GetByBaseProductId(int BaseProductId)
+        public async Task<IList<ProductListDTO>> GetItemRelatedProductsByBaseProductId(int BaseProductId)
         {
 
-            return await _RelatedProductRepository.GetListOfProductsByBaseProductId(BaseProductId);
+            var products = await _RelatedProductRepository.GetListOfProductsByBaseProductId(BaseProductId);
+            return DtoMapper.ListMapTo<ProductManagementWebApi.Models.Product, ProductListDTO>(products); 
+
 
         }
 

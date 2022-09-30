@@ -35,11 +35,20 @@ namespace ProductManagementWebApi.Controllers.Api
 
 
         [HttpGet]
+        [Route("[controller]/GetRelatedItemsId/ByBaseProductId/{baseProductId}")]
+        public async Task<IActionResult> GetRelatedItemsIdByBaseProductId(int baseProductId)
+        {
+
+            return Ok(await _RelatedProductService.GetItemRelatedProductsIdByBaseProductId(baseProductId)); 
+
+        }
+
+        [HttpGet]
         [Route("[controller]/GetRelatedItems/ByBaseProductId/{baseProductId}")]
         public async Task<IActionResult> GetRelatedItemsByBaseProductId(int baseProductId)
         {
 
-            return Ok(await _RelatedProductService.GetItemRelatedProductsIdByBaseProductId(baseProductId)); 
+            return Ok(await _RelatedProductService.GetItemRelatedProductsByBaseProductId(baseProductId));
 
         }
 

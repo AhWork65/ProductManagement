@@ -19,7 +19,7 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
         Task Delete(RelatedProduct entity);
 
         Task<RelatedProduct> GetById(int id); 
-        Task<IList<RelatedProduct>> GetListOfProductsByBaseProductId(int id );
+        Task<IList<Product>> GetListOfProductsByBaseProductId(int id );
         Task<IList<int>> GetListOfProductsIdByBaseProductId(int id );
         Task<bool> Any(Expression<Func<RelatedProduct, bool>> predicate); 
 

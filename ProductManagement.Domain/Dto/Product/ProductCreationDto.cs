@@ -16,6 +16,7 @@ namespace ProductManagement.Services.Domain.Product
         public int Classification { get; set; }
         public bool? IsActive { get; set; }
         public string? Description { get; set; }
+        [Range(0,  int.MaxValue, ErrorMessage = "Please enter a value bigger than {0}")]
         public int BaseUnitPrice { get; set; }
         public IFormFile? Image { get; set; }
         public IList<ProductAttributesDTO> Attributes { get; set; }

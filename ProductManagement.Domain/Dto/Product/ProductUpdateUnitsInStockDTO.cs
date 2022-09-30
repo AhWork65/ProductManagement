@@ -10,6 +10,8 @@ namespace ProductManagement.Domain.Dto.Product
     public class ProductUpdateUnitsInStockDTO
     {
         public int Id { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
         public int Quantity { get; set; }
 
         [Range(0 ,1 )]

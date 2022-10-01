@@ -15,7 +15,7 @@ namespace ProductManagement.Domain.IRepositories.IEntitiesRepositories
         Task<IList<Attribute>> GetAttributeDetailByParentId(int id);
       
         Task<List<Attribute>> GetAttributeListAsync();
-        bool IsExistParent(string Title);
+       bool IsExistParent(string Title, string value);
         Task<List<Attribute>> GetAttributeListByProductId(int id);
 
     }

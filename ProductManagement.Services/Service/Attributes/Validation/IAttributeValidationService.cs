@@ -10,7 +10,7 @@ namespace ProductManagement.Services.Service.Attributes.Validation
     {
         Task<bool> IsExistAttributeById(int id);
         Task<bool> IsExistAttributeNodeById(int id);
-        bool IsExistAttributeByName(string name);
+        bool IsExistAttributeByName(string name,string value);
         Task<bool> IsExistAttributeByProductId(int id);
     }
 }

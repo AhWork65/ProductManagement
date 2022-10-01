@@ -6,6 +6,7 @@ using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagement.Domain.Dto.Attribute;
 using ProductManagement.Services.Mapper;
 using ProductManagement.Services.Service.Attributes.Validation;
+using ProductManagement.Services.Service.Attributes.ValidationHandler;
 using ProductManagementWebApi.Models;
 
 using Attribute = ProductManagementWebApi.Models.Attribute;
@@ -15,18 +16,18 @@ namespace ProductManagement.Services.Service.Attributes
     public class AttributesService : IAttributesService
     {
         public readonly IAttributesRepository _attributesRepository;
-        public readonly IAttributeValidationService _attributeValidationService;
+        public readonly IAttributeValidationHandler _attributeValidationHandler;
         
 
         public AttributesService
         (
 
             IAttributesRepository attributesRepository,
-            IAttributeValidationService attributeValidationService
+            IAttributeValidationHandler attributeValidationHandler
         )
         {
             _attributesRepository = attributesRepository;
-            _attributeValidationService = attributeValidationService;
+            _attributeValidationHandler = attributeValidationHandler;
 
         }
 
@@ -34,9 +35,7 @@ namespace ProductManagement.Services.Service.Attributes
         {
        
             var entity = DtoMapper.MapTo<AttributeDto, Attribute>(valuedto);
-            if (!_attributeValidationService.IsExistAttributeNodeById(entity.Id).Result)
-                throw new BadRequestException("The value entered is not Valid");
-
+            await _attributeValidationHandler.IsExistAttributeNodeByIdWithValidationHandler(entity.Id);
             await _attributesRepository.Update(entity);
         }
 
@@ -44,11 +43,7 @@ namespace ProductManagement.Services.Service.Attributes
         {
             var entity = DtoMapper.MapTo<AttributeDto, Attribute>(valuedto);
 
-            if (_attributeValidationService.IsExistAttributeByName(valuedto.Name)&&
-                 _attributeValidationService.IsExistAttributeById(valuedto.Id).Result)
-         
-                   throw new BadRequestException("Dont Repeate Attribute ....");
-
+            await _attributeValidationHandler.IsExistAttributeByNameWithValidationHandler(valuedto.Name,valuedto.Value);
             await _attributesRepository.Add(entity);
         }
 
@@ -87,12 +82,8 @@ namespace ProductManagement.Services.Service.Attributes
 
         public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
         {
-            if (
-                !await _attributeValidationService.IsExistAttributeById(id)
-              &&
-                !await _attributeValidationService.IsExistAttributeNodeById(id)
-                )
-                throw new BadRequestException("This Attribute is not Valid");
+            await _attributeValidationHandler.IsExistAttributeByIdWithValidationHandler(id);
+            await _attributeValidationHandler.IsExistAttributeNodeByIdWithValidationHandler(id);
 
             return await _attributesRepository.GetAttributeDetailByParentId(id);
         }
@@ -105,8 +96,7 @@ namespace ProductManagement.Services.Service.Attributes
             if(subNodes == null)
                 return;
 
-            if (!await _attributeValidationService.IsExistAttributeNodeById(id))
-                    throw new BadRequestException("This Attribute is not Valid");
+            await _attributeValidationHandler.IsExistAttributeNodeByIdWithValidationHandler(id);
 
             await _attributesRepository.DeleteById(id);
         }
@@ -114,8 +104,7 @@ namespace ProductManagement.Services.Service.Attributes
         public async Task DeleteByParentId(int id)
         {
 
-            if (!await _attributeValidationService.IsExistAttributeById(id))
-                throw new BadRequestException("This Attribute is not Valid");
+            await _attributeValidationHandler.IsExistAttributeByIdWithValidationHandler(id);
 
             var entityList =await _attributesRepository.GetAttributeDetailByParentId(id);
 
@@ -135,8 +124,7 @@ namespace ProductManagement.Services.Service.Attributes
 
         public async Task<List<Attribute>> GetAttributeListByProductId(int id)
         {
-            if (!await _attributeValidationService.IsExistAttributeByProductId(id))
-                throw new BadRequestException("Not Find Details attrbute product by Id");
+            await _attributeValidationHandler.IsExistAttributeByProductIdWithValidationHandler(id);
             return await _attributesRepository.GetAttributeListByProductId(id);
         }
     }

@@ -29,14 +29,14 @@ namespace ProductManagement.Services.Service.Attributes.Validation
             return await _attributesRepository.Any(a => a.Id == id);
         }
 
-        public  bool IsExistAttributeByName(string name)
+        public bool IsExistAttributeByName(string name,string value)
         {
-            return  _attributesRepository.IsExistParent(name);
+            return  _attributesRepository.IsExistParent(name,value);
         }
 
-        public Task<bool> IsExistAttributeByProductId(int id)
+        public async Task<bool> IsExistAttributeByProductId(int id)
         {
-            return _attributesRepository.Any(e => e.ProductAttributeDetails.Any(e => e.ProductId == id));
+            return await _attributesRepository.Any(e => e.ProductAttributeDetails.Any(e => e.ProductId == id));
         }
     }
 }

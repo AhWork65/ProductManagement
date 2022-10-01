@@ -70,13 +70,12 @@ namespace ProductManagement.DataAccess.Repositories
                 }).First();
         }
 
-        public bool IsExistParent(string Title)
+        public bool IsExistParent(string Title,string value)
         {
-            _dbSet
-                  .Include(y=>y.subNodes)
-                  .Where(p =>p.Name.ToLower() == Title.ToLower());
-
-            return true;
+           
+            return _dbSet
+                 .Any(p =>p.Name.ToLower().Trim() == Title.ToLower().Trim()
+                 && p.Value.ToLower().Trim() == value.ToLower().Trim());
         }
 
         public async Task<List<Attribute>> GetAttributeListByProductId(int id)

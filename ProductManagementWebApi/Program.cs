@@ -6,6 +6,7 @@ using ProductManagement.Domain.Repositories.EntitiesRepositories;
 using ProductManagement.Services.Service.AttributeDetail;
 using ProductManagement.Services.Service.Attributes;
 using ProductManagement.Services.Service.Attributes.Validation;
+using ProductManagement.Services.Service.Attributes.ValidationHandler;
 using ProductManagement.Services.Service.CategoryService;
 using ProductManagement.Services.Service.CategoryService.Validation;
 using ProductManagement.Services.Service.CategoryService.ValidationHanlder;
@@ -48,6 +49,7 @@ builder.Services.AddScoped<IRelatedProductValidationService, RelatedProductsVali
 builder.Services.AddScoped<IAttributesService, AttributesService>();
 builder.Services.AddScoped<IAttributeDetailService, AttributeDetailService>();
 builder.Services.AddScoped<IAttributeValidationService, AttributeValidationService>();
+builder.Services.AddScoped<IAttributeValidationHandler,AttributeValidationHandler>();
 
 
 

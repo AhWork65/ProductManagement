@@ -18,8 +18,6 @@ namespace ProductManagement.Services.Services.Services
     public class ProductService : IProductServices
     {
         private readonly IProductRepository _ProductRepository;
-        // private readonly IProductValidationService _ProductValidationService;
-        // private readonly ICategoryServiceValidation _CategoryValidationService;
         private readonly IProductValidationHandler _ProductValidationHandler;
         private readonly IAttributeDetailService _AttributeDetailService;
         private readonly IUnitOfWork _UnitOfWork;
@@ -29,8 +27,6 @@ namespace ProductManagement.Services.Services.Services
         public ProductService
             (
                 IProductRepository productRepository,
-                // IProductValidationService productValidationService,
-                // ICategoryServiceValidation categoryServiceValidation,
                 IProductValidationHandler productValidationHandler,
                 IAttributeDetailService AttributeDetailService,
                 IUnitOfWork unitOfWork
@@ -38,8 +34,6 @@ namespace ProductManagement.Services.Services.Services
         {
 
             _ProductRepository = productRepository;
-            // _ProductValidationService = productValidationService;
-            // _CategoryValidationService = categoryServiceValidation;
             _ProductValidationHandler = productValidationHandler;
             _AttributeDetailService = AttributeDetailService;
             _UnitOfWork = unitOfWork;
@@ -73,10 +67,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task<Product> Create(ProductDTO entity)
         {
 
-
-            // await IsEnteredCodeIsUnique(entity.Code); 
-            // await IsCategoryWithEnteredIdExists(entity.CategoryId);
-
             await _ProductValidationHandler.IsEnteredCodeIsUniqueValidationHandler(entity.Code);
             await _ProductValidationHandler.IsCategoryWithEnteredIdExistsValidationHandler(entity.CategoryId);
 
@@ -88,7 +78,6 @@ namespace ProductManagement.Services.Services.Services
 
         public async Task<Product> GetById(int id)
         {
-            // await IsProductWithEnteredIdExists(id);
 
             await _ProductValidationHandler.IsProductWithEnteredIdExistsValidationHandler(id);
 
@@ -99,8 +88,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task<Product> GetByCode(string code)
         {
 
-            // await IsProductWithEnteredCodeExists(code);
-
             await _ProductValidationHandler.IsProductWithEnteredCodeExistsValidationHandler(code);
 
             return await _ProductRepository.FindEntity(mdl => mdl.Code == code);
@@ -110,9 +97,6 @@ namespace ProductManagement.Services.Services.Services
 
         public async Task Update(ProductDTO entity)
         {
-
-            // await IsProductWithEnteredIdExists(entity.Id);
-            // await IsCategoryWithEnteredIdExists(entity.CategoryId);
             await _ProductValidationHandler.IsProductWithEnteredIdExistsValidationHandler(entity.Id);
             await _ProductValidationHandler.IsCategoryWithEnteredIdExistsValidationHandler(entity.CategoryId);
 
@@ -132,7 +116,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task Delete(int productId)
         {
 
-            // await IsProductWithEnteredIdExists(productId);
             await _ProductValidationHandler.IsProductWithEnteredIdExistsValidationHandler(productId);
             await _ProductRepository.DeleteById(productId);
 
@@ -141,7 +124,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task<ProductCategoryAndClassificationDetailDTO> GetCategoryAndClassificationDetail(int productId)
         {
 
-            // await IsProductWithEnteredIdExists(productId);
             await _ProductValidationHandler.IsProductWithEnteredIdExistsValidationHandler(productId);
             var product = await _ProductRepository.GetById(productId);
 
@@ -199,7 +181,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task<IList<ProductListDTO>> GetProductByClassification(int classificationId)
         {
 
-            // await IsProductWithEnteredClassificationExists(classificationId);
             await _ProductValidationHandler.IsProductWithEnteredClassificationExistsValidationHandler(classificationId);
 
             var products = await _ProductRepository.FindList(mdl => mdl.Classification == classificationId);
@@ -210,7 +191,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task<IList<ProductListDTO>> GetActiveProductByClassification(int classificationId)
         {
 
-            // await IsActiveProductWithEnteredClassificationExists(classificationId);
             await _ProductValidationHandler.IsProductWithEnteredClassificationExistsValidationHandler(classificationId);
             await _ProductValidationHandler.IsActiveProductWithEnteredCategoryExistsValidationHandler(classificationId);
 
@@ -221,7 +201,7 @@ namespace ProductManagement.Services.Services.Services
 
         public async Task<IList<ProductListDTO>> GetInactiveProductByClassification(int classificationId)
         {
-            // await IsInactiveProductWithEnteredClassificationExists(classificationId);
+
             await _ProductValidationHandler.IsProductWithEnteredClassificationExistsValidationHandler(classificationId);
             await _ProductValidationHandler.IsInactiveProductWithEnteredClassificationExistsValidationHandler(classificationId);
 
@@ -233,7 +213,7 @@ namespace ProductManagement.Services.Services.Services
         public async Task<IList<ProductListDTO>> GetProductByCategory(int categoryId)
         {
 
-            // await IsProductWithEnteredCategoryExists(categoryId);
+
             await _ProductValidationHandler.IsProductWithEnteredCategoryExistsValidationHandler(categoryId);
             var products = await _ProductRepository.FindList(mdl => mdl.CategoryId == categoryId);
 
@@ -244,8 +224,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task<IList<ProductListDTO>> GetActiveProductByCategory(int categoryId)
         {
 
-
-            // await IsActiveProductWithEnteredCategoryExists(categoryId);
             await _ProductValidationHandler.IsProductWithEnteredCategoryExistsValidationHandler(categoryId);
             await _ProductValidationHandler.IsActiveProductWithEnteredCategoryExistsValidationHandler(categoryId);
 
@@ -259,7 +237,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task<IList<ProductListDTO>> GetInactiveProductByCategory(int categoryId)
         {
 
-            // await IsInactiveProductWithEnteredCategoryExists(categoryId);
             await _ProductValidationHandler.IsProductWithEnteredCategoryExistsValidationHandler(categoryId);
             await _ProductValidationHandler.IsInactiveProductWithEnteredCategoryExistsValidationHandler(categoryId);
 
@@ -272,7 +249,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task<IList<ProductListDTO>> GetProductBySearch(int categoryId, int classification)
         {
 
-            // await IsProductWithEnteredFilterExists(categoryId, classification);
             await _ProductValidationHandler.IsProductWithEnteredFilterExistsValidationHandler(categoryId, classification);
 
             var product = await _ProductRepository
@@ -284,7 +260,7 @@ namespace ProductManagement.Services.Services.Services
 
         public async Task<IList<ProductListDTO>> GetActiveProductBySearch(int categoryId, int classification)
         {
-            // await IsActiveProductWithEnteredFilterExists(categoryId, classification);
+
             await _ProductValidationHandler.IsProductWithEnteredFilterExistsValidationHandler(categoryId, classification);
             await _ProductValidationHandler.IsActiveProductWithEnteredFilterExistsValidationHandler(categoryId, classification);
 
@@ -298,7 +274,7 @@ namespace ProductManagement.Services.Services.Services
         public async Task<IList<ProductListDTO>> GetInactiveProductBySearch(int categoryId, int classification)
         {
 
-            // await IsInactiveProductWithEnteredFilterExists(categoryId, classification);
+
             await _ProductValidationHandler.IsProductWithEnteredFilterExistsValidationHandler(categoryId, classification);
             await _ProductValidationHandler.IsInactiveProductWithEnteredFilterExistsValidationHandler(categoryId, classification);
 
@@ -338,8 +314,7 @@ namespace ProductManagement.Services.Services.Services
         public async Task UpdateUnitStock(ProductUpdateUnitsInStockDTO obj)
         {
 
-            // await IsProductWithEnteredIdExists(obj.Id);
-
+ 
             await _ProductValidationHandler.IsProductWithEnteredIdExistsValidationHandler(obj.Id);
             var product = await _ProductRepository.GetById(obj.Id);
 
@@ -365,7 +340,6 @@ namespace ProductManagement.Services.Services.Services
         public async Task DeacreaseUnitsInStock(Product product, ProductUpdateUnitsInStockDTO obj)
         {
 
-            // IsProductHaveSufficientInventoryForAnOrder(product, obj);
             _ProductValidationHandler.IsProductHaveSufficientInventoryForAnOrderValidationHandler(product, obj);
             product.UnitStock -= obj.Quantity;
             await _UnitOfWork.SaveChangesAsync();
@@ -375,7 +349,7 @@ namespace ProductManagement.Services.Services.Services
 
         public async Task UpdateBaseUnitPrice(ProductUpdateUnitPriceDTO obj)
         {
-            // await IsProductWithEnteredIdExists(obj.Id);
+
             await  _ProductValidationHandler.IsProductWithEnteredIdExistsValidationHandler(obj.Id);
 
 
@@ -413,123 +387,5 @@ namespace ProductManagement.Services.Services.Services
                 }
 
         }
-
-        // ----------------------------------------------------------------- 
-
-
-
-        // public async Task IsCategoryWithEnteredIdExists(int categoryId)
-        // {
-        //
-        //     if (!await _CategoryValidationService.IsExistCategoryById(categoryId))
-        //         throw new BadRequestException("Category not Exists");
-        //
-        // }
-        //
-        //
-        // public async Task IsProductWithEnteredIdExists(int id)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsRecordWithEnteredIdExists(id))
-        //         throw new BadRequestException("product not exists");
-        //
-        // }
-        //
-        // public async Task IsProductWithEnteredCodeExists(string code)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsRecordWithEnteredCodeExists(code))
-        //         throw new BadRequestException("Invalid Code");
-        //
-        // }
-        //
-        // public async Task IsEnteredCodeIsUnique(string code)
-        // {
-        //     if (await _ProductValidationService.IsRecordWithEnteredCodeExists(code))
-        //         throw new BadRequestException("Invalid Code"); 
-        //
-        // }
-        //
-        //
-        // public async Task IsProductWithEnteredClassificationExists(int classification)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsRecordWithEnteredClassificationExists(classification))
-        //         throw new BadRequestException("product not exists");
-        //
-        // }
-        //
-        // public async Task IsActiveProductWithEnteredClassificationExists(int classification)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsActiveRecordWithEnteredClassificationExists(classification))
-        //         throw new BadRequestException("product not exists");
-        //
-        // }
-        //
-        //
-        // public async Task IsInactiveProductWithEnteredClassificationExists(int classification)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsInactiveRecordWithEnteredClassificationExists(classification))
-        //         throw new BadRequestException("product not exists");
-        //
-        // }
-        //
-        // public void IsProductHaveSufficientInventoryForAnOrder(Product product, ProductUpdateUnitsInStockDTO obj)
-        // {
-        //
-        //     if (!_ProductValidationService.IsSufficientInventory(product, obj))
-        //         throw new BadRequestException("Not Enough Stocks in Inventory");
-        //
-        // }
-        //
-        // public async Task IsProductWithEnteredCategoryExists(int categoryId)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsRecordWithEnteredCategoryExists(categoryId))
-        //         throw new BadRequestException("product not exists");
-        //
-        // }
-        //
-        // public async Task IsActiveProductWithEnteredCategoryExists(int categoryId)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsActiveRecordWithEnteredCategoryExists(categoryId))
-        //         throw new BadRequestException("product not exists");
-        //
-        // }
-        //
-        // public async Task IsInactiveProductWithEnteredCategoryExists(int categoryId)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsInactiveRecordWithEnteredCategoryExists(categoryId))
-        //         throw new BadRequestException("product not exists");
-        //
-        // }
-        //
-        // public async Task IsProductWithEnteredFilterExists(int categoryId, int classification)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsRecordWithEnteredFilterExists(categoryId, classification))
-        //         throw new BadRequestException("product not exists ");
-        //
-        // }
-        //
-        // public async Task IsActiveProductWithEnteredFilterExists(int categoryId, int classification)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsActiveRecordWithEnteredFilterExists(categoryId, classification))
-        //         throw new BadRequestException("product not exists ");
-        //
-        // }
-        //
-        // public async Task IsInactiveProductWithEnteredFilterExists(int categoryId, int classification)
-        // {
-        //
-        //     if (!await _ProductValidationService.IsInactiveRecordWithEnteredFilterExists(categoryId, classification))
-        //         throw new BadRequestException("product not exists ");
-        //
-        // }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using ProductManagement.Domain.Dto.Category;
 
 namespace ProductManagement.UnitTest.Category
 {
@@ -31,16 +32,14 @@ namespace ProductManagement.UnitTest.Category
         [TestMethod]
         public async Task Add()
         {
-
-            var category = new ProductManagement.Domain.Models.Category
+            var category = new CategoryDto
             {
-                Code = "1235", Name = "Test Unit", IsActive = true, ParentId = null
+                Code = "9999", Name = "Test Unit", IsActive = true, ParentId = null
             };
             var json = JsonConvert.SerializeObject(category);
             var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"/Category/Add", stringContent);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
         }
         [TestMethod]
         public async Task AddFaild_Test()
@@ -81,7 +80,7 @@ namespace ProductManagement.UnitTest.Category
         }
 
         [TestMethod]
-        [DataRow(1)]
+        [DataRow(5)]
         public async Task Delete(int id)
         {
             var response = await _httpClient.DeleteAsync($"/Category/Delete/{id}");

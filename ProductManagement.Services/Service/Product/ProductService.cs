@@ -305,7 +305,7 @@ namespace ProductManagement.Services.Services.Services
                 return new List<ProductListDTO>();
 
             var classificationList = await GetProductByClassification(ClassificationId);
-            var ProductLists = classificationList.Union(await GetProductBaseOnClassification(ClassificationId + 1));
+            var ProductLists = classificationList.Union(await GetProductBaseOnClassification(ClassificationId - 1));
             return ProductLists;
 
         }

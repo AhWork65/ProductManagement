@@ -193,7 +193,7 @@ namespace ProductManagement.Services.Services.Services
         {
 
             await _ProductValidationHandler.IsProductWithEnteredClassificationExistsValidationHandler(classificationId);
-            await _ProductValidationHandler.IsActiveProductWithEnteredCategoryExistsValidationHandler(classificationId);
+            await _ProductValidationHandler.IsActiveProductWithEnteredClassificationExistsValidationHandler(classificationId);
 
             var products = await _ProductRepository.FindActiveList(mdl => mdl.Classification == classificationId);
             return ConvertToProductListDTO(products);

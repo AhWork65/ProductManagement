@@ -90,7 +90,7 @@ namespace ProductManagement.Services.Service.Product.Validation
         public async Task<bool> IsInactiveRecordWithEnteredCategoryExists(int categoryId)
         {
             return await _ProductRepository
-                .Any(mdl => mdl.CategoryId == categoryId & mdl.IsActive == true);
+                .Any(mdl => mdl.CategoryId == categoryId & mdl.IsActive == false);
 
         }
 

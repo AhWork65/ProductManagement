@@ -25,6 +25,7 @@ namespace ProductManagement.Services.Service.Product.ValidationHanlder
         Task IsProductWithEnteredFilterExistsValidationHandler(int categoryId, int classification);
         Task IsActiveProductWithEnteredFilterExistsValidationHandler(int categoryId, int classification);
         Task IsInactiveProductWithEnteredFilterExistsValidationHandler(int categoryId, int classification);
+        Task IsValidProductSendImageInputValue(ProductSendImageDto productSendImageDto);
 
     }
     

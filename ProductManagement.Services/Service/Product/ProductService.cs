@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using GlobalErrorApp.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProductManagement.DataAccess.AppContext;
 using ProductManagement.Domain.Repositories.EntitiesRepositories;
@@ -374,17 +375,21 @@ namespace ProductManagement.Services.Services.Services
 
         }
 
-        public async Task AddImageToProduct(ProductSendImageDto productSendImage)
+        public async Task<ObjectResult> AddImageToProduct(ProductSendImageDto productSendImage)
         {
 
-            if (productSendImage == null)
+            _ProductValidationHandler.IsValidProductSendImageInputValue(productSendImage);
 
                 using (_httpClient)
                 {
                     var studentJson = JsonConvert.SerializeObject(productSendImage);
                     var requstContent = new StringContent(studentJson, Encoding.UTF8, "application/json");
                     var responseTask = await _httpClient.PostAsync(AppSettingConfiguration.FileWebApiAddress, requstContent);
-                }
+                return new ObjectResult(null)
+                {
+                    StatusCode = (int?)responseTask.StatusCode
+                };
+            }
 
         }
     }

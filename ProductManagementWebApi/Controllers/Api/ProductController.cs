@@ -13,17 +13,17 @@ namespace ProductManagementWebApi.Controllers.Api
     public class ProductController : ControllerBase
     {
         private readonly IProductServices _ProductServices;
-    
+
 
         public ProductController
             (
                 IProductServices productServices
-   
+
 
             )
         {
             _ProductServices = productServices;
-          
+
         }
 
 
@@ -62,7 +62,7 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetProductByCategory([FromRoute] int categoryId)
         {
 
-            return Ok(await _ProductServices.GetProductByCategory(categoryId)); 
+            return Ok(await _ProductServices.GetProductByCategory(categoryId));
 
         }
 
@@ -145,10 +145,10 @@ namespace ProductManagementWebApi.Controllers.Api
 
         [HttpGet]
         [Route("[controller]/GetByFilter/{categoryId}/{classification}/")]
-        public async Task<IActionResult> GetProductBySearch([FromRoute]int categoryId, [FromRoute] int classification)
+        public async Task<IActionResult> GetProductBySearch([FromRoute] int categoryId, [FromRoute] int classification)
         {
 
-            return Ok(await _ProductServices.GetProductBySearch(categoryId, classification)); 
+            return Ok(await _ProductServices.GetProductBySearch(categoryId, classification));
 
         }
 
@@ -158,7 +158,7 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetActiveProductBySearch(int categoryId, int classification)
         {
 
-            return Ok(await _ProductServices.GetActiveProductBySearch(categoryId , classification));
+            return Ok(await _ProductServices.GetActiveProductBySearch(categoryId, classification));
 
         }
 
@@ -168,7 +168,7 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetInactiveProductBySearch(int categoryId, int classification)
         {
 
-            return Ok(await _ProductServices.GetInactiveProductBySearch(categoryId , classification));
+            return Ok(await _ProductServices.GetInactiveProductBySearch(categoryId, classification));
 
         }
 
@@ -177,21 +177,21 @@ namespace ProductManagementWebApi.Controllers.Api
         public async Task<IActionResult> GetCategoryAndClassificationDetail(int productId)
 
         {
-            return Ok(await _ProductServices.GetCategoryAndClassificationDetail(productId)); 
+            return Ok(await _ProductServices.GetCategoryAndClassificationDetail(productId));
 
         }
 
 
-        
 
-       
+
+
 
 
         [HttpPost]
         [Route("[controller]/Add/")]
         public async Task<IActionResult> AddProduct([FromBody] ProductDTO entity)
         {
-          
+
             return Ok(await _ProductServices.Create(entity));
 
         }
@@ -206,9 +206,10 @@ namespace ProductManagementWebApi.Controllers.Api
 
         [HttpPost]
         [Route("[controller]/AddImageToProduct/")]
-        public async Task AddImageToProduct(ProductSendImageDto productSendImage)
+        public async Task<IActionResult> AddImageToProduct(ProductSendImageDto productSendImage)
         {
-            await _ProductServices.AddImageToProduct(productSendImage);
+            return await _ProductServices.AddImageToProduct(productSendImage);
+
         }
 
 
@@ -236,7 +237,7 @@ namespace ProductManagementWebApi.Controllers.Api
         [Route("[controller]/Update/UnitsStock/")]
         public async Task<IActionResult> UpdateUnitsStock(ProductUpdateUnitsInStockDTO dto)
         {
-            await _ProductServices.UpdateUnitStock(dto); 
+            await _ProductServices.UpdateUnitStock(dto);
             return Ok("Updated ! ");
 
         }

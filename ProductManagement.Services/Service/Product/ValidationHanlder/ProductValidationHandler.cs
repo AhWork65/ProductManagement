@@ -140,5 +140,11 @@ namespace ProductManagement.Services.Service.Product.ValidationHanlder
                 throw new BadRequestException("Product Not Exists ");
 
         }
+
+        public async Task IsValidProductSendImageInputValue(ProductSendImageDto productSendImageDto)
+        {
+           if (productSendImageDto == null)
+               throw new BadRequestException("Input Image Is Not Valid ");
+        }
     }
 }

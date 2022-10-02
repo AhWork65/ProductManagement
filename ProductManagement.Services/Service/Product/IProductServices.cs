@@ -1,12 +1,7 @@
-﻿using ProductManagement.Domain.Dto.Product;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProductManagement.Domain.Dto.Product;
 using ProductManagementWebApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProductManagement.Domain.Models;
-using ProductManagement.Services.Domain.Product;
+
 
 namespace ProductManagement.Services.Services.IServices
 {
@@ -45,6 +40,6 @@ namespace ProductManagement.Services.Services.IServices
         Task UpdateUnitStock(ProductUpdateUnitsInStockDTO obj);
         Task UpdateBaseUnitPrice(ProductUpdateUnitPriceDTO obj);
         Task AddAttributeToProduct(IList<ProductAttributesDTO> productAttributes);
-        Task AddImageToProduct(ProductSendImageDto productSendImage);
+        Task<ObjectResult> AddImageToProduct(ProductSendImageDto productSendImage);
     }
 }

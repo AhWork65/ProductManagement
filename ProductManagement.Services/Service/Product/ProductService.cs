@@ -183,10 +183,15 @@ namespace ProductManagement.Services.Services.Services
         {
 
             await _ProductValidationHandler.IsProductWithEnteredClassificationExistsValidationHandler(classificationId);
+            return await GetProductByClassificationBase(classificationId);
+
+        }
+
+        private async Task<IList<ProductListDTO>> GetProductByClassificationBase(int classificationId)
+        {
 
             var products = await _ProductRepository.FindList(mdl => mdl.Classification == classificationId);
             return ConvertToProductListDTO(products);
-
         }
 
         public async Task<IList<ProductListDTO>> GetActiveProductByClassification(int classificationId)
@@ -305,7 +310,7 @@ namespace ProductManagement.Services.Services.Services
             if (ClassificationId < 0)
                 return new List<ProductListDTO>();
 
-            var classificationList = await GetProductByClassification(ClassificationId);
+            var classificationList = await  GetProductByClassificationBase(ClassificationId); ;
             var ProductLists = classificationList.Union(await GetProductBaseOnClassification(ClassificationId - 1));
             return ProductLists;
 

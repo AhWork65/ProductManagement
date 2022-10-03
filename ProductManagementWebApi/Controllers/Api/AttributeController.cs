@@ -49,11 +49,19 @@ namespace ProductManagementWebApi.Controllers.Api
         }
 
         [HttpGet]
-        [Route("[controller]/GetByIdAsync/{id:int}")]
-        public async Task<IActionResult> GetByIdAsync(int id)
+        [Route("[controller]/GetByIdParentAsync/{id:int}")]
+        public async Task<IActionResult> GetByIdParentAsync(int id)
         {
             var obj_attr=await _attributesService.GetAttributeDetailByParentId(id);
            return Ok(obj_attr);
+        }
+
+        [HttpGet]
+        [Route("[controller]/GetByIdNodeAsync/{id:int}")]
+        public async Task<IActionResult> GetByIdNodeAsync(int id)
+        {
+            var obj_attr = await _attributesService.GetAttributeDetailByNodeId(id);
+            return Ok(obj_attr);
         }
 
         [HttpGet]

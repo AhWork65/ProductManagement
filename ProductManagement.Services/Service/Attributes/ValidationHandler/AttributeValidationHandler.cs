@@ -17,11 +17,7 @@ namespace ProductManagement.Services.Service.Attributes.ValidationHandler
             _attributeValidationService = attributeValidationService;
         }
 
-        public async Task IsExistAttributeByIdWithValidationHandler(int id)
-        {
-            if (!await _attributeValidationService.IsExistAttributeById(id))
-                throw new BadRequestException("The value entered is not Exist");
-        }
+   
 
         public async Task IsExistAttributeByNameWithValidationHandler(string Name,string value)
         {
@@ -38,7 +34,17 @@ namespace ProductManagement.Services.Service.Attributes.ValidationHandler
         public async Task IsExistAttributeNodeByIdWithValidationHandler(int id)
         {
             if (!await _attributeValidationService.IsExistAttributeNodeById(id))
-                  throw new BadRequestException("The value entered is not Exist");
+                throw new BadRequestException("The value Node entered is not Exist");
         }
+
+        public async Task IsExistAttributeByIdWithValidationHandler(int id)
+        {
+            if (!await _attributeValidationService.IsExistAttributeById(id))
+                throw new BadRequestException("The value ParentNode entered is not Exist");
+        }
+
+
+
+
     }
 }

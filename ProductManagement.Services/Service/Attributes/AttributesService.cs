@@ -47,48 +47,29 @@ namespace ProductManagement.Services.Service.Attributes
             await _attributesRepository.Add(entity);
         }
 
-        public List<Attribute> GetAttributeList(List<Attribute> attributes)
+       
+
+        public async Task<List<AttributeSubDto>> GetAttributeListAsync()
         {
-            int z = 0;
-            List<Attribute> Lists = new List<Attribute>();
-            if (attributes.Count > 0)
-            {
-                Lists.AddRange(attributes);
-            }
-            foreach (Attribute a in attributes)
-            {
-                var dbNode = _attributesRepository.GetNodeAttribute(a);
-                if (dbNode.subNodes == null)
-                {
-                    z++;
-                    continue;
-                }
-
-                List<Attribute> subnodes = dbNode.subNodes.ToList();
-                dbNode.subNodes = GetAttributeList(subnodes);
-                Lists[z] = dbNode;
-                z++;
-            }
-
-            return Lists;
-        }
-
-        public async Task<List<Attribute>> GetAttributeListAsync()
-        {
-            return GetAttributeList(await  _attributesRepository.GetAttributeListAsync());
+            return await  _attributesRepository.GetAttributeListAsync();
 
         }
 
 
-        public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
+        public async Task<List<AttributeSubDto>> GetAttributeDetailByParentId(int id)
         {
             await _attributeValidationHandler.IsExistAttributeByIdWithValidationHandler(id);
-            await _attributeValidationHandler.IsExistAttributeNodeByIdWithValidationHandler(id);
-
+            
+           
             return await _attributesRepository.GetAttributeDetailByParentId(id);
         }
 
+        public async Task<List<AttributeSubDto>> GetAttributeDetailByNodeId(int id)
+        {
+            await _attributeValidationHandler.IsExistAttributeNodeByIdWithValidationHandler(id);
 
+            return await _attributesRepository.GetAttributeDetailByNodeId(id);
+        }
 
         public async Task DeleteByIdAsync(int id)
         {
@@ -106,7 +87,7 @@ namespace ProductManagement.Services.Service.Attributes
 
             await _attributeValidationHandler.IsExistAttributeByIdWithValidationHandler(id);
 
-            var entityList =await _attributesRepository.GetAttributeDetailByParentId(id);
+          var entityList =await _attributesRepository.GetAttributeDetailByParentId(id);
 
             if (entityList == null)
                 return;
@@ -115,14 +96,14 @@ namespace ProductManagement.Services.Service.Attributes
             {
                 if (e.ParentId != null)
                 {
-                    _attributesRepository.Delete(e);
+                    await _attributesRepository.Delete(e);
                 }
             }
 
             await _attributesRepository.DeleteById(id);
         }
 
-        public async Task<List<Attribute>> GetAttributeListByProductId(int id)
+        public async Task<List<AttributeSubDto>> GetAttributeListByProductId(int id)
         {
             await _attributeValidationHandler.IsExistAttributeByProductIdWithValidationHandler(id);
             return await _attributesRepository.GetAttributeListByProductId(id);

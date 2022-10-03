@@ -13,6 +13,12 @@
 
         public const string FileWebApiAddress = "FileWebApiAddress";
 
+        public const string ConnectSwagger = "ConnectSwagger";
+
+        public const string VirtualDirectory = "VirtualDirectory";
+
+
+
 
 
 

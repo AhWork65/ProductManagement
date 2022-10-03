@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using ProductManagementDataAccess.AppConsts;
 
 
@@ -6,6 +7,11 @@ namespace ProductManagementDataAccess.Config
 {
     public class AppSettingConfiguration
     {
+        public static string ConnectSwagger => GetRoot()
+            .GetSection(AppConfigConsts.ConnectSwagger)
+            .GetSection(AppConfigConsts.VirtualDirectory)
+            .Value;
+
         public static string ConnectionStrings => GetRoot()
             .GetSection(AppConfigConsts.ProductManagement)
             .GetSection(AppConfigConsts.ConnectionStrings)
@@ -20,8 +26,8 @@ namespace ProductManagementDataAccess.Config
         {
             var config = 
                 new ConfigurationBuilder().
-                AddJsonFile(AppSettingFilePath).
-                Build();
+                AddJsonFile(AppSettingFilePath)
+                .Build();
 
             return config;
         }

@@ -1,7 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections.Immutable;
+using System.Linq.Expressions;
 using System.Text.Json.Nodes;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.DataAccess.AppContext;
+using ProductManagement.Domain.Dto.Attribute;
 using ProductManagement.Domain.IRepositories.IEntitiesRepositories;
 using ProductManagementWebApi.Models;
 using Attribute = ProductManagementWebApi.Models.Attribute;
@@ -17,76 +19,110 @@ namespace ProductManagement.DataAccess.Repositories
         }
 
 
-        public async Task<IList<Attribute>> GetAttributeDetailByParentId(int id)
+        public async Task<List<AttributeSubDto>> GetAttributeDetailByParentId(int id)
         {
             return await _dbSet
                 .Include(y => y.subNodes)
-                .Where(p => p.Id == id)
-                .Select(y => new Attribute
+                .Where(p => p.ParentId == id)
+                .Select(y => new AttributeSubDto
                 {
                     Id = y.Id,
                     Value = y.Value,
                     Name = y.Name,
                     ParentId = y.ParentId,
-                    subNodes = y.subNodes
+                    subNodes = y.subNodes.Select
+                    (
+                        x => new AttributeSubDto()
+                        { Id = x.Id, Name = x.Name, ParentId = x.ParentId, Value = x.Value }
+                    ).ToList(),
 
                 })
                 .ToListAsync();
         }
 
-    public async Task<List<Attribute>> GetAttributeListAsync()
+        public async Task<List<AttributeSubDto>> GetAttributeDetailByNodeId(int id)
         {
-            List<Attribute> temp = await _dbSet
-                        .Include(y => y.subNodes)
-                        .Where(x => x.ParentNode == null)
-                        .Select(y => new Attribute
-                        {
-                            Id = y.Id,
-                            ParentId = y.ParentId,
-                            Name = y.Name,
-                            Value = y.Value,
-                            subNodes = y.subNodes,
-                          
-                            
-                        }).ToListAsync();
-            return temp;
-        }
-
-
-        public Attribute GetNodeAttribute(Attribute value)
-        {
-            return _dbSet
+            return await _dbSet
                 .Include(y => y.subNodes)
-                .Include(y => y.ProductAttributeDetails)
-                .Where(y => y.Id == value.Id)
-                .Select(y => new Attribute
+                .Where(p => p.Id == id)
+                .Select(y => new AttributeSubDto
                 {
                     Id = y.Id,
-                    ParentId = y.ParentId,
-                    Name = y.Name,
                     Value = y.Value,
-                    subNodes = y.subNodes,
-                    ProductAttributeDetails = y.ProductAttributeDetails
-                }).First();
+                    Name = y.Name,
+                    ParentId = y.ParentId,
+                    subNodes = y.subNodes.Select
+                    (
+                        x => new AttributeSubDto()
+                            { Id = x.Id, Name = x.Name, ParentId = x.ParentId, Value = x.Value }
+                    ).ToList(),
+
+                })
+                .ToListAsync();
         }
 
-        public bool IsExistParent(string Title,string value)
+        public async Task<List<AttributeSubDto>> GetAttributeListAsync()
         {
-           
+
+            var temp = await _dbSet.Include(y => y.subNodes).Where(y => y.ParentNode == null).Select(y => new AttributeSubDto()
+            {
+                Id = y.Id,
+                ParentId = y.ParentId,
+                Name = y.Name,
+                Value = y.Value,
+                subNodes = y.subNodes.Select
+                         (
+                              x => new AttributeSubDto()
+                              { Id = x.Id, Name = x.Name, ParentId = x.ParentId, Value = x.Value }
+                         ).ToList(),
+
+            }).ToListAsync();
+
+            return temp;
+
+        }
+
+
+
+        public bool IsExistParent(string Title, string value)
+        {
+
             return _dbSet
-                 .Any(p =>p.Name.ToLower().Trim() == Title.ToLower().Trim()
+                 .Any(p => p.Name.ToLower().Trim() == Title.ToLower().Trim()
                  && p.Value.ToLower().Trim() == value.ToLower().Trim());
         }
 
-        public async Task<List<Attribute>> GetAttributeListByProductId(int id)
+        public async Task<List<AttributeSubDto>> GetAttributeListByProductId(int id)
         {
-          var listAttribute= await _dbSet
-                       .Include(y=>y.subNodes)
-                       .Include(y => y.ProductAttributeDetails)
-                       .Where(p =>p.ProductAttributeDetails
-                       .Any(m => m.ProductId == id))
-                       .ToListAsync();
-          return listAttribute;
+            var listAttribute = await _dbSet
+                           .Include(y => y.ProductAttributeDetails)
+                           .Where(p => p.ProductAttributeDetails.Any(m => m.ProductId == id))
+                           .Select(y => new AttributeSubDto()
+                           {
+                               Id = y.Id,
+                               ParentId = y.ParentId,
+                               Name = y.Name,
+                               Value = y.Value,
+                               subNodes = y.subNodes.Select(
+                                         x => new AttributeSubDto()
+                                          { Id = x.Id, Name = x.Name, ParentId = x.ParentId, Value = x.Value }
+                                        ).ToList(),
+
+                           }).ToListAsync();
+            return listAttribute;
+        }
+
+
+        public async Task Delete(AttributeSubDto entity)
+        {
+            var entityToDelete = _dbSet.Find(entity.Id);
+
+            if (entityToDelete == null)
+                return;
+
+            _dbSet.Remove(entityToDelete);
+
+            _unitOfWork.SaveChanges();
         }
     }
 }

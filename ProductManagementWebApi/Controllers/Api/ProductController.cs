@@ -142,35 +142,7 @@ namespace ProductManagementWebApi.Controllers.Api
 
         }
 
-        //
-        // [HttpGet]
-        // [Route("[controller]/GetByFilter/{categoryId}/{classification}/")]
-        // public async Task<IActionResult> GetProductBySearch([FromRoute] int categoryId, [FromRoute] int classification)
-        // {
-        //
-        //     return Ok(await _ProductServices.GetProductBySearch(categoryId, classification));
-        //
-        // }
-
-
-        // [HttpGet]
-        // [Route("[controller]/GetActiveByFilter/{categoryId}/{classification}/")]
-        // public async Task<IActionResult> GetActiveProductBySearch(int categoryId, int classification)
-        // {
-        //
-        //     return Ok(await _ProductServices.GetActiveProductBySearch(categoryId, classification));
-        //
-        // }
-
-        //
-        // [HttpGet]
-        // [Route("[controller]/GetInactiveByFilter/{categoryId}/{classification}/")]
-        // public async Task<IActionResult> GetInactiveProductBySearch(int categoryId, int classification)
-        // {
-        //
-        //     return Ok(await _ProductServices.GetInactiveProductBySearch(categoryId, classification));
-        //
-        // }
+        
 
         [HttpGet]
         [Route("[controller]/GetDetail/CategoryAndClassification/{productId}")]

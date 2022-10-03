@@ -12,12 +12,12 @@ namespace ProductManagement.Services.Service.CategoryService
         Task Update(CategoryDto entity);
         void Delete(Category entity);
         Task Delete(int categoryId);
-        Task<Category> GetById(int id);
-        Task<IList<Category>> GetAll();
-        Task<IList<Category>> GetAllActive();
-        Task<IList<Category>> GetAllInactive();
-        Task<IList<Category>> GetActiveChildCategory(int parrentId);
-        Task<IList<Category>> GetInactiveChildCategory(int parrentId);
+        Task<CategoryDto> GetById(int id);
+        Task<IList<CategoryDto>> GetAll();
+        Task<IList<CategoryDto>> GetAllActive();
+        Task<IList<CategoryDto>> GetAllInactive();
+        Task<IList<CategoryDto>> GetActiveChildCategory(int parrentId);
+        Task<IList<CategoryDto>> GetInactiveChildCategory(int parrentId);
 
 
     }

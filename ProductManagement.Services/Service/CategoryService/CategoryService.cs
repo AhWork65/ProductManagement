@@ -58,41 +58,37 @@ namespace ProductManagement.Services.Services.CategoryService
 
         }
 
-        public async Task<Category> GetById(int id)
+        public async Task<CategoryDto> GetById(int id)
         {
+            return DtoMapper.MapTo<Category, CategoryDto>(await _CategoryRepository.GetById(id)); 
+        }
 
-            return await _CategoryRepository.GetById(id);
+        public async Task<IList<CategoryDto>> GetAll()
+        {
+            return DtoMapper.ListMapTo<Category, CategoryDto>(await _CategoryRepository.GetAll());
 
         }
 
-        public async Task<IList<Category>> GetAll()
+        public async Task<IList<CategoryDto>> GetAllActive()
         {
-
-            return await _CategoryRepository.GetAll();
-
+            return DtoMapper.ListMapTo<Category, CategoryDto>(await _CategoryRepository.GetActiveList());
         }
 
-        public async Task<IList<Category>> GetAllActive()
+        public async Task<IList<CategoryDto>> GetAllInactive()
         {
-            return await _CategoryRepository.GetActiveList();
-        }
-
-        public async Task<IList<Category>> GetAllInactive()
-        {
-
-            return await _CategoryRepository.GetInactiveList();
+            return DtoMapper.ListMapTo<Category, CategoryDto>(await _CategoryRepository.GetInactiveList());
 
         }
 
 
-        public async Task<IList<Category>> GetActiveChildCategory(int parrentId)
+        public async Task<IList<CategoryDto>> GetActiveChildCategory(int parrentId)
         {
-            return await _CategoryRepository.GetActiveChildCategory(parrentId);
+            return DtoMapper.ListMapTo<Category, CategoryDto>(await _CategoryRepository.GetActiveChildCategory(parrentId));
         }
 
-        public async Task<IList<Category>> GetInactiveChildCategory(int parrentId)
+        public async Task<IList<CategoryDto>> GetInactiveChildCategory(int parrentId)
         {
-            return await _CategoryRepository.GetInactiveChildCategory(parrentId);
+            return DtoMapper.ListMapTo<Category, CategoryDto>(await _CategoryRepository.GetInactiveChildCategory(parrentId));
         }
     }
 
